@@ -1,0 +1,17 @@
+# Unity Generated Files
+Library/
+Logs/
+Temp/
+Obj/
+.vs/
+.idea/
+*.csproj
+*.sln
+*.userprefs
+*.pidb
+*.unityproj
+*.suo
+*.apk
+*.ipa
+*.asset
+*.db
