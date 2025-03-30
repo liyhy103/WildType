@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Gene
 {
-    // Name of the trait this gene controls (e.g., "Coat Color")
+    // Name of the trait this gene controls (e.g., "CoatColor")
     public string TraitName;
 
     // Two alleles for this gene (e.g., 'B' and 'b')
@@ -32,7 +32,7 @@ public class Gene
 
     private string ResolveCoatColorPhenotype(char allele1, char allele2){
         string genotype = $"{allele1}/{allele2}";
-        string reverseGenotype = $"{allele2} / {allele1}";
+        string reverseGenotype = $"{allele2}/{allele1}";
 
         // Blue / Red
         if (genotype == "B/B") 
