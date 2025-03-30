@@ -4,8 +4,8 @@ public class BreedingManager : MonoBehaviour
 {
     void Start(){
         // Create two parent creatures with predefined genotypes
-        Gene gene1 = new Gene("Coat Color", 'B', 'B'); // Homozygous Blue
-        Gene gene2 = new Gene("Coat Color", 'b', 'b'); // Homozygous Red
+        Gene gene1 = new Gene("CoatColor", 'B', 'r');
+        Gene gene2 = new Gene("CoatColor", 'r', 'r');
 
         Creature parent1 = new Creature("Parent1", "Male", gene1);
         Creature parent2 = new Creature("Parent2", "Female", gene2);
@@ -27,7 +27,7 @@ public class BreedingManager : MonoBehaviour
             char allele2 = Random.value < 0.5f ? parent2.CoatColorGene.Allele1 : parent2.CoatColorGene.Allele2;
 
             // Create new gene for offspring
-            Gene childGene = new Gene("Coat Color", allele1, allele2);
+            Gene childGene = new Gene("CoatColor", allele1, allele2);
 
             // Randomly assign gender
             string gender = Random.value < 0.5f ? "Male" : "Female";
