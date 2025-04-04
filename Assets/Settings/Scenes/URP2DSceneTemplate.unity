@@ -890,7 +890,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2073781878}
   - {fileID: 1912728852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3301,11 +3300,12 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918946461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -61}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 0.63225, y: 0.63225, z: 0.63225}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1168478523}
+  - {fileID: 2073781878}
   m_Father: {fileID: 1912728852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3356,7 +3356,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1918946464}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2073781881}
+        m_TargetAssemblyTypeName: Challenge, Assembly-CSharp
+        m_MethodName: OnButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1918946464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3717,6 +3729,7 @@ GameObject:
   - component: {fileID: 2073781878}
   - component: {fileID: 2073781880}
   - component: {fileID: 2073781879}
+  - component: {fileID: 2073781881}
   m_Layer: 5
   m_Name: Challenge Text
   m_TagString: Untagged
@@ -3732,15 +3745,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073781877}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 94.89917}
+  m_LocalScale: {x: 1.5816529, y: 1.5816529, z: 1.5816529}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 593336971}
+  m_Father: {fileID: 1918946462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -376.9203, y: -86.61676}
+  m_AnchoredPosition: {x: -1.4555359, y: -121.18112}
   m_SizeDelta: {x: 98.1594, y: 115.2335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2073781879
@@ -3842,6 +3855,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073781877}
   m_CullTransparentMesh: 1
+--- !u!114 &2073781881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073781877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c416f5845ad4f94bb6c70e64e53f08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  challengeText: {fileID: 2073781879}
 --- !u!1 &2140115826
 GameObject:
   m_ObjectHideFlags: 0
