@@ -34,8 +34,8 @@ public class Challenge : MonoBehaviour
     private void SetListItem()
     {
         // Add challenges to the list
-        challenges.Add("Blue");
-        challenges.Add("Red");
+        challenges.Add("Green");
+        challenges.Add("Yellow");
 
     }
 
