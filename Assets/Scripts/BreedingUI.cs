@@ -6,7 +6,7 @@ using System.Collections;
 
 public class BreedingUI : MonoBehaviour
 {
-    // UI References
+    // UI 
     public TMP_Dropdown Parent1;
     public TMP_Dropdown Parent2;
     public Button BreedButton;
@@ -24,13 +24,45 @@ public class BreedingUI : MonoBehaviour
 
     public TMP_Text OffspringText;
     private List<Creature> Creatures = new List<Creature>();
+    public enum BreedingType
+    {
+        Mendelian,
+        SexLinked
+    }
+
+    public BreedingType breedingType = BreedingType.Mendelian;
+    private IBreedingStrategy breedingStrategy;
+
+
 
     void Start()
     {
-        Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y')));
-        Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y')));
+        switch (breedingType)
+        {
+            case BreedingType.Mendelian:
+                breedingStrategy = new MendelianBreedingStrategy();
+                break;
+            case BreedingType.SexLinked:
+                breedingStrategy = new SexLinkedBreedingStrategy();
+                break;
+            default:
+                Debug.LogWarning("Unsupported breeding type selected.");
+                break;
+        }
 
-        //Setup UI
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
+        {
+            // Level 1 parents 
+            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y')));
+            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y')));
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
+        {
+            // Level 2 parents 
+            Creatures.Add(new Creature("BlueDad", "Male", new Gene("CoatColor", 'B', 'B')));
+            Creatures.Add(new Creature("PinkMom", "Female", new Gene("CoatColor", 'P', 'B')));
+        }
+
         PopulateDropdown(Parent1);
         PopulateDropdown(Parent2);
 
@@ -40,12 +72,12 @@ public class BreedingUI : MonoBehaviour
 
         UpdateCreatureDisplayParent1(Parent1.value);
         UpdateCreatureDisplayParent2(Parent2.value);
-
     }
 
-    // Fill the given dropdown with the list of available items
+
+
     void PopulateDropdown(TMP_Dropdown dropdown){
-        dropdown.ClearOptions(); // clear any existing items
+        dropdown.ClearOptions();
         List<string> names = new List<string>();
 
         foreach (var creature in Creatures){
@@ -72,12 +104,14 @@ public class BreedingUI : MonoBehaviour
 
 
 
-    void OnBreedClicked(){
+    void OnBreedClicked()
+    {
         int index1 = Parent1.value;
         int index2 = Parent2.value;
 
         // Avoid selecting the same creature twice
-        if (index1 == index2){
+        if (index1 == index2)
+        {
             OffspringText.text = "Please select two different parents!";
             return;
         }
@@ -109,26 +143,24 @@ public class BreedingUI : MonoBehaviour
             yellowOffspringDisplay.SetActive(true);
         }
 
+        else if (phenotype == "Blue")
+        {
+            greenOffspringDisplay.SetActive(true);
+        }
+        else if (phenotype == "Pink")
+        {
+            yellowOffspringDisplay.SetActive(true);
+        }
+
     }
 
-    Creature Breed(Creature p1, Creature p2){
-        // Get coatcolor genes from parents
-        Gene g1 = p1.CoatColorGene;
-        Gene g2 = p2.CoatColorGene;
-
-        // Randomly select one allele from each parent
-        char allele1 = Random.value < 0.5f ? g1.Allele1 : g1.Allele2;
-        char allele2 = Random.value < 0.5f ? g2.Allele1 : g2.Allele2;
-
-        Gene childGene = new Gene("CoatColor", allele1, allele2);
-        string gender = Random.value < 0.5f ? "Male" : "Female";
-        string name = "Offspring_" + Random.Range(1000, 9999);
-
-        return new Creature(name, gender, childGene);
-    }
+    Creature Breed(Creature p1, Creature p2)
+{
+    return breedingStrategy.Breed(p1, p2);
+}
 
 
-    void PlayHeartEffect()
+void PlayHeartEffect()
     {
         Instantiate(heartEffectPrefab, heartSpawn1.position, Quaternion.identity, heartSpawn1);
         Instantiate(heartEffectPrefab, heartSpawn2.position, Quaternion.identity, heartSpawn2);
