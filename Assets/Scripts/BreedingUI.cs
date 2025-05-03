@@ -53,14 +53,14 @@ public class BreedingUI : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
         {
             // Level 1 parents 
-            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y')));
-            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y')));
+            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> {new Gene("CoatColor", 'G', 'y')}));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> {new Gene("CoatColor", 'y', 'y')}));
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
             // Level 2 parents 
-            Creatures.Add(new Creature("BlueDad", "Male", new Gene("CoatColor", 'B', 'B')));
-            Creatures.Add(new Creature("PinkMom", "Female", new Gene("CoatColor", 'P', 'B')));
+            Creatures.Add(new Creature("BlueDad", "Male", new List<Gene> {new Gene("CoatColor", 'B', 'B')}));
+            Creatures.Add(new Creature("PinkMom", "Female", new List<Gene> {new Gene("CoatColor", 'P', 'B')}));
         }
 
         PopulateDropdown(Parent1);
@@ -123,13 +123,13 @@ public class BreedingUI : MonoBehaviour
         string result = $"Offspring Created!\n" +
                         $"- Name: {offspring.CreatureName}\n" +
                         $"- Gender: {offspring.Gender}\n" +
-                        $"- Coat Color: {offspring.GetPhenotype()} [{offspring.GetGenotype()}]";
+                        $"- Coat Color: {offspring.GetPhenotype("CoatColor")} [{offspring.GetGenotype("CoatColor")}]";
 
         PlayHeartEffect();
 
         OffspringText.text = result;
 
-        string phenotype = offspring.GetPhenotype();
+        string phenotype = offspring.GetPhenotype("CoatColor");
 
         greenOffspringDisplay.SetActive(false);
         yellowOffspringDisplay.SetActive(false);

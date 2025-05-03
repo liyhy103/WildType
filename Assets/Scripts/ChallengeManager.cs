@@ -104,7 +104,7 @@ public class Challenge : MonoBehaviour
         if (currentCreature != null)
         {
             // Get the phenotype of the current creature
-            string creaturePhenotype = currentCreature.GetPhenotype();
+            string creaturePhenotype = currentCreature.GetPhenotype("CoatColor");
 
             // Check if the creature's phenotype matches the challenge gene
             return creaturePhenotype.Equals(challengeGene, StringComparison.OrdinalIgnoreCase);

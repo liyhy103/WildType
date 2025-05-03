@@ -1,12 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SexLinkedBreedingStrategy : IBreedingStrategy
 {
     public Creature Breed(Creature p1, Creature p2)
     {
         // alleles
-        char femaleAllele = p2.CoatColorGene.Allele1;  
-        char maleAllele = p1.CoatColorGene.Allele1;    
+        char femaleAllele = p2.Genes["coatcolor"].Allele1;  
+        char maleAllele = p1.Genes["coatcolor"].Allele1;    
 
         bool isMale = Random.value < 0.5f;
         string gender = isMale ? "Male" : "Female";
@@ -27,6 +28,6 @@ public class SexLinkedBreedingStrategy : IBreedingStrategy
         }
 
         Gene childGene = new Gene("CoatColor", allele1, allele2);
-        return new Creature(name, gender, childGene);
+        return new Creature(name, gender, new List<Gene>{childGene});
     }
 }

@@ -26,10 +26,11 @@ public class Gene
     public string GetPhenotype()
     {
         if (TraitName.ToLower() == "coatcolor")
-        {
             return ResolveCoatColorPhenotype(Allele1, Allele2);
-        }
 
+        if (TraitName.ToLower() == "hairtype")
+            return ResolveHairTypePhenotype(Allele1, Allele2);
+  
         return "Unknown";
     }
 
@@ -105,4 +106,21 @@ public class Gene
 
         return "Unknown";
     }
+
+    // Trait-specific logic for HairType
+    private string ResolveHairTypePhenotype(char allele1, char allele2)
+    {
+        string genotype = $"{allele1}/{allele2}";
+        string reverseGenotype = $"{allele2}/{allele1}";
+
+        if (genotype == "C/C") 
+            return "Straight";
+        if (genotype == "C/c" || reverseGenotype == "C/c") 
+            return "Straight";
+        if (genotype == "c/c") 
+            return "Curly";
+
+        return "Unknown";
+    }
+
 }
