@@ -51,7 +51,7 @@ public class Gene
             return "Blue";  // Female Blue
 
         if ((allele1 == 'P' && allele2 == 'B') || (allele1 == 'B' && allele2 == 'P'))
-            return "Pink"; ;
+            return "Pink"; 
 
         // Blue / Red
         if (genotype == "B/B")
