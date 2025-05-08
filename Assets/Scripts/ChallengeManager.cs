@@ -14,103 +14,74 @@ public class Challenge : MonoBehaviour
     private List<string> challenges = new List<string>();
     public Creature currentCreature;
     private string currentChallenge = "";
+    private string result = "";
 
     public void Start()
     {
-        
-
         if (challengeText == null)
         {
             UnityEngine.Debug.LogError("challengeText is not assigned in the Inspector!");
             return;
         }
-        UnityEngine.Debug.Log("challengeText is correctly assigned.");
-
-        SetListItem();
         challengeText.text = "";
         challengeText.gameObject.SetActive(false);
-    }
 
+
+    }
+    void Awake()
+    {
+        SetListItem(); // Populate the list early
+    }
     private void SetListItem()
     {
         // Add challenges to the list
         challenges.Add("Green");
         challenges.Add("Yellow");
+        challenges.Add("Pink");
+        challenges.Add("Blue");
 
     }
 
-    public void SetChallengeText(string text)
-    {
-        challengeText.text = text;
-    }
 
     public void OnButtonClick()
     {
-        //check challenges is not empty
-        if (challenges.Count > 0)
-        {
-            currentChallenge = challenges[UnityEngine.Random.Range(0, challenges.Count)];
-            string challenge = "Breed a " + currentChallenge + " creature";
-            SetChallengeText(challenge);
 
-        }
-        else
+
+        //sets currentChallenge to be first item in the list
+        currentChallenge = challenges[0].ToLower();
+
+        challengeText.text = "Breed a " + challenges[0].ToLower() + " Creature!";
+        challengeText.gameObject.SetActive(true);
+
+    }
+
+
+
+
+    public string setResult(string result)
+    {
+        this.result = result.ToLower();
+
+        currentChallenge = challenges[0].ToLower();
+
+        if (currentChallenge == result)
         {
-            //print message saying all challenges completed
-            string completed = "All challenges have been completed";
-            SetChallengeText(completed);
-        }
-            //displays the challenge
+            challengeText.text = "Completed Challenge! \n Click again to get a new challenge!";
             challengeText.gameObject.SetActive(true);
-    }
-    public void Update()
-    {
-        if (currentCreature == null)
-        {
-            UnityEngine.Debug.LogWarning("No creature has been bred yet!");
-            return;  // Skip the challenge check if there's no creature
+            // Remove the completed challenge
+            challenges.RemoveAt(0);
+
         }
 
-        //check if set challenge is blue or red
-        if (currentChallenge == "Blue")
-        {
-            //check if creature is blue 
-            bool CreatureIsBlue = CheckCreatureHasGene("Blue");
-            if (CreatureIsBlue)
-            {
-                String Completed = "You Completed this challenge";
-                SetChallengeText(Completed);
-                challenges.Remove(currentChallenge);
-                currentChallenge = "";
-            }
-        }
-        else if (currentChallenge == "Red")
-        {
-            //check if creature is red 
-            bool CreatureIsred = CheckCreatureHasGene("Red");
-            if (CreatureIsred)
-            {
-                String Completed = "You Completed this challenge";
-                SetChallengeText(Completed);
-                challenges.Remove(currentChallenge);
-                currentChallenge = "";
-            }
-        }
+        challengeText.gameObject.SetActive(true);
+        UnityEngine.Debug.Log("Challenge text set to: " + result);
+
+        return result;
     }
 
-    private bool CheckCreatureHasGene(string challengeGene)
+    private void CheckChallengeCompleted()
     {
-        
-        if (currentCreature != null)
-        {
-            // Get the phenotype of the current creature
-            string creaturePhenotype = currentCreature.GetPhenotype();
 
-            // Check if the creature's phenotype matches the challenge gene
-            return creaturePhenotype.Equals(challengeGene, StringComparison.OrdinalIgnoreCase);
-        }
-        UnityEngine.Debug.LogWarning("currentCreature is not assigned!");
 
-        return false;
     }
 }

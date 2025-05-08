@@ -9,6 +9,7 @@ public class Gene
     public char Allele1;
     public char Allele2;
 
+
     public Gene(string traitName, char allele1, char allele2)
     {
         this.TraitName = traitName;
@@ -63,7 +64,7 @@ public class Gene
 
         // Green / Yellow
         if (genotype == "G/G")
-            return "Green";
+           return "Green";
         if (genotype == "G/y" || reverseGenotype == "G/y")
             return "Green";
         if (genotype == "y/y")

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      longHornYellowframe_0000_0: -5015788718192154841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
