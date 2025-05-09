@@ -4437,8 +4437,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.4555359, y: -121.18112}
-  m_SizeDelta: {x: 98.1594, y: 115.2335}
+  m_AnchoredPosition: {x: 9.5, y: -118.4}
+  m_SizeDelta: {x: 150, y: 115.2335}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2073781879
 MonoBehaviour:
@@ -4694,6 +4694,7 @@ MonoBehaviour:
   heartSpawn1: {fileID: 1173395711}
   heartSpawn2: {fileID: 1844660517}
   heartDuration: 1
+  challengeManager: {fileID: 2073781881}
   OffspringText: {fileID: 2010293486}
   breedingType: 0
 --- !u!4 &2140115828

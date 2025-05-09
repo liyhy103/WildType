@@ -22,7 +22,7 @@ public class BreedingUI : MonoBehaviour
     public Transform heartSpawn2;
     public float heartDuration = 2f;
 
-    Challenge challengeManager;
+    public Challenge challengeManager;
 
     public TMP_Text OffspringText;
     private List<Creature> Creatures = new List<Creature>();
@@ -39,7 +39,6 @@ public class BreedingUI : MonoBehaviour
 
     void Start()
     {
-        challengeManager = FindObjectOfType<Challenge>();
 
         switch (breedingType)
         {
@@ -146,6 +145,7 @@ public class BreedingUI : MonoBehaviour
         else if (phenotype == "Yellow")
         {
             yellowOffspringDisplay.SetActive(true);
+            challengeManager.setResult("yellow");
         }
 
         else if (phenotype == "Blue")

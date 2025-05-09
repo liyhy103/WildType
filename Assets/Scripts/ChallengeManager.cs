@@ -66,13 +66,19 @@ public class Challenge : MonoBehaviour
 
         if (currentChallenge == result)
         {
-            challengeText.text = "Completed Challenge! \n Click again to get a new challenge!";
+            challengeText.text = "Completed Challenge! \nClick again to get a new challenge!";
             challengeText.gameObject.SetActive(true);
             // Remove the completed challenge
             challenges.RemoveAt(0);
 
         }
 
+        if(result == "yellow")
+        {
+            challengeText.text = "Congratulations! \nYou completed level one!";
+            challengeText.gameObject.SetActive(true);
+
+        }
         challengeText.gameObject.SetActive(true);
         UnityEngine.Debug.Log("Challenge text set to: " + result);
 
