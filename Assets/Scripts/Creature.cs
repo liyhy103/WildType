@@ -11,6 +11,9 @@ public class Creature
     // Gene controlling coat color (Mendelian inheritance)
     public Gene CoatColorGene;
 
+    //Gene controlling horn length (Incomplete Dominance inheritance)
+    public Gene HornLengthGene;
+
     public Creature(string name, string gender, Gene coatGene){
         this.CreatureName = name;
         this.Gender = gender;

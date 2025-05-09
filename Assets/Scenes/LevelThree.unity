@@ -4761,9 +4761,9 @@ MonoBehaviour:
   heartSpawn1: {fileID: 1173395711}
   heartSpawn2: {fileID: 1844660517}
   heartDuration: 1
-  challengeManager: {fileID: 2073781881}
+  challengeManager: {fileID: 0}
   OffspringText: {fileID: 2010293486}
-  breedingType: 1
+  breedingType: 2
 --- !u!4 &2140115828
 Transform:
   m_ObjectHideFlags: 0
