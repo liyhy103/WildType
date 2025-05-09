@@ -30,8 +30,30 @@ public class Gene
             return ResolveCoatColorPhenotype(Allele1, Allele2);
         }
 
+        if (TraitName.ToLower() == "shellcolor")
+        {
+            return ResolveShellColorPhenotype(Allele1, Allele2);
+        }
+
+
         return "Unknown";
     }
+
+    private string ResolveShellColorPhenotype(char allele1, char allele2)
+    {
+        // XB = 'B', Xb = 'b', Y = 'Y'
+        if (allele1 == 'Y' || allele2 == 'Y') //Male
+        {
+            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
+        }
+        else // Female
+        {
+            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
+        }
+    }
+
+
+
 
     private string ResolveCoatColorPhenotype(char allele1, char allele2)
     {
@@ -51,7 +73,7 @@ public class Gene
             return "Blue";  // Female Blue
 
         if ((allele1 == 'P' && allele2 == 'B') || (allele1 == 'B' && allele2 == 'P'))
-            return "Pink"; 
+            return "Pink";
 
         // Blue / Red
         if (genotype == "B/B")

@@ -14,8 +14,15 @@ public class BreedingUI : MonoBehaviour
     public GameObject[] parent1DisplayObjects;
     public GameObject[] parent2DisplayObjects;
 
+    public TMP_Text Parent1GenotypeText;
+    public TMP_Text Parent2GenotypeText;
+
+
     public GameObject greenOffspringDisplay;
     public GameObject yellowOffspringDisplay;
+    public GameObject greenLightShellDisplay;
+    public GameObject yellowLightShellDisplay;
+
 
     public GameObject heartEffectPrefab;
     public Transform heartSpawn1;
@@ -32,6 +39,8 @@ public class BreedingUI : MonoBehaviour
 
     public BreedingType breedingType = BreedingType.Mendelian;
     private IBreedingStrategy breedingStrategy;
+    private IBreedingUIHandler uiHandler;
+
 
 
 
@@ -49,18 +58,41 @@ public class BreedingUI : MonoBehaviour
                 Debug.LogWarning("Unsupported breeding type selected.");
                 break;
         }
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
+        {
+            uiHandler = new LevelOneBreedingUIHandler();
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
+        {
+            uiHandler = new LevelTwoBreedingUIHandler();
+        }
+
 
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
         {
             // Level 1 parents 
-            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y')));
-            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y')));
+            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y'), "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y'), "Yellow"));
+
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
             // Level 2 parents 
-            Creatures.Add(new Creature("BlueDad", "Male", new Gene("CoatColor", 'B', 'B')));
-            Creatures.Add(new Creature("PinkMom", "Female", new Gene("CoatColor", 'P', 'B')));
+            Creatures.Add(new Creature("Parent1_Yellow_Light_Female", "Female", new Gene("ShellColor", 'b', 'b'), "Yellow"));
+            Creatures.Add(new Creature("Parent1_Green_Dark_Female", "Female", new Gene("ShellColor", 'B', 'b'), "Green"));
+            Creatures.Add(new Creature("Parent1_Green_Light_Male", "Male", new Gene("ShellColor", 'b', 'Y'), "Green"));
+            Creatures.Add(new Creature("Parent1_Yellow_Dark_Male", "Male", new Gene("ShellColor", 'B', 'Y'), "Yellow"));
+
+
+
+
+
+            foreach (var c in Creatures)
+            {
+                Debug.Log($"[Start] Creature: {c.CreatureName} ({c.Gender}) [{c.GetPhenotype()}]");
+            }
+
+
         }
 
         PopulateDropdown(Parent1);
@@ -76,91 +108,146 @@ public class BreedingUI : MonoBehaviour
 
 
 
-    void PopulateDropdown(TMP_Dropdown dropdown){
-        dropdown.ClearOptions();
-        List<string> names = new List<string>();
+    void PopulateDropdown(TMP_Dropdown dropdown)
+{
+    dropdown.ClearOptions();
+    List<string> names = new List<string>();
 
-        foreach (var creature in Creatures){
-            names.Add($"{creature.CreatureName} ({creature.Gender})");
-        }
-        dropdown.AddOptions(names);
+    foreach (var creature in Creatures)
+    {
+            string entry = $"{creature.BodyColor} – {creature.GetPhenotype()} ({creature.Gender})";
+
+            names.Add(entry);
+        Debug.Log($"[PopulateDropdown:{dropdown.name}] Added: {entry}");
     }
+
+    dropdown.AddOptions(names);
+}
+
 
     void UpdateCreatureDisplayParent1(int index)
     {
-        for (int i = 0; i < parent1DisplayObjects.Length; i++)
+        var creature = Creatures[index];
+        string gender = creature.Gender;
+        string phenotype = creature.GetPhenotype();
+
+        string bodyColor = creature.BodyColor;
+
+        // Fix: fallback only for Mendelian (Level One)
+        if (string.IsNullOrEmpty(bodyColor) && breedingType == BreedingType.Mendelian)
         {
-            parent1DisplayObjects[i].SetActive(i == index);
+            bodyColor = phenotype;
         }
+
+        foreach (GameObject obj in parent1DisplayObjects)
+        {
+            var meta = obj.GetComponent<DisplayMetadata>();
+            if (meta == null)
+            {
+                Debug.LogWarning($"{obj.name} missing DisplayMetadata!");
+                obj.SetActive(false);
+                continue;
+            }
+
+            bool match = meta.Gender == gender &&
+                         meta.Phenotype == phenotype &&
+                         meta.BodyColor == bodyColor;
+
+            obj.SetActive(match);
+
+            Debug.Log($"[Parent1] Checking: {obj.name} | Meta(Gender:{meta.Gender}, Phenotype:{meta.Phenotype}, Color:{meta.BodyColor}) vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor}) => Match: {match}");
+        }
+
+        if (Parent1GenotypeText != null)
+            Parent1GenotypeText.text = $"Genotype: {creature.GetGenotype()}";
     }
+
+
+
+
+
+
+
 
     void UpdateCreatureDisplayParent2(int index)
     {
-        for (int i = 0; i < parent2DisplayObjects.Length; i++)
+        var creature = Creatures[index];
+        string gender = creature.Gender;
+        string phenotype = creature.GetPhenotype();
+
+        string bodyColor = creature.BodyColor;
+
+        // Fix: fallback only for Mendelian (Level One)
+        if (string.IsNullOrEmpty(bodyColor) && breedingType == BreedingType.Mendelian)
         {
-            parent2DisplayObjects[i].SetActive(i == index);
+            bodyColor = phenotype;
         }
+
+        foreach (GameObject obj in parent2DisplayObjects)
+        {
+            var meta = obj.GetComponent<DisplayMetadata>();
+            if (meta == null)
+            {
+                Debug.LogWarning($"{obj.name} missing DisplayMetadata!");
+                obj.SetActive(false);
+                continue;
+            }
+
+            bool match = meta.Gender == gender &&
+                         meta.Phenotype == phenotype &&
+                         meta.BodyColor == bodyColor;
+
+            obj.SetActive(match);
+            Debug.Log($"[Parent2] Checking: {obj.name} | Meta(Gender:{meta.Gender}, Phenotype:{meta.Phenotype}, Color:{meta.BodyColor}) vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor}) => Match: {match}");
+        }
+
+        if (Parent2GenotypeText != null)
+            Parent2GenotypeText.text = $"Genotype: {creature.GetGenotype()}";
     }
 
 
 
-    void OnBreedClicked()
+
+
+
+
+
+
+    public void OnBreedClicked()
     {
         int index1 = Parent1.value;
         int index2 = Parent2.value;
 
-        // Avoid selecting the same creature twice
-        if (index1 == index2)
+        Creature parent1 = Creatures[index1];
+        Creature parent2 = Creatures[index2];
+
+        if (!uiHandler.ValidateParents(this, parent1, parent2, out string error))
         {
-            OffspringText.text = "Please select two different parents!";
+            OffspringText.text = error;
             return;
         }
 
-        Creature parent1 = Creatures[index1];
-        Creature parent2 = Creatures[index2];
         Creature offspring = Breed(parent1, parent2);
 
-        string result = $"Offspring Created!\n" +
-                        $"- Name: {offspring.CreatureName}\n" +
-                        $"- Gender: {offspring.Gender}\n" +
-                        $"- Coat Color: {offspring.GetPhenotype()} [{offspring.GetGenotype()}]";
+        OffspringText.text =
+            $"Offspring Created!\n" +
+            $"- Name: {offspring.CreatureName}\n" +
+            $"- Gender: {offspring.Gender}\n" +
+            $"- Coat Color: {offspring.GetPhenotype()} [{offspring.GetGenotype()}]";
 
         PlayHeartEffect();
-
-        OffspringText.text = result;
-
-        string phenotype = offspring.GetPhenotype();
-
-        greenOffspringDisplay.SetActive(false);
-        yellowOffspringDisplay.SetActive(false);
-
-        if (phenotype == "Green")
-        {
-            greenOffspringDisplay.SetActive(true);
-        }
-        else if (phenotype == "Yellow")
-        {
-            yellowOffspringDisplay.SetActive(true);
-        }
-
-        else if (phenotype == "Blue")
-        {
-            greenOffspringDisplay.SetActive(true);
-        }
-        else if (phenotype == "Pink")
-        {
-            yellowOffspringDisplay.SetActive(true);
-        }
-
+        uiHandler.ShowOffspring(this, offspring);
     }
 
-    Creature Breed(Creature p1, Creature p2)
+
+
+    public Creature Breed(Creature p1, Creature p2)
 {
     return breedingStrategy.Breed(p1, p2);
 }
 
 
-void PlayHeartEffect()
+public void PlayHeartEffect()
     {
         Instantiate(heartEffectPrefab, heartSpawn1.position, Quaternion.identity, heartSpawn1);
         Instantiate(heartEffectPrefab, heartSpawn2.position, Quaternion.identity, heartSpawn2);
