@@ -5627,8 +5627,6 @@ MonoBehaviour:
   - {fileID: 1109822008}
   - {fileID: 1607886304}
   - {fileID: 908669109}
-  Parent1GenotypeText: {fileID: 215634357}
-  Parent2GenotypeText: {fileID: 1023049086}
   greenOffspringDisplay: {fileID: 1142802277}
   yellowOffspringDisplay: {fileID: 1002729436}
   greenLightShellDisplay: {fileID: 126728508}
@@ -5639,6 +5637,8 @@ MonoBehaviour:
   heartDuration: 1
   challengeManager: {fileID: 2073781881}
   OffspringText: {fileID: 2010293486}
+  Parent1GenotypeText: {fileID: 215634357}
+  Parent2GenotypeText: {fileID: 1023049086}
   breedingType: 1
 --- !u!4 &2140115828
 Transform:
