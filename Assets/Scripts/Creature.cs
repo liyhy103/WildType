@@ -2,33 +2,26 @@ using UnityEngine;
 
 public class Creature
 {
-    // Name of the creature
     public string CreatureName;
-
-    // Gender of the creature ("Male" or "Female")
     public string Gender;
-
-    // Gene controlling coat color (Mendelian inheritance)
     public Gene CoatColorGene;
+    public string BodyColor;
 
-    public Creature(string name, string gender, Gene coatGene){
+    public Creature(string name, string gender, Gene coatGene, string bodyColor = "")
+    {
         this.CreatureName = name;
         this.Gender = gender;
         this.CoatColorGene = coatGene;
+
+        // Automatically set BodyColor to match phenotype if not explicitly given
+        this.BodyColor = string.IsNullOrEmpty(bodyColor) ? coatGene.GetPhenotype() : bodyColor;
     }
 
-    // Returns the genotype from the gene
-    public string GetGenotype(){
-        return CoatColorGene.GetGenotype();
-    }
+    public string GetGenotype() => CoatColorGene.GetGenotype();
+    public string GetPhenotype() => CoatColorGene.GetPhenotype();
 
-    // Returns the phenotype from the gene
-    public string GetPhenotype(){
-        return CoatColorGene.GetPhenotype();
-    }
-
-    // Full description of the creature including phenotype and genotype
-    public string GetFullDescription(){
+    public string GetFullDescription()
+    {
         return $"{CreatureName} ({Gender}) - Coat: {GetPhenotype()} [{GetGenotype()}]";
     }
 }

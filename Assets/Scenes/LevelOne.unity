@@ -247,16 +247,7 @@ MonoBehaviour:
   m_Value: 0
   m_MultiSelect: 0
   m_Options:
-    m_Options:
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -672,8 +663,9 @@ GameObject:
   - component: {fileID: 488677879}
   - component: {fileID: 488677878}
   - component: {fileID: 488677877}
+  - component: {fileID: 488677880}
   m_Layer: 5
-  m_Name: YellowParent1Display
+  m_Name: Parent1_YellowMom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,6 +750,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488677875}
   m_CullTransparentMesh: 1
+--- !u!114 &488677880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488677875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gender: Female
+  Phenotype: Yellow
+  BodyColor: Yellow
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,8 +1012,9 @@ GameObject:
   - component: {fileID: 531319557}
   - component: {fileID: 531319556}
   - component: {fileID: 531319555}
+  - component: {fileID: 531319558}
   m_Layer: 5
-  m_Name: GreenParent2Display
+  m_Name: Parent2_GreenDad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1091,6 +1099,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &531319558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531319553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gender: Male
+  Phenotype: Green
+  BodyColor: Green
 --- !u!224 &589637553 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2996820077905616841, guid: 4487e8b05e554bf4a8d71969fb1aa6e4, type: 3}
@@ -1504,7 +1527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2082,8 +2105,9 @@ GameObject:
   - component: {fileID: 1248159542}
   - component: {fileID: 1248159541}
   - component: {fileID: 1248159543}
+  - component: {fileID: 1248159544}
   m_Layer: 5
-  m_Name: GreenParent1Display
+  m_Name: Parent1_GreenDad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2168,6 +2192,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1248159544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248159539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gender: Male
+  Phenotype: Green
+  BodyColor: Green
 --- !u!1 &1279489510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,16 +2487,7 @@ MonoBehaviour:
   m_Value: 0
   m_MultiSelect: 0
   m_Options:
-    m_Options:
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
-      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3203,7 +3233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4564,8 +4594,9 @@ GameObject:
   - component: {fileID: 2103028696}
   - component: {fileID: 2103028695}
   - component: {fileID: 2103028694}
+  - component: {fileID: 2103028697}
   m_Layer: 5
-  m_Name: YellowParent2Display
+  m_Name: Parent2_YellowMom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4650,6 +4681,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103028692}
   m_CullTransparentMesh: 1
+--- !u!114 &2103028697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103028692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gender: Female
+  Phenotype: Yellow
+  BodyColor: Yellow
 --- !u!1 &2140115826
 GameObject:
   m_ObjectHideFlags: 0
@@ -4688,8 +4734,12 @@ MonoBehaviour:
   parent2DisplayObjects:
   - {fileID: 531319553}
   - {fileID: 2103028692}
+  Parent1GenotypeText: {fileID: 0}
+  Parent2GenotypeText: {fileID: 0}
   greenOffspringDisplay: {fileID: 2036831085}
   yellowOffspringDisplay: {fileID: 525455654}
+  greenLightShellDisplay: {fileID: 0}
+  yellowLightShellDisplay: {fileID: 0}
   heartEffectPrefab: {fileID: 3508206530821243188, guid: d6044ec837c881e42963e4efd9f990c5, type: 3}
   heartSpawn1: {fileID: 1173395711}
   heartSpawn2: {fileID: 1844660517}
