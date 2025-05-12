@@ -248,28 +248,28 @@ public class BreedingUI : MonoBehaviour
         PlayHeartEffect();
         OffspringText.text = result;
 
+        string phenotype = offspring.GetPhenotype().ToLower();
+
         if (breedingUIHandler != null)
         {
             breedingUIHandler.ShowOffspring(this, offspring);
         }
         else
         {
-            string phenotype = offspring.GetPhenotype();
-
             greenOffspringDisplay.SetActive(false);
             yellowOffspringDisplay.SetActive(false);
 
-            if (phenotype == "Green")
-            {
+            if (phenotype == "green")
                 greenOffspringDisplay.SetActive(true);
-                challengeManager.setResult("green");
-            }
-            else if (phenotype == "Yellow")
-            {
+            else if (phenotype == "yellow")
                 yellowOffspringDisplay.SetActive(true);
-                challengeManager.setResult("yellow");
-            }
         }
+
+        if (challengeManager != null)
+        {
+            challengeManager.setResult(phenotype);
+        }
+
     }
 
 
