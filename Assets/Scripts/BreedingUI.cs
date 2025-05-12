@@ -29,7 +29,8 @@ public class BreedingUI : MonoBehaviour
     public enum BreedingType
     {
         Mendelian,
-        SexLinked
+        SexLinked,
+        IncompleteDominance
     }
 
     public BreedingType breedingType = BreedingType.Mendelian;
@@ -48,6 +49,9 @@ public class BreedingUI : MonoBehaviour
             case BreedingType.SexLinked:
                 breedingStrategy = new SexLinkedBreedingStrategy();
                 break;
+            case BreedingType.IncompleteDominance:
+                breedingStrategy = new IncompleteDominance();
+                break;
             default:
                 Debug.LogWarning("Unsupported breeding type selected.");
                 break;
@@ -64,6 +68,14 @@ public class BreedingUI : MonoBehaviour
             // Level 2 parents 
             Creatures.Add(new Creature("BlueDad", "Male", new Gene("CoatColor", 'B', 'B')));
             Creatures.Add(new Creature("PinkMom", "Female", new Gene("CoatColor", 'P', 'B')));
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelThree")
+        {
+            // Level 3 parents
+            Creatures.Add(new Creature("LongHorn", "Male", new Gene("HornLength", 'L', 'L')));
+            Creatures.Add(new Creature("MediumHorn", "Male", new Gene("HornLength", 'L', 'S')));
+            Creatures.Add(new Creature("MediumHorn", "Female", new Gene("HornLength", 'S', 'L')));
+            Creatures.Add(new Creature("ShortHorn", "Female", new Gene("HornLength", 'S', 'S')));
         }
 
         PopulateDropdown(Parent1);
@@ -156,6 +168,8 @@ public class BreedingUI : MonoBehaviour
         {
             yellowOffspringDisplay.SetActive(true);
         }
+
+
 
     }
 
