@@ -73,7 +73,7 @@ public class Challenge : MonoBehaviour
 
         }
 
-        if(result == "yellow")
+        if(result == "yellow" && currentChallenge != "green")
         {
             challengeText.text = "Congratulations! \nYou completed level one!";
             challengeText.gameObject.SetActive(true);
