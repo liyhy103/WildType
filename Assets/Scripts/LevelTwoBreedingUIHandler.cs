@@ -12,6 +12,7 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         string phenotype = offspring.GetPhenotype();
         string gender = offspring.Gender;
 
+
         // Hide all first
         ui.greenOffspringDisplay?.SetActive(false);
         ui.yellowOffspringDisplay?.SetActive(false);

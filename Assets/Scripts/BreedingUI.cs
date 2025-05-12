@@ -7,6 +7,8 @@ using System.Collections;
 public class BreedingUI : MonoBehaviour
 {
     // UI 
+
+
     public TMP_Dropdown Parent1;
     public TMP_Dropdown Parent2;
     public Button BreedButton;
@@ -16,6 +18,8 @@ public class BreedingUI : MonoBehaviour
 
     public GameObject greenOffspringDisplay;
     public GameObject yellowOffspringDisplay;
+    public GameObject greenLightShellDisplay;
+    public GameObject yellowLightShellDisplay;
 
     public GameObject heartEffectPrefab;
     public Transform heartSpawn1;
