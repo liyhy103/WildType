@@ -40,6 +40,8 @@ public class BreedingUI : MonoBehaviour
     public BreedingType breedingType = BreedingType.Mendelian;
     private IBreedingStrategy breedingStrategy;
     private IBreedingUIHandler uiHandler;
+    public Challenge challengeManager;
+    public TutorialUI tutorialUI;
 
 
 
@@ -65,6 +67,10 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
             uiHandler = new LevelTwoBreedingUIHandler();
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")
+        {
+            uiHandler = new LevelOneBreedingUIHandler();
         }
 
 
@@ -94,6 +100,11 @@ public class BreedingUI : MonoBehaviour
 
 
         }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")
+        {
+            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y'), "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y'), "Yellow"));
+        }
 
         PopulateDropdown(Parent1);
         PopulateDropdown(Parent2);
@@ -115,7 +126,7 @@ public class BreedingUI : MonoBehaviour
 
     foreach (var creature in Creatures)
     {
-            string entry = $"{creature.BodyColor} – {creature.GetPhenotype()} ({creature.Gender})";
+            string entry = $"{creature.BodyColor} ï¿½ {creature.GetPhenotype()} ({creature.Gender})";
 
             names.Add(entry);
         Debug.Log($"[PopulateDropdown:{dropdown.name}] Added: {entry}");
@@ -237,8 +248,14 @@ public class BreedingUI : MonoBehaviour
 
         PlayHeartEffect();
         uiHandler.ShowOffspring(this, offspring);
+        tutorialUI.NotifyOffspring(offspring);
     }
 
+    public Creature GetCreature(int index){
+        if (index >= 0 && index < Creatures.Count)
+            return Creatures[index];
+        return null;
+    }
 
 
     public Creature Breed(Creature p1, Creature p2)

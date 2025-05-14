@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shortHornFrame_0000_0: 8636924966826334139
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

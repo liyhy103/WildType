@@ -91,40 +91,6 @@ public class Gene
         if (genotype == "y/y")
             return "Yellow";
 
-        // Orange / Green (O/g or g/g)
-        if (genotype == "O/O")
-            return "Orange";
-        if (genotype == "O/g" || reverseGenotype == "O/g")
-            return "Orange";
-        if (genotype == "g/g")
-            return "Green";
-
-        // Brown / Orange (N/o)
-        if (genotype == "N/N")
-            return "Brown";
-        if (genotype == "N/o" || reverseGenotype == "N/o")
-            return "Brown";
-        if (genotype == "o/o")
-            return "Orange";
-
-        // Orange / Yellow (O/y)
-        if (genotype == "O/y" || reverseGenotype == "O/y")
-            return "Orange";
-        if (genotype == "y/y")
-            return "Yellow";
-
-        // Brown / Yellow (N/y)
-        if (genotype == "N/y" || reverseGenotype == "N/y")
-            return "Yellow";
-
-        // Green / Brown (G/n)
-        if (genotype == "G/n" || reverseGenotype == "G/n")
-            return "Green";
-
-        // Brown (n/n)
-        if (genotype == "n/n")
-            return "Brown";
-
         return "Unknown";
     }
 }
