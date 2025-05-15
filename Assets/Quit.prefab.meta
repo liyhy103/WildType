@@ -1,14 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Quit.prefab.meta
 guid: 9f3962c44e0fe6f40a7211a2f6adca41
+=======
+guid: 93dc53c3ecd813a4b934ed9305cae665
+>>>>>>> parent of edd21a4 (Merge branch 'hanyang_branch_tutorial' into Start-Screen)
 PrefabImporter:
   externalObjects: {}
-========
-guid: 479a66fa4b094512a62b0a8e553ad95a
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 0
->>>>>>>> hanyang_branch_tutorial:Assets/TextMesh Pro/Examples & Extras/Resources/Color Gradient Presets/Blue to Purple - Vertical.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

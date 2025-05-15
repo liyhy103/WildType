@@ -247,6 +247,7 @@ public class BreedingUI : MonoBehaviour
 
         PlayHeartEffect();
         OffspringText.text = result;
+<<<<<<< HEAD
 
         string phenotype = offspring.GetPhenotype().ToLower();
 
@@ -270,6 +271,31 @@ public class BreedingUI : MonoBehaviour
             challengeManager.setResult(phenotype);
         }
 
+=======
+
+        if (breedingUIHandler != null)
+        {
+            breedingUIHandler.ShowOffspring(this, offspring);
+        }
+        else
+        {
+            string phenotype = offspring.GetPhenotype();
+
+            greenOffspringDisplay.SetActive(false);
+            yellowOffspringDisplay.SetActive(false);
+
+            if (phenotype == "Green")
+            {
+                greenOffspringDisplay.SetActive(true);
+                challengeManager.setResult("green");
+            }
+            else if (phenotype == "Yellow")
+            {
+                yellowOffspringDisplay.SetActive(true);
+                challengeManager.setResult("yellow");
+            }
+        }
+>>>>>>> parent of edd21a4 (Merge branch 'hanyang_branch_tutorial' into Start-Screen)
     }
 
 

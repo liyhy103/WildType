@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using UnityEngine;
 
 public class Gene
 {
@@ -8,6 +9,7 @@ public class Gene
     // Two alleles for this gene (e.g., 'B' and 'b')
     public char Allele1;
     public char Allele2;
+
 
     public Gene(string traitName, char allele1, char allele2)
     {
@@ -36,6 +38,28 @@ public class Gene
         }
 
 
+        if(TraitName.ToLower() == "hornlength")
+        {
+            return ResolveHornLengthPhenotype(Allele1, Allele2);
+        }
+
+        return "Unknown";
+    }
+
+    private string ResolveHornLengthPhenotype(char allele1, char allele2)
+    {
+
+        UnityEngine.Debug.Log($"[Debug] Allele1: {allele1}, Allele2: {allele2}");
+
+        allele1 = char.ToUpper(allele1);
+        allele2 = char.ToUpper(allele2);
+
+        if (allele1 == 'L' && allele2 == 'L')
+            return "Long";
+        if (allele1 == 'S' && allele2 == 'S')
+            return "Short";
+        if ((allele1 == 'S' && allele2 == 'L') || (allele1 == 'L' && allele2 == 'S'))
+            return "Medium";
         return "Unknown";
     }
 
@@ -75,21 +99,14 @@ public class Gene
         if ((allele1 == 'P' && allele2 == 'B') || (allele1 == 'B' && allele2 == 'P'))
             return "Pink";
 
-        // Blue / Red
-        if (genotype == "B/B")
-            return "Blue";
-        if (genotype == "B/r" || reverseGenotype == "B/r")
-            return "Blue";
-        if (genotype == "r/r")
-            return "Red";
-
         // Green / Yellow
         if (genotype == "G/G")
-            return "Green";
+           return "Green";
         if (genotype == "G/y" || reverseGenotype == "G/y")
             return "Green";
         if (genotype == "y/y")
             return "Yellow";
+
 
         return "Unknown";
     }
