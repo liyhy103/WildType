@@ -23,6 +23,8 @@ public class BreedingUI : MonoBehaviour
     public GameObject yellowOffspringDisplay;
     public GameObject greenLightShellDisplay;
     public GameObject yellowLightShellDisplay;
+    public GameObject[] level3OffspringDisplayObjects;
+
 
     public GameObject heartEffectPrefab;
     public Transform heartSpawn1;
@@ -78,6 +80,10 @@ public class BreedingUI : MonoBehaviour
         {
             breedingUIHandler = new LevelTwoBreedingUIHandler();
         }
+        else if (sceneName == "LevelThree")
+        {
+            breedingUIHandler = new LevelThreeBreedingUIHandler();
+        }
         else
         {
             breedingUIHandler = null; // Add other handlers here 
@@ -106,10 +112,12 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelThree")
         {
             // Level 3 parents
-            Creatures.Add(new Creature("LongHorn", "Male", new Gene("HornLength", 'L', 'L')));
-            Creatures.Add(new Creature("MediumHorn", "Male", new Gene("HornLength", 'L', 'S')));
-            Creatures.Add(new Creature("MediumHorn", "Female", new Gene("HornLength", 'S', 'L')));
-            Creatures.Add(new Creature("ShortHorn", "Female", new Gene("HornLength", 'S', 'S')));
+            Creatures.Add(new Creature("LongHorn", "Male", new Gene("HornLength", 'L', 'L'), "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Male", new Gene("HornLength", 'L', 'S'), "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Female", new Gene("HornLength", 'S', 'L'), "Yellow"));
+            Creatures.Add(new Creature("ShortHorn", "Female", new Gene("HornLength", 'S', 'S'), "Yellow"));
+
+
         }
 
         PopulateDropdown(Parent1);

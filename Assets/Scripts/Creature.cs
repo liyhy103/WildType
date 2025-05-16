@@ -13,8 +13,7 @@ public class Creature
         this.Gender = gender;
         this.CoatColorGene = coatGene;
 
-        // Automatically set BodyColor to match phenotype if not explicitly given
-        this.BodyColor = string.IsNullOrEmpty(bodyColor) ? coatGene.GetPhenotype() : bodyColor;
+        this.BodyColor = string.IsNullOrEmpty(bodyColor) ? "Unknown" : bodyColor;
     }
 
     public string GetGenotype() => CoatColorGene.GetGenotype();

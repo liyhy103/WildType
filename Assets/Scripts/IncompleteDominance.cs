@@ -12,13 +12,15 @@ public class IncompleteDominance : IBreedingStrategy
         char allele1 = UnityEngine.Random.value < 0.5f ? g1.Allele1 : g1.Allele2;
         char allele2 = UnityEngine.Random.value < 0.5f ? g2.Allele1 : g2.Allele2;
 
-        Gene childGene = new Gene("hornlength", allele1, allele2);
+        Gene childGene = new Gene("HornLength", allele1, allele2);
         string gender = UnityEngine.Random.value < 0.5f ? "Male" : "Female";
         string name = "Offspring_" + UnityEngine.Random.Range(1000, 9999);
 
-        return new Creature(name, gender, childGene);
+        string bodyColor = UnityEngine.Random.value < 0.5f ? p1.BodyColor : p2.BodyColor;
 
+        return new Creature(name, gender, childGene, bodyColor);
     }
+
 }
 
 
