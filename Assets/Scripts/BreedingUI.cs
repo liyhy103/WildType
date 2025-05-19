@@ -39,6 +39,10 @@ public class BreedingUI : MonoBehaviour
     public TMP_Text Parent1GenotypeText;
     public TMP_Text Parent2GenotypeText;
 
+    public Button SaveToCompendiumButton;
+    private Creature lastOffspring;
+
+
     public enum BreedingType
     {
         Mendelian,
@@ -277,8 +281,26 @@ public class BreedingUI : MonoBehaviour
         {
             challengeManager.setResult(phenotype);
         }
+        lastOffspring = offspring;
+        SaveToCompendiumButton.gameObject.SetActive(true);
+
 
     }
+
+    public void OnSaveToCompendiumClicked()
+    {
+        if (lastOffspring != null)
+        {
+            Sprite sprite = breedingUIHandler?.GetOffspringSprite(this);
+            Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
+
+            CompendiumManager.Instance.AddToCompendium(lastOffspring, sprite);
+            SaveToCompendiumButton.gameObject.SetActive(false);
+        }
+    }
+
+
+
 
 
     Creature Breed(Creature p1, Creature p2)

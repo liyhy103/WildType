@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class LevelOneBreedingUIHandler : IBreedingUIHandler
 {
@@ -19,7 +21,6 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
     {
-        // Level 1 allows any two different parents
         if (p1 == p2)
         {
             errorMessage = "Please select two different parents!";
@@ -29,4 +30,14 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
         errorMessage = "";
         return true;
     }
+
+    public Sprite GetOffspringSprite(BreedingUI ui)
+    {
+        if (ui.greenOffspringDisplay.activeSelf)
+            return ui.greenOffspringDisplay.GetComponent<Image>().sprite;
+        if (ui.yellowOffspringDisplay.activeSelf)
+            return ui.yellowOffspringDisplay.GetComponent<Image>().sprite;
+        return null;
+    }
+
 }

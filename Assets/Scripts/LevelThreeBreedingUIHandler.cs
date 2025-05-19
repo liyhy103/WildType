@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelThreeBreedingUIHandler : IBreedingUIHandler
 {
@@ -29,6 +30,17 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
     {
         errorMessage = "";
-        return true; 
+        return true;
     }
+
+    public Sprite GetOffspringSprite(BreedingUI ui)
+    {
+        foreach (var obj in ui.level3OffspringDisplayObjects)
+        {
+            if (obj.activeSelf)
+                return obj.GetComponent<Image>().sprite;
+        }
+        return null;
+    }
+
 }

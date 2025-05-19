@@ -6,16 +6,25 @@ public class CompendiumManager : MonoBehaviour
     public static CompendiumManager Instance;
 
     public List<Creature> compendium = new List<Creature>();
-
     public Dictionary<Creature, Sprite> creatureSprites = new Dictionary<Creature, Sprite>();
+
+    public string PreviousSceneName;
 
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("[CompendiumManager] Singleton created.");
+        }
         else
+        {
+            Debug.LogWarning("[CompendiumManager] Duplicate detected and destroyed.");
             Destroy(gameObject);
+        }
     }
+
 
     public void AddToCompendium(Creature creature, Sprite sprite = null)
     {
@@ -35,3 +44,5 @@ public class CompendiumManager : MonoBehaviour
         return null;
     }
 }
+
+

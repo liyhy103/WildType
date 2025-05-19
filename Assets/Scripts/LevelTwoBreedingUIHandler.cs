@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class LevelTwoBreedingUIHandler : IBreedingUIHandler
 {
@@ -13,13 +15,11 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         string gender = offspring.Gender;
 
 
-        // Hide all first
         ui.greenOffspringDisplay?.SetActive(false);
         ui.yellowOffspringDisplay?.SetActive(false);
         ui.greenLightShellDisplay?.SetActive(false);
         ui.yellowLightShellDisplay?.SetActive(false);
 
-        // Show based on phenotype and gender
         if (phenotype == "Dark" && gender == "Male")
         {
             ui.greenOffspringDisplay?.SetActive(true);
@@ -49,4 +49,18 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         errorMessage = "";
         return true;
     }
+
+    public Sprite GetOffspringSprite(BreedingUI ui)
+    {
+        if (ui.greenOffspringDisplay.activeSelf)
+            return ui.greenOffspringDisplay.GetComponent<Image>().sprite;
+        if (ui.yellowOffspringDisplay.activeSelf)
+            return ui.yellowOffspringDisplay.GetComponent<Image>().sprite;
+        if (ui.greenLightShellDisplay.activeSelf)
+            return ui.greenLightShellDisplay.GetComponent<Image>().sprite;
+        if (ui.yellowLightShellDisplay.activeSelf)
+            return ui.yellowLightShellDisplay.GetComponent<Image>().sprite;
+        return null;
+    }
+
 }
