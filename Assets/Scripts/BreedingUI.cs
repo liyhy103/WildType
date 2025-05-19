@@ -195,7 +195,7 @@ public class BreedingUI : MonoBehaviour
 
             obj.SetActive(match);
             Debug.Log($"[Parent1] {obj.name} | Match: {match} vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor})");
-           
+
 
         }
         if (Parent1GenotypeText != null)
@@ -279,7 +279,7 @@ public class BreedingUI : MonoBehaviour
 
         if (challengeManager != null)
         {
-            challengeManager.setResult(phenotype);
+            challengeManager.SetResult(phenotype);
         }
         lastOffspring = offspring;
         SaveToCompendiumButton.gameObject.SetActive(true);
@@ -304,14 +304,24 @@ public class BreedingUI : MonoBehaviour
 
 
     Creature Breed(Creature p1, Creature p2)
-{
-    return breedingStrategy.Breed(p1, p2);
-}
+    {
+        return breedingStrategy.Breed(p1, p2);
+    }
 
 
-void PlayHeartEffect()
+    void PlayHeartEffect()
     {
         Instantiate(heartEffectPrefab, heartSpawn1.position, Quaternion.identity, heartSpawn1);
         Instantiate(heartEffectPrefab, heartSpawn2.position, Quaternion.identity, heartSpawn2);
     }
+
+    public Creature GetCreature(int index)
+    {
+        if (index >= 0 && index < Creatures.Count)
+            return Creatures[index];
+
+        Debug.LogWarning($"[BreedingUI] Invalid creature index: {index}");
+        return null;
+    }
+
 }

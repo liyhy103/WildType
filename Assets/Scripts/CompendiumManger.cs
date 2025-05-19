@@ -16,14 +16,16 @@ public class CompendiumManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("[CompendiumManager] Singleton created.");
+            Debug.Log("[CompendiumManager] Singleton created and preserved.");
         }
         else
         {
-            Debug.LogWarning("[CompendiumManager] Duplicate detected and destroyed.");
             Destroy(gameObject);
+            Debug.Log("[CompendiumManager] Duplicate destroyed.");
         }
     }
+
+
 
 
     public void AddToCompendium(Creature creature, Sprite sprite = null)

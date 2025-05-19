@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using System.Diagnostics;
 using System;
+using Debug = UnityEngine.Debug;
 
 
 public class Challenge : MonoBehaviour
@@ -69,6 +70,13 @@ public class Challenge : MonoBehaviour
             //displays the challenge
             challengeText.gameObject.SetActive(true);
     }
+
+    public void SetResult(string phenotype)
+    {
+        currentCreature = new Creature("Temp", "Unknown", new Gene("CoatColor", phenotype[0], phenotype[0]));
+        Debug.Log("[Challenge] Received result: " + phenotype);
+    }
+
     public void Update()
     {
         if (currentCreature == null)
@@ -103,6 +111,7 @@ public class Challenge : MonoBehaviour
             }
         }
     }
+   
 
     private bool CheckCreatureHasGene(string challengeGene)
     {
