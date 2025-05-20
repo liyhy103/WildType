@@ -96,8 +96,9 @@ public class BreedingUI : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
         {
             // Level 1 parents 
-            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y')));
-            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y')));
+            Creatures.Add(new Creature("GreenDad", "Male", new Gene("CoatColor", 'G', 'y'), "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new Gene("CoatColor", 'y', 'y'), "Yellow"));
+
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
