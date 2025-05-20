@@ -35,6 +35,11 @@ public class Gene
             return ResolveShellColorPhenotype(Allele1, Allele2);
         }
 
+        if (TraitName.ToLower() == "hornlength")
+        {
+            return ResolveHornLengthPhenotype(Allele1, Allele2);
+        }
+
 
         return "Unknown";
     }
@@ -50,6 +55,13 @@ public class Gene
         {
             return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
         }
+    }
+    private string ResolveHornLengthPhenotype(char a1, char a2)
+    {
+        if (a1 == 'L' && a2 == 'L') return "Long";
+        if ((a1 == 'L' && a2 == 'S') || (a1 == 'S' && a2 == 'L')) return "Medium";
+        if (a1 == 'S' && a2 == 'S') return "Short";
+        return "Unknown";
     }
 
 
