@@ -24,6 +24,7 @@ public class BreedingUI : MonoBehaviour
     public GameObject greenLightShellDisplay;
     public GameObject yellowLightShellDisplay;
     public GameObject[] level3OffspringDisplayObjects;
+    public GameObject[] level4OffspringDisplayObjects;
 
 
     public GameObject heartEffectPrefab;
@@ -48,19 +49,20 @@ public class BreedingUI : MonoBehaviour
     {
         Mendelian,
         SexLinked,
-        IncompleteDominance
+        IncompleteDominance,
+        DihybridInheritance
     }
 
     public BreedingType breedingType = BreedingType.Mendelian;
     private IBreedingStrategy breedingStrategy;
     // Return the gene trait name according to the level type
     private string GetCurrentTrait(){
-        return breedingType
-        switch
+        return breedingType switch
         {
             BreedingType.Mendelian => "CoatColor",
             BreedingType.SexLinked => "ShellColor",
             BreedingType.IncompleteDominance => "HornLength",
+            BreedingType.DihybridInheritance => "TailLength", 
             _ => "CoatColor"
         };
     }
@@ -79,6 +81,9 @@ public class BreedingUI : MonoBehaviour
                 break;
             case BreedingType.IncompleteDominance:
                 breedingStrategy = new IncompleteDominance();
+                break;
+            case BreedingType.DihybridInheritance:
+                breedingStrategy = new DihybridInheritance();
                 break;
             default:
                 Debug.LogWarning("Unsupported breeding type selected.");
@@ -103,6 +108,10 @@ public class BreedingUI : MonoBehaviour
         {
             breedingUIHandler = new LevelOneBreedingUIHandler();
         }
+        else if (sceneName == "LevelFour")
+        {
+            breedingUIHandler = new LevelFourBreedingUIHandler();
+        }
         else
         {
             breedingUIHandler = null; // Add other handlers here 
@@ -111,8 +120,8 @@ public class BreedingUI : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelOne")
         {
             // Level 1 parents 
-            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> {new Gene("CoatColor", 'G', 'y')}, "Green"));
-            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> {new Gene("CoatColor", 'y', 'y')}, "Yellow"));
+            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'y') }, "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y') }, "Yellow"));
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
@@ -134,10 +143,18 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")
         {
             // Level 1 parents 
-            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> {new Gene("CoatColor", 'G', 'y')}, "Green"));
-            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> {new Gene("CoatColor", 'y', 'y')}, "Yellow"));
+            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'y') }, "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y') }, "Yellow"));
         }
-
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelFour")
+        {
+            // Level 4 parents
+            Creatures.Add(new Creature("Green_LongTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'L', 'L') }, "Green"));
+            Creatures.Add(new Creature("Yellow_LongTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'L', 'l') }, "Yellow"));
+            Creatures.Add(new Creature("Yellow_ShortTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
+            Creatures.Add(new Creature("Green_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'G', 'y'), new Gene("TailLength", 'l', 'l') }, "Green"));
+        }
+        
         PopulateDropdown(Parent1);
         PopulateDropdown(Parent2);
 
@@ -174,6 +191,11 @@ public class BreedingUI : MonoBehaviour
             {
                 // Level Three
                 label = $"{creature.Gender} - {creature.GetPhenotype("HornLength")}";
+            }
+            else if (breedingType == BreedingType.DihybridInheritance)
+            {
+                // Level Four
+                label = $"{creature.Gender} - {creature.GetPhenotype("CoatColor")}, Tail: {creature.GetPhenotype("TailLength")}";
             }
             else
             {
@@ -271,9 +293,15 @@ public class BreedingUI : MonoBehaviour
 
         string result = $"Offspring Created!\n" +
                         $"- Name: {offspring.CreatureName}\n" +
-                        $"- Gender: {offspring.Gender}\n" +
-                        $"- {trait}: {offspring.GetPhenotype(trait)} [{offspring.GetGenotype(trait)}]";
+                        $"- Gender: {offspring.Gender}";
 
+        foreach (var pair in offspring.Genes)
+        {
+            string geneTrait = pair.Key;
+            string genePhenotype = offspring.GetPhenotype(geneTrait);
+            string geneGenotype = offspring.GetGenotype(geneTrait);
+            result += $"\n- {geneTrait}: {genePhenotype} [{geneGenotype}]";
+        }
         PlayHeartEffect();
         OffspringText.text = result;
 

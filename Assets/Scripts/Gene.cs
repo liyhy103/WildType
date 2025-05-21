@@ -28,8 +28,8 @@ public class Gene
         if (TraitName.ToLower() == "coatcolor")
             return ResolveCoatColorPhenotype(Allele1, Allele2);
 
-        if (TraitName.ToLower() == "hairtype")
-            return ResolveHairTypePhenotype(Allele1, Allele2);
+        if (TraitName.ToLower() == "taillength")
+            return ResolveTailLengthPhenotype(Allele1, Allele2);
   
         if (TraitName.ToLower() == "shellcolor")
         {
@@ -107,18 +107,18 @@ public class Gene
         return "Unknown";
     }
 
-    // Trait-specific logic for HairType
-    private string ResolveHairTypePhenotype(char allele1, char allele2)
+    // Trait-specific logic for Tail Length
+    private string ResolveTailLengthPhenotype(char allele1, char allele2)
     {
         string genotype = $"{allele1}/{allele2}";
         string reverseGenotype = $"{allele2}/{allele1}";
 
-        if (genotype == "C/C") 
-            return "Straight";
-        if (genotype == "C/c" || reverseGenotype == "C/c") 
-            return "Straight";
-        if (genotype == "c/c") 
-            return "Curly";
+        if (genotype == "L/L") 
+            return "Long";
+        if (genotype == "L/l" || reverseGenotype == "L/l") 
+            return "Long";
+        if (genotype == "l/l") 
+            return "Short";
 
         return "Unknown";
     }

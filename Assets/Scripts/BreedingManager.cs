@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class BreedingManager : MonoBehaviour
 {
     void Start(){
-        // Create two parent creatures with coatColor and hairType traits
-        Gene gene1 = new Gene("CoatColor", 'B', 'r');
-        Gene gene1_2 = new Gene("HairType", 'C', 'c');
-        Gene gene2 = new Gene("CoatColor", 'r', 'r');
-        Gene gene2_2 = new Gene("HairType", 'c', 'c');
+        // Create two parent creatures with coatColor and tailLength traits
+        Gene gene1 = new Gene("CoatColor", 'G', 'y');
+        Gene gene1_2 = new Gene("TailLength", 'L', 'l');
+        Gene gene2 = new Gene("CoatColor", 'y', 'y');
+        Gene gene2_2 = new Gene("TailLength", 'l', 'l');
 
         Creature parent1 = new Creature("Parent1", "Male", new List<Gene> { gene1, gene1_2 });
         Creature parent2 = new Creature("Parent2", "Female", new List<Gene> { gene2, gene2_2 });
