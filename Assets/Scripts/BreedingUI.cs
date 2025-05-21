@@ -41,6 +41,7 @@ public class BreedingUI : MonoBehaviour
 
     public Button SaveToCompendiumButton;
     private Creature lastOffspring;
+    public TutorialUI tutorialUI;
 
 
     public enum BreedingType
@@ -52,7 +53,17 @@ public class BreedingUI : MonoBehaviour
 
     public BreedingType breedingType = BreedingType.Mendelian;
     private IBreedingStrategy breedingStrategy;
-
+    // Return the gene trait name according to the level type
+    private string GetCurrentTrait(){
+        return breedingType
+        switch
+        {
+            BreedingType.Mendelian => "CoatColor",
+            BreedingType.SexLinked => "ShellColor",
+            BreedingType.IncompleteDominance => "HornLength",
+            _ => "CoatColor"
+        };
+    }
 
 
     void Start()
@@ -88,6 +99,10 @@ public class BreedingUI : MonoBehaviour
         {
             breedingUIHandler = new LevelThreeBreedingUIHandler();
         }
+        else if (sceneName == "TutorialLevel")
+        {
+            breedingUIHandler = new LevelOneBreedingUIHandler();
+        }
         else
         {
             breedingUIHandler = null; // Add other handlers here 
@@ -102,28 +117,25 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
             // Level 2 parents 
-            Creatures.Add(new Creature("BlueDad", "Male", new List<Gene> {new Gene("CoatColor", 'B', 'B')}));
-            Creatures.Add(new Creature("PinkMom", "Female", new List<Gene> {new Gene("CoatColor", 'P', 'B')}));
-            Creatures.Add(new Creature("Parent2_Green_Light_Male", "Male", new Gene("ShellColor", 'b', 'Y'), "Green"));
-            Creatures.Add(new Creature("Parent2_Yellow_Light_Female", "Female", new Gene("ShellColor", 'b', 'b'), "Yellow"));
-            Creatures.Add(new Creature("Parent2_Yellow_Dark_Male", "Male", new Gene("ShellColor", 'B', 'Y'), "Yellow"));
-            Creatures.Add(new Creature("Parent2_Green_Dark_Female", "Female", new Gene("ShellColor", 'B', 'b'), "Green"));
-
-            foreach (var c in Creatures)
-            {
-                Debug.Log($"[Start] Creature: {c.CreatureName} ({c.Gender}) [{c.GetPhenotype()}]");
-            }
+            Creatures.Add(new Creature("Parent2_Green_Light_Male", "Male", new List<Gene> { new Gene("ShellColor", 'b', 'Y') }, "Green"));
+            Creatures.Add(new Creature("Parent2_Yellow_Light_Female", "Female", new List<Gene> { new Gene("ShellColor", 'b', 'b') }, "Yellow"));
+            Creatures.Add(new Creature("Parent2_Yellow_Dark_Male", "Male", new List<Gene> { new Gene("ShellColor", 'B', 'Y') }, "Yellow"));
+            Creatures.Add(new Creature("Parent2_Green_Dark_Female", "Female", new List<Gene> { new Gene("ShellColor", 'B', 'b') }, "Green"));
         }
 
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelThree")
         {
             // Level 3 parents
-            Creatures.Add(new Creature("LongHorn", "Male", new Gene("HornLength", 'L', 'L'), "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Male", new Gene("HornLength", 'L', 'S'), "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Female", new Gene("HornLength", 'S', 'L'), "Yellow"));
-            Creatures.Add(new Creature("ShortHorn", "Female", new Gene("HornLength", 'S', 'S'), "Yellow"));
-
-
+            Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Yellow"));
+            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Yellow"));
+        }
+        else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")
+        {
+            // Level 1 parents 
+            Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> {new Gene("CoatColor", 'G', 'y')}, "Green"));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> {new Gene("CoatColor", 'y', 'y')}, "Yellow"));
         }
 
         PopulateDropdown(Parent1);
@@ -156,12 +168,12 @@ public class BreedingUI : MonoBehaviour
             else if (breedingType == BreedingType.SexLinked)
             {
                 // Level Two
-                label = $"{creature.BodyColor} - {creature.GetPhenotype()} ({creature.Gender})";
+                label = $"{creature.BodyColor} - {creature.GetPhenotype("ShellColor")} ({creature.Gender})";
             }
             else if (breedingType == BreedingType.IncompleteDominance)
             {
                 // Level Three
-                label = $"{creature.Gender} - {creature.GetPhenotype()}";
+                label = $"{creature.Gender} - {creature.GetPhenotype("HornLength")}";
             }
             else
             {
@@ -177,9 +189,10 @@ public class BreedingUI : MonoBehaviour
 
     void UpdateCreatureDisplayParent1(int index)
     {
+        string trait = GetCurrentTrait();
         var creature = Creatures[index];
         string gender = creature.Gender;
-        string phenotype = creature.GetPhenotype();
+        string phenotype = creature.GetPhenotype(trait);
         string bodyColor = creature.BodyColor;
 
         foreach (GameObject obj in parent1DisplayObjects)
@@ -201,15 +214,16 @@ public class BreedingUI : MonoBehaviour
 
         }
         if (Parent1GenotypeText != null)
-            Parent1GenotypeText.text = $"Genotype:\n{creature.GetGenotype()}";
+            Parent1GenotypeText.text = $"Genotype:\n{creature.GetGenotype(trait)}";
     }
 
 
     void UpdateCreatureDisplayParent2(int index)
     {
+        string trait = GetCurrentTrait();
         var creature = Creatures[index];
         string gender = creature.Gender;
-        string phenotype = creature.GetPhenotype();
+        string phenotype = creature.GetPhenotype(trait);
         string bodyColor = creature.BodyColor;
 
         foreach (GameObject obj in parent2DisplayObjects)
@@ -230,7 +244,7 @@ public class BreedingUI : MonoBehaviour
 
         }
         if (Parent2GenotypeText != null)
-            Parent2GenotypeText.text = $"Genotype:\n{creature.GetGenotype()}";
+            Parent2GenotypeText.text = $"Genotype:\n{creature.GetGenotype(trait)}";
 
     }
 
@@ -252,12 +266,13 @@ public class BreedingUI : MonoBehaviour
             return;
         }
 
+        string trait = GetCurrentTrait();
         Creature offspring = Breed(parent1, parent2);
 
         string result = $"Offspring Created!\n" +
                         $"- Name: {offspring.CreatureName}\n" +
                         $"- Gender: {offspring.Gender}\n" +
-                        $"- Coat Color: {offspring.GetPhenotype("CoatColor")} [{offspring.GetGenotype("CoatColor")}]";
+                        $"- {trait}: {offspring.GetPhenotype(trait)} [{offspring.GetGenotype(trait)}]";
 
         PlayHeartEffect();
         OffspringText.text = result;

@@ -5,19 +5,18 @@ public class Creature
 {
     public string CreatureName;
     public string Gender;
-
-    // // Gene controlling coat color (Mendelian inheritance)
-    // public Gene CoatColorGene;
-
     // Store multiple traits, e.g., 'coatcolor', 'hairtype'
     public Dictionary<string, Gene> Genes;
+    public string BodyColor;
 
-    public Creature(string name, string gender, List<Gene> geneList, string bodyColor = ""){
+    public Creature(string name, string gender, List<Gene> geneList, string bodyColor = "")
+    {
         this.CreatureName = name;
         this.Gender = gender;
         Genes = new Dictionary<string, Gene>();
 
-        foreach (Gene gene in geneList){
+        foreach (Gene gene in geneList)
+        {
             // Store trait name exactly as passed in
             Genes[gene.TraitName.ToLower()] = gene;
         }
