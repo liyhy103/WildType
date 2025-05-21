@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using System.Diagnostics;
 using System;
+using Debug = UnityEngine.Debug;
 
 
 public class Challenge : MonoBehaviour
@@ -14,6 +15,7 @@ public class Challenge : MonoBehaviour
     private List<string> challenges = new List<string>();
     public Creature currentCreature;
     private string currentChallenge = "";
+    public string CurrentChallenge => currentChallenge;
 
     public void Start()
     {
@@ -41,7 +43,11 @@ public class Challenge : MonoBehaviour
 
     public void SetChallengeText(string text)
     {
-        challengeText.text = text;
+        if (challengeText != null)
+        {
+            challengeText.text = text;
+            UnityEngine.Debug.Log("[Challenge] Showing challenge text: " + text);
+        }
     }
 
     public void OnButtonClick()
@@ -51,8 +57,9 @@ public class Challenge : MonoBehaviour
         {
             currentChallenge = challenges[UnityEngine.Random.Range(0, challenges.Count)];
             string challenge = "Breed a " + currentChallenge + " creature";
+            UnityEngine.Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
+            
             SetChallengeText(challenge);
-
         }
         else
         {
@@ -63,6 +70,13 @@ public class Challenge : MonoBehaviour
             //displays the challenge
             challengeText.gameObject.SetActive(true);
     }
+
+    public void SetResult(string phenotype)
+    {
+        currentCreature = new Creature("Temp", "Unknown", new Gene("CoatColor", phenotype[0], phenotype[0]));
+        Debug.Log("[Challenge] Received result: " + phenotype);
+    }
+
     public void Update()
     {
         if (currentCreature == null)
@@ -72,10 +86,10 @@ public class Challenge : MonoBehaviour
         }
 
         //check if set challenge is blue or red
-        if (currentChallenge == "Blue")
+        if (currentChallenge == "Green")
         {
             //check if creature is blue 
-            bool CreatureIsBlue = CheckCreatureHasGene("Blue");
+            bool CreatureIsBlue = CheckCreatureHasGene("Green");
             if (CreatureIsBlue)
             {
                 String Completed = "You Completed this challenge";
@@ -84,10 +98,10 @@ public class Challenge : MonoBehaviour
                 currentChallenge = "";
             }
         }
-        else if (currentChallenge == "Red")
+        else if (currentChallenge == "Yellow")
         {
             //check if creature is red 
-            bool CreatureIsred = CheckCreatureHasGene("Red");
+            bool CreatureIsred = CheckCreatureHasGene("Yellow");
             if (CreatureIsred)
             {
                 String Completed = "You Completed this challenge";
@@ -97,6 +111,7 @@ public class Challenge : MonoBehaviour
             }
         }
     }
+   
 
     private bool CheckCreatureHasGene(string challengeGene)
     {

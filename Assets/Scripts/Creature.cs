@@ -3,10 +3,7 @@ using System.Collections.Generic;
 
 public class Creature
 {
-    // Name of the creature
     public string CreatureName;
-
-    // Gender of the creature ("Male" or "Female")
     public string Gender;
 
     // // Gene controlling coat color (Mendelian inheritance)
@@ -15,7 +12,7 @@ public class Creature
     // Store multiple traits, e.g., 'coatcolor', 'hairtype'
     public Dictionary<string, Gene> Genes;
 
-    public Creature(string name, string gender, List<Gene> geneList){
+    public Creature(string name, string gender, List<Gene> geneList, string bodyColor = ""){
         this.CreatureName = name;
         this.Gender = gender;
         Genes = new Dictionary<string, Gene>();
@@ -24,6 +21,8 @@ public class Creature
             // Store trait name exactly as passed in
             Genes[gene.TraitName.ToLower()] = gene;
         }
+
+        this.BodyColor = string.IsNullOrEmpty(bodyColor) ? "Unknown" : bodyColor;
     }
 
     // Returns the genotype from the gene

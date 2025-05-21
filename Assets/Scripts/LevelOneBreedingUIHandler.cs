@@ -1,0 +1,43 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class LevelOneBreedingUIHandler : IBreedingUIHandler
+{
+    public void ShowOffspring(BreedingUI ui, Creature offspring)
+    {
+        ui.greenOffspringDisplay?.SetActive(false);
+        ui.yellowOffspringDisplay?.SetActive(false);
+
+        if (offspring.GetPhenotype() == "Green")
+        {
+            ui.greenOffspringDisplay?.SetActive(true);
+        }
+        else if (offspring.GetPhenotype() == "Yellow")
+        {
+            ui.yellowOffspringDisplay?.SetActive(true);
+        }
+    }
+
+    public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
+    {
+        if (p1 == p2)
+        {
+            errorMessage = "Please select two different parents!";
+            return false;
+        }
+
+        errorMessage = "";
+        return true;
+    }
+
+    public Sprite GetOffspringSprite(BreedingUI ui)
+    {
+        if (ui.greenOffspringDisplay.activeSelf)
+            return ui.greenOffspringDisplay.GetComponent<Image>().sprite;
+        if (ui.yellowOffspringDisplay.activeSelf)
+            return ui.yellowOffspringDisplay.GetComponent<Image>().sprite;
+        return null;
+    }
+
+}

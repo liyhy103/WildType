@@ -31,8 +31,42 @@ public class Gene
         if (TraitName.ToLower() == "hairtype")
             return ResolveHairTypePhenotype(Allele1, Allele2);
   
+        if (TraitName.ToLower() == "shellcolor")
+        {
+            return ResolveShellColorPhenotype(Allele1, Allele2);
+        }
+
+        if (TraitName.ToLower() == "hornlength")
+        {
+            return ResolveHornLengthPhenotype(Allele1, Allele2);
+        }
+
+
         return "Unknown";
     }
+
+    private string ResolveShellColorPhenotype(char allele1, char allele2)
+    {
+        // XB = 'B', Xb = 'b', Y = 'Y'
+        if (allele1 == 'Y' || allele2 == 'Y') //Male
+        {
+            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
+        }
+        else // Female
+        {
+            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
+        }
+    }
+    private string ResolveHornLengthPhenotype(char a1, char a2)
+    {
+        if (a1 == 'L' && a2 == 'L') return "Long";
+        if ((a1 == 'L' && a2 == 'S') || (a1 == 'S' && a2 == 'L')) return "Medium";
+        if (a1 == 'S' && a2 == 'S') return "Short";
+        return "Unknown";
+    }
+
+
+
 
     private string ResolveCoatColorPhenotype(char allele1, char allele2)
     {
@@ -52,7 +86,7 @@ public class Gene
             return "Blue";  // Female Blue
 
         if ((allele1 == 'P' && allele2 == 'B') || (allele1 == 'B' && allele2 == 'P'))
-            return "Pink"; ;
+            return "Pink";
 
         // Blue / Red
         if (genotype == "B/B")
@@ -69,40 +103,6 @@ public class Gene
             return "Green";
         if (genotype == "y/y")
             return "Yellow";
-
-        // Orange / Green (O/g or g/g)
-        if (genotype == "O/O")
-            return "Orange";
-        if (genotype == "O/g" || reverseGenotype == "O/g")
-            return "Orange";
-        if (genotype == "g/g")
-            return "Green";
-
-        // Brown / Orange (N/o)
-        if (genotype == "N/N")
-            return "Brown";
-        if (genotype == "N/o" || reverseGenotype == "N/o")
-            return "Brown";
-        if (genotype == "o/o")
-            return "Orange";
-
-        // Orange / Yellow (O/y)
-        if (genotype == "O/y" || reverseGenotype == "O/y")
-            return "Orange";
-        if (genotype == "y/y")
-            return "Yellow";
-
-        // Brown / Yellow (N/y)
-        if (genotype == "N/y" || reverseGenotype == "N/y")
-            return "Yellow";
-
-        // Green / Brown (G/n)
-        if (genotype == "G/n" || reverseGenotype == "G/n")
-            return "Green";
-
-        // Brown (n/n)
-        if (genotype == "n/n")
-            return "Brown";
 
         return "Unknown";
     }
