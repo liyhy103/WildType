@@ -5,7 +5,7 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
 {
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        string phenotype = offspring.GetPhenotype().ToLower();
+        string phenotype = offspring.GetPhenotype("hornlength").ToLower();
         string bodyColor = offspring.BodyColor.ToLower();
 
         foreach (var obj in ui.level3OffspringDisplayObjects)

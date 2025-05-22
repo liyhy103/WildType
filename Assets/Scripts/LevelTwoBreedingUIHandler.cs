@@ -11,7 +11,7 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
 
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        string phenotype = offspring.GetPhenotype();
+        string phenotype = offspring.GetPhenotype("shellcolor");
         string gender = offspring.Gender;
 
         ui.greenOffspringDisplay?.SetActive(false);

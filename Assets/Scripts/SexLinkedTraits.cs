@@ -9,8 +9,8 @@ public class SexLinkedBreedingStrategy : IBreedingStrategy
         Creature dad = p1.Gender == "Male" ? p1 : p2;
         Creature mom = p1.Gender == "Female" ? p1 : p2;
 
-        // Get mom’s X alleles (remove Y if present)
-        List<char> motherAlleles = new List<char> { mom.CoatColorGene.Allele1, mom.CoatColorGene.Allele2 };
+        // Get momï¿½s X alleles (remove Y if present)
+        List<char> motherAlleles = new List<char> { mom.Genes["shellcolor"].Allele1, mom.Genes["shellcolor"].Allele2 };
         motherAlleles.RemoveAll(a => a == 'Y');
 
         if (motherAlleles.Count == 0)
@@ -22,9 +22,9 @@ public class SexLinkedBreedingStrategy : IBreedingStrategy
         char femaleX1 = motherAlleles[0];
         char femaleX2 = motherAlleles.Count > 1 ? motherAlleles[1] : motherAlleles[0];
 
-        // Get dad’s X allele (not Y)
-        char dadA = dad.CoatColorGene.Allele1;
-        char dadB = dad.CoatColorGene.Allele2;
+        // Get dadï¿½s X allele (not Y)
+        char dadA = dad.Genes["shellcolor"].Allele1;
+        char dadB = dad.Genes["shellcolor"].Allele2;
         char maleX = dadA != 'Y' ? dadA : dadB;
 
         bool isMale = Random.value < 0.5f;
@@ -47,6 +47,6 @@ public class SexLinkedBreedingStrategy : IBreedingStrategy
         }
 
         Gene shellGene = new Gene("ShellColor", allele1, allele2);
-        return new Creature(name, gender, shellGene);
+        return new Creature(name, gender, new List<Gene>{shellGene});
     }
 }

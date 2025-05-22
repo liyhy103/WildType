@@ -73,8 +73,17 @@ public class Challenge : MonoBehaviour
 
     public void SetResult(string phenotype)
     {
-        currentCreature = new Creature("Temp", "Unknown", new Gene("CoatColor", phenotype[0], phenotype[0]));
         Debug.Log("[Challenge] Received result: " + phenotype);
+        // Construct a mock Gene and Creature object from phenotype
+        char a1 = 'y', a2 = 'y';
+        if (phenotype.ToLower() == "green")
+        {
+            a1 = 'G'; a2 = 'y';}
+        else if (phenotype.ToLower() == "yellow"){
+            a1 = 'y'; a2 = 'y';}
+
+        Gene gene = new Gene("CoatColor", a1, a2);
+        currentCreature = new Creature("Temp", "Male", new List<Gene> { gene }, phenotype);
     }
 
     public void Update()
@@ -88,9 +97,9 @@ public class Challenge : MonoBehaviour
         //check if set challenge is blue or red
         if (currentChallenge == "Green")
         {
-            //check if creature is blue 
-            bool CreatureIsBlue = CheckCreatureHasGene("Green");
-            if (CreatureIsBlue)
+            //check if creature is green 
+            bool CreatureIsGreen = CheckCreatureHasGene("Green");
+            if (CreatureIsGreen)
             {
                 String Completed = "You Completed this challenge";
                 SetChallengeText(Completed);
@@ -101,8 +110,8 @@ public class Challenge : MonoBehaviour
         else if (currentChallenge == "Yellow")
         {
             //check if creature is red 
-            bool CreatureIsred = CheckCreatureHasGene("Yellow");
-            if (CreatureIsred)
+            bool CreatureIsYellow = CheckCreatureHasGene("Yellow");
+            if (CreatureIsYellow)
             {
                 String Completed = "You Completed this challenge";
                 SetChallengeText(Completed);
@@ -119,7 +128,7 @@ public class Challenge : MonoBehaviour
         if (currentCreature != null)
         {
             // Get the phenotype of the current creature
-            string creaturePhenotype = currentCreature.GetPhenotype();
+            string creaturePhenotype = currentCreature.GetPhenotype("CoatColor");
 
             // Check if the creature's phenotype matches the challenge gene
             return creaturePhenotype.Equals(challengeGene, StringComparison.OrdinalIgnoreCase);
