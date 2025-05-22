@@ -103,6 +103,7 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelTwo")
         {
             // Level 2 parents 
+<<<<<<< Updated upstream
             Creatures.Add(new Creature("Parent2_Green_Light_Male", "Male", new Gene("ShellColor", 'b', 'Y'), "Green"));
             Creatures.Add(new Creature("Parent2_Yellow_Light_Female", "Female", new Gene("ShellColor", 'b', 'b'), "Yellow"));
             Creatures.Add(new Creature("Parent2_Yellow_Dark_Male", "Male", new Gene("ShellColor", 'B', 'Y'), "Yellow"));
@@ -112,17 +113,29 @@ public class BreedingUI : MonoBehaviour
             {
                 Debug.Log($"[Start] Creature: {c.CreatureName} ({c.Gender}) [{c.GetPhenotype()}]");
             }
+=======
+            Creatures.Add(new Creature("Parent2_Green_Light_Male", "Male", new List<Gene> { new Gene("ShellColor", 'b', 'Y') }, "Green"));
+            Creatures.Add(new Creature("Parent2_Green_Dark_Female", "Female", new List<Gene> { new Gene("ShellColor", 'B', 'b') }, "Green"));
+
+>>>>>>> Stashed changes
         }
 
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelThree")
         {
             // Level 3 parents
+<<<<<<< Updated upstream
             Creatures.Add(new Creature("LongHorn", "Male", new Gene("HornLength", 'L', 'L'), "Green"));
             Creatures.Add(new Creature("MediumHorn", "Male", new Gene("HornLength", 'L', 'S'), "Green"));
             Creatures.Add(new Creature("MediumHorn", "Female", new Gene("HornLength", 'S', 'L'), "Yellow"));
             Creatures.Add(new Creature("ShortHorn", "Female", new Gene("HornLength", 'S', 'S'), "Yellow"));
 
 
+=======
+            Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
+            Creatures.Add(new Creature("MediumHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Green"));
+            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
+>>>>>>> Stashed changes
         }
 
         PopulateDropdown(Parent1);
