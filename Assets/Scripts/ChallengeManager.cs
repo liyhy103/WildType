@@ -16,6 +16,7 @@ public class Challenge : MonoBehaviour
     public Creature currentCreature;
     private string currentChallenge = "";
     public string CurrentChallenge => currentChallenge;
+    private string result = "";
 
     public void Start()
     {
@@ -31,6 +32,10 @@ public class Challenge : MonoBehaviour
         SetListItem();
         challengeText.text = "";
         challengeText.gameObject.SetActive(false);
+
+        PickNextChallenge();
+        challengeText.gameObject.SetActive(true);
+
     }
 
     private void SetListItem()
@@ -52,28 +57,13 @@ public class Challenge : MonoBehaviour
 
     public void OnButtonClick()
     {
-        //check challenges is not empty
-        if (challenges.Count > 0)
-        {
-            currentChallenge = challenges[UnityEngine.Random.Range(0, challenges.Count)];
-            string challenge = "Breed a " + currentChallenge + " creature";
-            UnityEngine.Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
-            
-            SetChallengeText(challenge);
-        }
-        else
-        {
-            //print message saying all challenges completed
-            string completed = "All challenges have been completed";
-            SetChallengeText(completed);
-        }
-            //displays the challenge
-            challengeText.gameObject.SetActive(true);
+       
     }
 
-    public void SetResult(string phenotype)
+    public void SetResult(string phenotype, Creature creature)
     {
-        currentCreature = new Creature("Temp", "Unknown", new Gene("CoatColor", phenotype[0], phenotype[0]));
+        result = phenotype;
+        currentCreature = creature;
         Debug.Log("[Challenge] Received result: " + phenotype);
     }
 
@@ -81,37 +71,38 @@ public class Challenge : MonoBehaviour
     {
         if (currentCreature == null)
         {
-            UnityEngine.Debug.LogWarning("No creature has been bred yet!");
-            return;  // Skip the challenge check if there's no creature
+            Debug.LogWarning("No creature has been bred yet!");
+            return;
         }
 
-        //check if set challenge is blue or red
-        if (currentChallenge == "Green")
+        if (result.ToLower() == currentChallenge.ToLower())
         {
-            //check if creature is blue 
-            bool CreatureIsBlue = CheckCreatureHasGene("Green");
-            if (CreatureIsBlue)
-            {
-                String Completed = "You Completed this challenge";
-                SetChallengeText(Completed);
-                challenges.Remove(currentChallenge);
-                currentChallenge = "";
-            }
-        }
-        else if (currentChallenge == "Yellow")
-        {
-            //check if creature is red 
-            bool CreatureIsred = CheckCreatureHasGene("Yellow");
-            if (CreatureIsred)
-            {
-                String Completed = "You Completed this challenge";
-                SetChallengeText(Completed);
-                challenges.Remove(currentChallenge);
-                currentChallenge = "";
-            }
+            SetChallengeText("You Completed this challenge");
+            challenges.Remove(currentChallenge);
+            PickNextChallenge();
+
+            // Optionally reset currentCreature & result so it only triggers once per challenge
+            currentCreature = null;
+            result = "";
         }
     }
-   
+    private void PickNextChallenge()
+    {
+        if (challenges.Count > 0)
+        {
+            currentChallenge = challenges[0];
+            string challenge = "Breed a " + currentChallenge + " creature";
+            SetChallengeText(challenge);
+            Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
+        }
+        else
+        {
+            string completed = "All challenges have been completed";
+            SetChallengeText(completed);
+            currentChallenge = "";
+        }
+    }
+
 
     private bool CheckCreatureHasGene(string challengeGene)
     {

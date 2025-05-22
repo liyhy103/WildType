@@ -1,9 +1,26 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class LevelOneBreedingUIHandler : IBreedingUIHandler
 {
+    private Challenge challenge;
+
+    public void Awake()
+    {
+        challenge = GameObject.FindObjectOfType<Challenge>();
+        if (challenge == null)
+        {
+            UnityEngine.Debug.LogError("Challenge instance not found in scene!");
+        }
+    }
+    public LevelOneBreedingUIHandler()
+    {
+        challenge = GameObject.FindObjectOfType<Challenge>();
+
+    }
+
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
         ui.greenOffspringDisplay?.SetActive(false);
@@ -11,10 +28,12 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 
         if (offspring.GetPhenotype() == "Green")
         {
+            challenge.SetResult(offspring.GetPhenotype(), offspring);
             ui.greenOffspringDisplay?.SetActive(true);
         }
         else if (offspring.GetPhenotype() == "Yellow")
         {
+            challenge.SetResult(offspring.GetPhenotype(), offspring);
             ui.yellowOffspringDisplay?.SetActive(true);
         }
     }
