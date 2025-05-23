@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
+  Gender: Female
   Phenotype: Medium
   BodyColor: Green
 --- !u!95 &13885448
@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
+  Gender: Female
   Phenotype: Medium
   BodyColor: Green
 --- !u!95 &841129610
@@ -5114,7 +5114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
+  Gender: Female
   Phenotype: Medium
   BodyColor: Green
 --- !u!95 &1797253487
