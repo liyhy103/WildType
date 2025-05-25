@@ -14,11 +14,10 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         string phenotype = offspring.GetPhenotype("shellcolor");
         string gender = offspring.Gender;
 
-
         ui.greenOffspringDisplay?.SetActive(false);
-        ui.yellowOffspringDisplay?.SetActive(false);
+        ui.yellowOffspringDisplay?.SetActive(false);       // now unused
         ui.greenLightShellDisplay?.SetActive(false);
-        ui.yellowLightShellDisplay?.SetActive(false);
+        ui.yellowLightShellDisplay?.SetActive(false);      // now unused
 
         if (phenotype == "Dark" && gender == "Male")
         {
@@ -26,7 +25,7 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         }
         else if (phenotype == "Dark" && gender == "Female")
         {
-            ui.yellowOffspringDisplay?.SetActive(true);
+            ui.greenOffspringDisplay?.SetActive(true);
         }
         else if (phenotype == "Light" && gender == "Male")
         {
@@ -34,9 +33,10 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         }
         else if (phenotype == "Light" && gender == "Female")
         {
-            ui.yellowLightShellDisplay?.SetActive(true);
+            ui.greenLightShellDisplay?.SetActive(true); 
         }
     }
+
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
     {
