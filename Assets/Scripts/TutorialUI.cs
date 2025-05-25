@@ -74,11 +74,11 @@ public class TutorialUI : MonoBehaviour
         Creature p1 = breedingUI.GetCreature(index1);
         Creature p2 = breedingUI.GetCreature(index2);
 
-        Debug.Log($"[Check] Parent1: {p1.CreatureName}, Gender: {p1.Gender}, Pheno: {p1.GetPhenotype()}");
-        Debug.Log($"[Check] Parent2: {p2.CreatureName}, Gender: {p2.Gender}, Pheno: {p2.GetPhenotype()}");
+        Debug.Log($"[Check] Parent1: {p1.CreatureName}, Gender: {p1.Gender}, Pheno: {p1.GetPhenotype("coatcolor")}");
+        Debug.Log($"[Check] Parent2: {p2.CreatureName}, Gender: {p2.Gender}, Pheno: {p2.GetPhenotype("coatcolor")}");
 
-        bool isP1Correct = p1.Gender == "Male" && p1.GetPhenotype() == "Green";
-        bool isP2Correct = p2.Gender == "Female" && p2.GetPhenotype() == "Yellow";
+        bool isP1Correct = p1.Gender == "Male" && p1.GetPhenotype("coatcolor") == "Green";
+        bool isP2Correct = p2.Gender == "Female" && p2.GetPhenotype("coatcolor") == "Yellow";
 
         if (isP1Correct && isP2Correct && step == 1){
             step = 2;
