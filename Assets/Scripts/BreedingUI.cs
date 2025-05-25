@@ -104,7 +104,7 @@ public class BreedingUI : MonoBehaviour
         }
         else if (sceneName == "LevelThree")
         {
-            breedingUIHandler = new LevelThreeBreedingUIHandler(); 
+            breedingUIHandler = new LevelThreeBreedingUIHandler(challengeManager as LevelThreeChallenges); 
 
         }
         else if (sceneName == "TutorialLevel")
@@ -139,9 +139,9 @@ public class BreedingUI : MonoBehaviour
         {
             // Level 3 parents (all green)
             Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Green"));
-            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
+            Creatures.Add(new Creature("ShortHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
+            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Green"));
+            Creatures.Add(new Creature("NoHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
 
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")

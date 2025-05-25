@@ -4925,7 +4925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1560396991
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6753,7 +6753,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -376.92023, y: -86.61676}
-  m_SizeDelta: {x: 98.1594, y: 115.2335}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2073781879
 MonoBehaviour:
@@ -6915,7 +6915,7 @@ MonoBehaviour:
   heartSpawn1: {fileID: 1173395711}
   heartSpawn2: {fileID: 1844660517}
   heartDuration: 1
-  challengeManager: {fileID: 0}
+  challengeManager: {fileID: 2073781881}
   OffspringText: {fileID: 2010293486}
   Parent1GenotypeText: {fileID: 215634357}
   Parent2GenotypeText: {fileID: 1023049086}
