@@ -324,7 +324,7 @@ public class BreedingUI : MonoBehaviour
 
         if (challengeManager != null)
         {
-            challengeManager.SetResult(phenotype);
+            challengeManager.SetResult(phenotype, offspring);
         }
         lastOffspring = offspring;
         SaveToCompendiumButton.gameObject.SetActive(true);

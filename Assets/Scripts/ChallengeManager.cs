@@ -55,11 +55,6 @@ public class Challenge : MonoBehaviour
         }
     }
 
-    public void OnButtonClick()
-    {
-       
-    }
-
     public void SetResult(string phenotype, Creature creature)
     {
         result = phenotype;
@@ -101,22 +96,5 @@ public class Challenge : MonoBehaviour
             SetChallengeText(completed);
             currentChallenge = "";
         }
-    }
-
-
-    private bool CheckCreatureHasGene(string challengeGene)
-    {
-        
-        if (currentCreature != null)
-        {
-            // Get the phenotype of the current creature
-            string creaturePhenotype = currentCreature.GetPhenotype();
-
-            // Check if the creature's phenotype matches the challenge gene
-            return creaturePhenotype.Equals(challengeGene, StringComparison.OrdinalIgnoreCase);
-        }
-        UnityEngine.Debug.LogWarning("currentCreature is not assigned!");
-
-        return false;
     }
 }

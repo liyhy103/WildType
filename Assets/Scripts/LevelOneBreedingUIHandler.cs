@@ -28,12 +28,12 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 
         if (offspring.GetPhenotype("coatcolor") == "Green")
         {
-            challenge.SetResult(offspring.GetPhenotype(), offspring);
+
             ui.greenOffspringDisplay?.SetActive(true);
         }
         else if (offspring.GetPhenotype("coatcolor") == "Yellow")
         {
-            challenge.SetResult(offspring.GetPhenotype(), offspring);
+
             ui.yellowOffspringDisplay?.SetActive(true);
         }
     }
