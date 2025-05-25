@@ -13,10 +13,13 @@ public class Challenge : MonoBehaviour
 
     public TMP_Text challengeText;
     private List<string> challenges = new List<string>();
-    public Creature currentCreature;
-    private string currentChallenge = "";
+
+    protected string currentChallenge = "";
     public string CurrentChallenge => currentChallenge;
-    private string result = "";
+
+    public Creature currentCreature;
+
+    protected string result = "";
 
     public void Start()
     {

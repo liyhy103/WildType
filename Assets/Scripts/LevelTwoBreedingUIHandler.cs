@@ -1,9 +1,16 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class LevelTwoBreedingUIHandler : IBreedingUIHandler
 {
+    private LevelTwoChallenge challenge;
+
+    public LevelTwoBreedingUIHandler(LevelTwoChallenge challenge)
+    {
+        this.challenge = challenge;
+    }
     public void HandleBreed(Creature p1, Creature p2, BreedingUI context)
     {
         throw new System.NotImplementedException();
@@ -11,6 +18,18 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
 
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
+        if (ui == null)
+        {
+            UnityEngine.Debug.LogError("BreedingUI reference is null!");
+            return;
+        }
+
+        if (offspring == null)
+        {
+            UnityEngine.Debug.LogError("Offspring Creature is null!");
+            return;
+        }
+
         string phenotype = offspring.GetPhenotype("shellcolor");
         string gender = offspring.Gender;
 
@@ -22,19 +41,25 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         if (phenotype == "Dark" && gender == "Male")
         {
             ui.greenOffspringDisplay?.SetActive(true);
+
         }
         else if (phenotype == "Dark" && gender == "Female")
         {
             ui.greenOffspringDisplay?.SetActive(true);
+
         }
         else if (phenotype == "Light" && gender == "Male")
         {
             ui.greenLightShellDisplay?.SetActive(true);
+
         }
         else if (phenotype == "Light" && gender == "Female")
         {
-            ui.greenLightShellDisplay?.SetActive(true); 
+            ui.greenLightShellDisplay?.SetActive(true);
+
         }
+
+        challenge?.SetResult(phenotype, gender, offspring);
     }
 
 

@@ -1,8 +1,9 @@
-using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class BreedingUI : MonoBehaviour
 {
@@ -86,7 +87,7 @@ public class BreedingUI : MonoBehaviour
                 breedingStrategy = new DihybridInheritance();
                 break;
             default:
-                Debug.LogWarning("Unsupported breeding type selected.");
+                UnityEngine.Debug.LogWarning("Unsupported breeding type selected.");
                 break;
         }
 
@@ -98,11 +99,13 @@ public class BreedingUI : MonoBehaviour
         }
         else if (sceneName == "LevelTwo")
         {
-            breedingUIHandler = new LevelTwoBreedingUIHandler();
+            breedingUIHandler = new LevelTwoBreedingUIHandler(challengeManager as LevelTwoChallenge);
+
         }
         else if (sceneName == "LevelThree")
         {
-            breedingUIHandler = new LevelThreeBreedingUIHandler();
+            breedingUIHandler = new LevelThreeBreedingUIHandler(); 
+
         }
         else if (sceneName == "TutorialLevel")
         {
@@ -155,7 +158,16 @@ public class BreedingUI : MonoBehaviour
             Creatures.Add(new Creature("Yellow_ShortTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
             Creatures.Add(new Creature("Green_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'G', 'y'), new Gene("TailLength", 'l', 'l') }, "Green"));
         }
-        
+
+        if (challengeManager == null)
+        {
+            challengeManager = FindObjectOfType<Challenge>();
+            if (challengeManager == null)
+            {
+                UnityEngine.Debug.LogWarning("ChallengeManager not found in the scene!");
+            }
+        }
+
         PopulateDropdown(Parent1);
         PopulateDropdown(Parent2);
 
@@ -232,7 +244,7 @@ public class BreedingUI : MonoBehaviour
                          meta.BodyColor == bodyColor;
 
             obj.SetActive(match);
-            Debug.Log($"[Parent1] {obj.name} | Match: {match} vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor})");
+            UnityEngine.Debug.Log($"[Parent1] {obj.name} | Match: {match} vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor})");
 
 
         }
@@ -263,7 +275,7 @@ public class BreedingUI : MonoBehaviour
                          meta.BodyColor == bodyColor;
 
             obj.SetActive(match);
-            Debug.Log($"[Parent2] {obj.name} | Match: {match} vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor})");
+            UnityEngine.Debug.Log($"[Parent2] {obj.name} | Match: {match} vs Creature(Gender:{gender}, Phenotype:{phenotype}, Color:{bodyColor})");
 
         }
         if (Parent2GenotypeText != null)
@@ -338,7 +350,7 @@ public class BreedingUI : MonoBehaviour
         if (lastOffspring != null)
         {
             Sprite sprite = breedingUIHandler?.GetOffspringSprite(this);
-            Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
+            UnityEngine.Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
 
             CompendiumManager.Instance.AddToCompendium(lastOffspring, sprite);
             SaveToCompendiumButton.gameObject.SetActive(false);
@@ -366,7 +378,7 @@ public class BreedingUI : MonoBehaviour
         if (index >= 0 && index < Creatures.Count)
             return Creatures[index];
 
-        Debug.LogWarning($"[BreedingUI] Invalid creature index: {index}");
+        UnityEngine.Debug.LogWarning($"[BreedingUI] Invalid creature index: {index}");
         return null;
     }
 

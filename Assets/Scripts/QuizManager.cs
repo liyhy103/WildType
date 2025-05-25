@@ -55,22 +55,22 @@ public class QuizManager : MonoBehaviour
         if (index == question.correctAnswerIndex)
         {
             correctAnswersCount++;
-            resultText.text = "Correct!"; // Show correct answer message
+            resultText.text = (correctAnswersCount + "/3 correct"); // Show correct answer message
         }
         else
         {
-            resultText.text = "Wrong!"; // Show wrong answer message
+            resultText.text = (correctAnswersCount + "/3 correct"); // Show wrong answer message
         }
 
             currentQuestionIndex++; // Move to the next question
 
-            if (currentQuestionIndex < quizOptions.questions.Count)
+            if (currentQuestionIndex != quizOptions.questions.Count)
             {
-                Invoke(nameof(ShowQuestion), 1.5f); // Show the next question after a delay
+                Invoke(nameof(ShowQuestion), 1f); // Show the next question after a delay
              }
             else
             {
-                Invoke(nameof(EndQuiz), 1.5f); // End the quiz after all questions are answered
+                Invoke(nameof(EndQuiz), 1f); // End the quiz after all questions are answered
              }
         }
     void EndQuiz()
