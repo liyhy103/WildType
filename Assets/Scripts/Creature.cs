@@ -8,6 +8,7 @@ public class Creature
     // Store multiple traits, e.g., 'coatcolor', 'hairtype'
     public Dictionary<string, Gene> Genes;
     public string BodyColor;
+    public string SourceLevel;
 
     public Creature(string name, string gender, List<Gene> geneList, string bodyColor = "")
     {

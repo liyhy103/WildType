@@ -202,7 +202,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1318265785}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999155
+  m_Size: 0.9999135
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -678,8 +678,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 417815644}
   m_HandleRect: {fileID: 417815643}
   m_Direction: 0
-  m_Value: 1.0106277
-  m_Size: 0.99978596
+  m_Value: 0.37860844
+  m_Size: 0.99985856
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -756,7 +756,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.11819711, y: 241.63556}
+  m_AnchoredPosition: {x: -0.22941518, y: 241.53354}
   m_SizeDelta: {x: 583, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1216806082
@@ -794,8 +794,8 @@ MonoBehaviour:
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -1170,6 +1170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureEntryPrefab: {fileID: 5307133327731113658, guid: 2404f684c0265e6498cd73ed15e263d0, type: 3}
   creatureListParent: {fileID: 1216806081}
+  levelHeaderPrefab: {fileID: 1489273017656433568, guid: d3986694b62737c44a6cc697fefe6cf6, type: 3}
 --- !u!1 &1448507813
 GameObject:
   m_ObjectHideFlags: 0
