@@ -135,9 +135,9 @@ public class BreedingUI : MonoBehaviour
         {
             // Level 3 parents (all green)
             Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
-            Creatures.Add(new Creature("MediumHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Green"));
-            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
+            Creatures.Add(new Creature("ShortHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'S') }, "Green"));
+            Creatures.Add(new Creature("ShortHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'L') }, "Green"));
+            Creatures.Add(new Creature("NoHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
 
         }
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TutorialLevel")
@@ -275,6 +275,13 @@ public class BreedingUI : MonoBehaviour
 
     void OnBreedClicked()
     {
+
+        if (Parent1.value == Parent2.value || Creatures[Parent1.value].Gender == Creatures[Parent2.value].Gender)
+        {
+            OffspringText.text = "Breeding requires one male and one female parent!";
+            return;
+        }
+
         int index1 = Parent1.value;
         int index2 = Parent2.value;
 

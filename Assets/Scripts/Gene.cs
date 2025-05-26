@@ -60,8 +60,8 @@ public class Gene
     private string ResolveHornLengthPhenotype(char a1, char a2)
     {
         if (a1 == 'L' && a2 == 'L') return "Long";
-        if ((a1 == 'L' && a2 == 'S') || (a1 == 'S' && a2 == 'L')) return "Medium";
-        if (a1 == 'S' && a2 == 'S') return "Short";
+        if ((a1 == 'L' && a2 == 'S') || (a1 == 'S' && a2 == 'L')) return "Short";
+        if (a1 == 'S' && a2 == 'S') return "No";
         return "Unknown";
     }
 

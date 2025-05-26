@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 13885448}
   - component: {fileID: 13885447}
   m_Layer: 5
-  m_Name: Parent2_Green_Medium_Female
+  m_Name: Parent2_Green_Short_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!95 &13885448
 Animator:
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Male
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!95 &175913412
 Animator:
@@ -1480,7 +1480,7 @@ GameObject:
   - component: {fileID: 615975436}
   - component: {fileID: 615975435}
   m_Layer: 5
-  m_Name: Parent2_Green_Short_Female
+  m_Name: Parent2_Green_No_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1518,7 +1518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Short
+  Phenotype: No
   BodyColor: Green
 --- !u!95 &615975436
 Animator:
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!95 &841129610
 Animator:
@@ -2660,7 +2660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Short
+  Phenotype: No
   BodyColor: Green
 --- !u!95 &1100306000
 Animator:
@@ -3482,7 +3482,7 @@ GameObject:
   - component: {fileID: 1443730171}
   - component: {fileID: 1443730174}
   m_Layer: 5
-  m_Name: Parent2_Green_Medium_Male
+  m_Name: Parent2_Green_Short_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3580,7 +3580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Male
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!1 &1447301321
 GameObject:
@@ -4797,7 +4797,7 @@ GameObject:
   - component: {fileID: 1726182286}
   - component: {fileID: 1726182285}
   m_Layer: 5
-  m_Name: Parent1_Green_Short_Female
+  m_Name: Parent1_Green_No_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4835,7 +4835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Short
+  Phenotype: No
   BodyColor: Green
 --- !u!95 &1726182286
 Animator:
@@ -5077,7 +5077,7 @@ GameObject:
   - component: {fileID: 1797253487}
   - component: {fileID: 1797253486}
   m_Layer: 5
-  m_Name: Parent1_Green_Medium_Female
+  m_Name: Parent1_Green_Short_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5115,7 +5115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Female
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!95 &1797253487
 Animator:
@@ -6087,7 +6087,7 @@ GameObject:
   - component: {fileID: 2135982741}
   - component: {fileID: 2135982744}
   m_Layer: 5
-  m_Name: Parent1_Green_Medium_Male
+  m_Name: Parent1_Green_Short_Male
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6185,7 +6185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gender: Male
-  Phenotype: Medium
+  Phenotype: Short
   BodyColor: Green
 --- !u!1 &2140115826
 GameObject:
