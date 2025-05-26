@@ -130,8 +130,6 @@ public class BreedingUI : MonoBehaviour
         {
             // Level 2 parents 
             Creatures.Add(new Creature("Parent2_Green_Light_Male", "Male", new List<Gene> { new Gene("ShellColor", 'b', 'Y') }, "Green"));
-            Creatures.Add(new Creature("Parent2_Yellow_Light_Female", "Female", new List<Gene> { new Gene("ShellColor", 'b', 'b') }, "Yellow"));
-            Creatures.Add(new Creature("Parent2_Yellow_Dark_Male", "Male", new List<Gene> { new Gene("ShellColor", 'B', 'Y') }, "Yellow"));
             Creatures.Add(new Creature("Parent2_Green_Dark_Female", "Female", new List<Gene> { new Gene("ShellColor", 'B', 'b') }, "Green"));
         }
 
