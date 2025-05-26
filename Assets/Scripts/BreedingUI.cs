@@ -286,6 +286,12 @@ public class BreedingUI : MonoBehaviour
 
     void OnBreedClicked()
     {
+        if (Parent1.value == Parent2.value || Creatures[Parent1.value].Gender == Creatures[Parent2.value].Gender)
+        {
+            OffspringText.text = "Breeding requires one male and one female parent!";
+            return;
+        }
+
         int index1 = Parent1.value;
         int index2 = Parent2.value;
 
