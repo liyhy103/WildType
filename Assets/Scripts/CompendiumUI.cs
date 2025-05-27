@@ -49,6 +49,11 @@ public class CompendiumUI : MonoBehaviour
             foreach (var creature in groupedCreatures[level])
             {
                 GameObject entry = Instantiate(creatureEntryPrefab, creatureListParent);
+                var clickHandler = entry.GetComponent<CompendiumEntryClickHandler>();
+                if (clickHandler != null)
+                {
+                    clickHandler.creatureData = creature;
+                }
                 TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
                 Image image = entry.transform.Find("CreatureImage")?.GetComponent<Image>();
 

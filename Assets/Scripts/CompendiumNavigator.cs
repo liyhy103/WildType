@@ -3,6 +3,21 @@ using UnityEngine;
 
 public class CompendiumNavigator : MonoBehaviour
 {
+    public static CompendiumNavigator Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Optional if you need it to persist across scenes
+            Debug.Log("[CompendiumNavigator] Singleton instance assigned.");
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public void GoToCompendium()
     {
         CompendiumManager.Instance.PreviousSceneName = SceneManager.GetActiveScene().name;

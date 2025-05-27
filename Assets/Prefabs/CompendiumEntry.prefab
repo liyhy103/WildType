@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 23914980314149202}
   - component: {fileID: 2968271310667327435}
   - component: {fileID: -8560188212136332496}
+  - component: {fileID: 8208700367282564341}
   m_Layer: 5
   m_Name: CompendiumEntry
   m_TagString: Untagged
@@ -234,6 +235,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8208700367282564341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307133327731113658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd938ca10163bbb4da32e0563a5d02b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7676465248631804314
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
