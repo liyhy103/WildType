@@ -56,7 +56,6 @@ public class BreedingUI : MonoBehaviour
 
     public BreedingType breedingType = BreedingType.Mendelian;
     private IBreedingStrategy breedingStrategy;
-    // Return the gene trait name according to the level type
     private string GetCurrentTrait()
     {
         return breedingType switch
@@ -192,16 +191,13 @@ public class BreedingUI : MonoBehaviour
             Debug.Log($"[BreedingUI] Added compendium creature: {compendiumCreature.CreatureName} ({compendiumCreature.Gender})");
         }
 
-        // NOW populate dropdowns AFTER list is complete
         PopulateDropdown(Parent1);
         PopulateDropdown(Parent2);
 
-        // Hook up listeners AFTER populating options
         Parent1.onValueChanged.AddListener(UpdateCreatureDisplayParent1);
         Parent2.onValueChanged.AddListener(UpdateCreatureDisplayParent2);
         BreedButton.onClick.AddListener(OnBreedClicked);
 
-        // Select and show the transferred creature if applicable
         if (compendiumCreature != null && compendiumCreature.SourceLevel == SceneManager.GetActiveScene().name)
         {
             int index = Creatures.FindIndex(c =>
@@ -224,7 +220,6 @@ public class BreedingUI : MonoBehaviour
         }
         else
         {
-            // Fallback to initial display if no compendium transfer
             UpdateCreatureDisplayParent1(Parent1.value);
             UpdateCreatureDisplayParent2(Parent2.value);
         }
@@ -237,7 +232,7 @@ public class BreedingUI : MonoBehaviour
     {
         Debug.Log($"[PopulateDropdown] Populating {dropdown.name} with {Creatures.Count} creatures.");
 
-        int previousIndex = dropdown.value;  // Store current selection
+        int previousIndex = dropdown.value;  
         dropdown.ClearOptions();
 
         List<string> names = new List<string>();
@@ -275,7 +270,6 @@ public class BreedingUI : MonoBehaviour
 
         dropdown.AddOptions(names);
 
-        // Restore previous selection if still valid
         if (previousIndex >= 0 && previousIndex < dropdown.options.Count)
         {
             dropdown.value = previousIndex;
@@ -285,17 +279,15 @@ public class BreedingUI : MonoBehaviour
             dropdown.value = 0;
         }
 
-        // Safe value selection
         int safeIndex = Mathf.Clamp(previousIndex, 0, dropdown.options.Count - 1);
         dropdown.value = safeIndex;
-        dropdown.RefreshShownValue();  // Force the dropdown to show the right text
+        dropdown.RefreshShownValue();  
         Debug.Log($"[PopulateDropdown] Final selection index for {dropdown.name}: {safeIndex}");
     }
 
 
     private bool ShouldCompareBodyColor()
     {
-        // Only compare BodyColor in levels that visually care about it
         string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         return levelName == "LevelOne" || levelName == "LevelFour";
     }
@@ -317,7 +309,7 @@ public class BreedingUI : MonoBehaviour
 
             if (ShouldCompareBodyColor())
             {
-                match &= meta.BodyColor.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
+                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
             }
 
             Debug.Log($"[MATCH DEBUG] meta.Gender={meta.Gender}, meta.Phenotype={meta.Phenotype}, meta.BodyColor={meta.BodyColor} || Creature(Gender:{creature.Gender}, Phenotype:{creature.GetPhenotype(currentTrait)}, Trait={currentTrait})");
@@ -345,7 +337,7 @@ public class BreedingUI : MonoBehaviour
 
             if (ShouldCompareBodyColor())
             {
-                match &= meta.BodyColor.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
+                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
             }
 
             Debug.Log($"[MATCH DEBUG] meta.Gender={meta.Gender}, meta.Phenotype={meta.Phenotype}, meta.BodyColor={meta.BodyColor} || Creature(Gender:{creature.Gender}, Phenotype:{creature.GetPhenotype(currentTrait)}, Trait={currentTrait})");
@@ -486,7 +478,6 @@ public class BreedingUI : MonoBehaviour
         {
             Creatures.Add(creature);
 
-            // Refresh dropdowns
             PopulateDropdown(Parent1);
             PopulateDropdown(Parent2);
 
