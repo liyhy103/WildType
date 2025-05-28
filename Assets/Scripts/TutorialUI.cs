@@ -62,9 +62,10 @@ public class TutorialUI : MonoBehaviour
         TutorialPanel.SetActive(false);
         ContinueButton.gameObject.SetActive(false);
         SkipButton.gameObject.SetActive(false);
+        BreedButton.interactable = true;
 
-        // Start checking every 1 second whether the correct parents are selected
-        InvokeRepeating(nameof(CheckParentSelection), 1f, 1f);
+        CancelInvoke(nameof(CheckParentSelection));
+        Debug.Log("Skipped.");
     }
 
     void CheckParentSelection(){
@@ -81,13 +82,15 @@ public class TutorialUI : MonoBehaviour
         bool isP2Correct = p2.Gender == "Female" && p2.GetPhenotype("coatcolor") == "Yellow";
 
         if (isP1Correct && isP2Correct && step == 1){
-            step = 2;
+            step = 3;
             CancelInvoke(nameof(CheckParentSelection));
-            BreedButton.interactable = false; // wait for challenge before allowing breed
 
-            TutorialText.text = "Perfect!\nNow click the <b>Challenge</b> button to see your goal!";
+            TutorialText.text = "Perfect!\nNow read the <b>Challenge</b> and click the <b>Breed</b> button to continue!";;
             TutorialPanel.SetActive(true);
             StartCoroutine(HidePanelAfterDelay(2.5f));
+
+            BreedButton.interactable = true;
+            Debug.Log("[Tutorial] Breed button is now interactable.");
         }
     }
 
@@ -97,22 +100,6 @@ public class TutorialUI : MonoBehaviour
     }
 
     void Update(){
-        // Step 2 → Step 3: challenge must be selected
-        if (step < 3 && challengeManager != null){
-            string c = challengeManager.CurrentChallenge;
-            Debug.Log($"[Tutorial] Step = {step}, challengeManager name = {challengeManager.name}, Challenge = {c}");
-            if (!string.IsNullOrEmpty(c)){
-                Debug.Log("[Tutorial] Challenge triggered! Unlocking Breed.");
-
-                step = 3;
-                TutorialText.text = "Now click the <b>Breed</b> button to try and complete the challenge!";
-                TutorialPanel.SetActive(true);
-                StartCoroutine(HidePanelAfterDelay(2.5f));
-                BreedButton.interactable = true;
-                Debug.Log("[Tutorial] Breed button is now interactable.");
-            }
-        }
-
         // Step 3: challenge result check
         if (step == 3 && challengeManager != null){
             if (!challengeChecked && challengeManager.currentCreature != null){
@@ -124,17 +111,18 @@ public class TutorialUI : MonoBehaviour
 
     IEnumerator CheckChallengeOutcome(){
         yield return new WaitForSeconds(1.0f); // let challenge manager check
+        
+        TutorialText.text = "Challenge result has been updated.";
+        TutorialPanel.SetActive(true);
+        StartCoroutine(HidePanelAfterDelay(2.5f));
 
         if (challengeManager.CurrentChallenge == ""){
             step = 4;
-            TutorialText.text = "Well done!\nYou've completed the challenge!";
-        }
-        else{
-            TutorialText.text = "Oops!\nThat creature doesn't match the challenge. Try again!";
-        }
+            TutorialText.text = "Well done!\nYou've completed all challenge!";
 
-        TutorialPanel.SetActive(true);
-        StartCoroutine(HidePanelAfterDelay(2.5f));
+            TutorialPanel.SetActive(true);
+            StartCoroutine(HidePanelAfterDelay(2.5f));
+        }
     }
 
     // Called by BreedingUI after offspring is created
