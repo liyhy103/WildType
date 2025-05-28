@@ -5,7 +5,7 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
         string tailType = offspring.GetPhenotype("TailLength").ToLower();
-        string bodyColor = offspring.BodyColor.ToLower();
+        string bodyColor = offspring.GetPhenotype("CoatColor").ToLower();
 
         foreach (GameObject obj in ui.level4OffspringDisplayObjects)
         {
@@ -20,6 +20,7 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
                          meta.Phenotype.ToLower() == tailType;
 
             obj.SetActive(match);
+            Debug.Log($"[Level4 Show] Matching: {obj.name} | Meta = {meta.BodyColor}/{meta.Phenotype}, Creature = {bodyColor}/{tailType}, Match = {match}");
         }
     }
 

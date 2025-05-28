@@ -151,8 +151,8 @@ public class BreedingUI : MonoBehaviour
         else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LevelFour")
         {
             // Level 4 parents
-            Creatures.Add(new Creature("Green_LongTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'L', 'L') }, "Green"));
-            Creatures.Add(new Creature("Yellow_LongTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'L', 'l') }, "Yellow"));
+            Creatures.Add(new Creature("Green_LongTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'y'), new Gene("TailLength", 'L', 'L') }, "Green"));
+            Creatures.Add(new Creature("Yellow_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
             Creatures.Add(new Creature("Yellow_ShortTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
             Creatures.Add(new Creature("Green_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'G', 'y'), new Gene("TailLength", 'l', 'l') }, "Green"));
         }
