@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CompendiumPopupManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class CompendiumPopupManager : MonoBehaviour
     public GameObject popupPanel;
     public TMP_Text popupText;
     private Creature currentCreature;
+
+    public GameObject incompatiblePopup;
+
 
     void Awake()
     {
@@ -32,6 +36,17 @@ public class CompendiumPopupManager : MonoBehaviour
 
     public void AssignToParent1()
     {
+        if (!IsCreatureCompatible())
+        {
+            Debug.LogWarning("[Popup] Incompatible creature!");
+            if (incompatiblePopup != null)
+            {
+                incompatiblePopup.SetActive(true);
+                StartCoroutine(HidePopupAfterDelay(3f));
+            }
+            return; 
+        }
+
         CreatureTransfer.CreatureToAssign = currentCreature;
         CreatureTransfer.TargetParentIndex = 1;
         Debug.Log($"[Popup] Assigning {currentCreature.CreatureName} to Parent 1 and switching scene.");
@@ -42,6 +57,17 @@ public class CompendiumPopupManager : MonoBehaviour
 
     public void AssignToParent2()
     {
+        if (!IsCreatureCompatible())
+        {
+            Debug.LogWarning("[Popup] Incompatible creature!");
+            if (incompatiblePopup != null)
+            {
+                incompatiblePopup.SetActive(true);
+                StartCoroutine(HidePopupAfterDelay(3f));
+            }
+            return; 
+        }
+
         CreatureTransfer.CreatureToAssign = currentCreature;
         CreatureTransfer.TargetParentIndex = 2;
         Debug.Log($"[Popup] Assigning {currentCreature.CreatureName} to Parent 2 and switching scene.");
@@ -51,9 +77,16 @@ public class CompendiumPopupManager : MonoBehaviour
     }
 
 
+    private IEnumerator HidePopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        incompatiblePopup.SetActive(false);
+    }
 
-
-
+    private bool IsCreatureCompatible()
+    {
+        return currentCreature?.SourceLevel == CompendiumManager.Instance.PreviousSceneName;
+    }
 
     public void Cancel()
     {

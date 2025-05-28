@@ -5745,11 +5745,11 @@ PrefabInstance:
     - target: {fileID: 3355641819388907507, guid: 492113a94b6578044b03e87d22a363ae, type: 3}
       propertyPath: m_Resource
       value: 
-      objectReference: {fileID: 8300000, guid: 14904dc13f1b8424d9cf902430e40b04, type: 3}
+      objectReference: {fileID: 8300000, guid: 7cbdd9a09addbd94492e4cd1b673c3cd, type: 3}
     - target: {fileID: 3355641819388907507, guid: 492113a94b6578044b03e87d22a363ae, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 14904dc13f1b8424d9cf902430e40b04, type: 3}
+      objectReference: {fileID: 8300000, guid: 7cbdd9a09addbd94492e4cd1b673c3cd, type: 3}
     - target: {fileID: 3355641819388907507, guid: 492113a94b6578044b03e87d22a363ae, type: 3}
       propertyPath: DopplerLevel
       value: 0
