@@ -36,6 +36,19 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
 
     public Sprite GetOffspringSprite(BreedingUI ui)
     {
+        foreach (GameObject obj in ui.level4OffspringDisplayObjects)
+        {
+            if (obj.activeSelf)
+            {
+                var image = obj.GetComponent<UnityEngine.UI.Image>();
+                if (image != null && image.sprite != null)
+                {
+                    return image.sprite;
+                }
+            }
+        }
+
+        Debug.LogWarning("[LevelFour] No active offspring sprite found.");
         return null;
     }
 }
