@@ -1863,10 +1863,14 @@ PrefabInstance:
     - target: {fileID: 9126843269009112078, guid: 23b40a16339ca8d409f11953fa250db8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2140115826}
+      objectReference: {fileID: 8317987933051560799, guid: 1ae466a6c17f717469644cccb59da0c8, type: 3}
     - target: {fileID: 9126843269009112078, guid: 23b40a16339ca8d409f11953fa250db8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: GoToCompendium
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126843269009112078, guid: 23b40a16339ca8d409f11953fa250db8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CompendiumNavigator, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4754,7 +4758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1857031337556341217, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5900374289078640441, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

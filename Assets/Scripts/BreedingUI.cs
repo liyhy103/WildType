@@ -113,7 +113,7 @@ public class BreedingUI : MonoBehaviour
         if (sceneName == "LevelOne")
         {
             Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'G') }, "Green"));
-            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y') }, "Yellow"));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'g', 'g') }, "Yellow"));
         }
         else if (sceneName == "LevelTwo")
         {
@@ -124,18 +124,18 @@ public class BreedingUI : MonoBehaviour
         {
             Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
            
-            Creatures.Add(new Creature("NoHorn", "Female", new List<Gene> { new Gene("HornLength", 'S', 'S') }, "Green"));
+            Creatures.Add(new Creature("NoHorn", "Female", new List<Gene> { new Gene("HornLength", 'l', 'l') }, "Green"));
         }
         else if (sceneName == "TutorialLevel")
         {
             Creatures.Add(new Creature("GreenDad", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'G') }, "Green"));
-            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y') }, "Yellow"));
+            Creatures.Add(new Creature("YellowMom", "Female", new List<Gene> { new Gene("CoatColor", 'g', 'g') }, "Yellow"));
         }
         else if (sceneName == "LevelFour")
         {
             Creatures.Add(new Creature("Green_LongTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'L', 'L') }, "Green"));
-            Creatures.Add(new Creature("Yellow_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
-            Creatures.Add(new Creature("Yellow_ShortTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'y', 'y'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
+            Creatures.Add(new Creature("Yellow_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'g', 'g'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
+            Creatures.Add(new Creature("Yellow_ShortTail_Male", "Male", new List<Gene> { new Gene("CoatColor", 'g', 'g'), new Gene("TailLength", 'l', 'l') }, "Yellow"));
             Creatures.Add(new Creature("Green_ShortTail_Female", "Female", new List<Gene> { new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'l', 'l') }, "Green"));
         }
 

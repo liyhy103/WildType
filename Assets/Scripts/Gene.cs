@@ -60,8 +60,8 @@ public class Gene
     private string ResolveHornLengthPhenotype(char a1, char a2)
     {
         if (a1 == 'L' && a2 == 'L') return "Long";
-        if ((a1 == 'L' && a2 == 'S') || (a1 == 'S' && a2 == 'L')) return "Short";
-        if (a1 == 'S' && a2 == 'S') return "No";
+        if ((a1 == 'L' && a2 == 'l') || (a1 == 'S' && a2 == 'L')) return "Short";
+        if (a1 == 'l' && a2 == 'l') return "No";
         return "Unknown";
     }
 
@@ -73,35 +73,13 @@ public class Gene
         string genotype = $"{allele1}/{allele2}";
         string reverseGenotype = $"{allele2}/{allele1}";
 
-        if ((allele1 == 'P' && allele2 == 'Y') || (allele1 == 'Y' && allele2 == 'P'))
-            return "Pink";  // Male Pink
-
-        if ((allele1 == 'B' && allele2 == 'Y') || (allele1 == 'Y' && allele2 == 'B'))
-            return "Blue";  // Male Blue
-
-        if (allele1 == 'P' && allele2 == 'P')
-            return "Pink";  // Female Pink
-
-        if (allele1 == 'B' && allele2 == 'B')
-            return "Blue";  // Female Blue
-
-        if ((allele1 == 'P' && allele2 == 'B') || (allele1 == 'B' && allele2 == 'P'))
-            return "Pink";
-
-        // Blue / Red
-        if (genotype == "B/B")
-            return "Blue";
-        if (genotype == "B/r" || reverseGenotype == "B/r")
-            return "Blue";
-        if (genotype == "r/r")
-            return "Red";
-
+      
         // Green / Yellow
         if (genotype == "G/G")
             return "Green";
-        if (genotype == "G/y" || reverseGenotype == "G/y")
+        if (genotype == "G/g" || reverseGenotype == "G/g")
             return "Green";
-        if (genotype == "y/y")
+        if (genotype == "g/g")
             return "Yellow";
 
         return "Unknown";
