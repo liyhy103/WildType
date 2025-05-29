@@ -8,18 +8,10 @@ using System;
 using Debug = UnityEngine.Debug;
 
 
-public class Challenge : MonoBehaviour
+public class LevelThreeChallenges : Challenge
 {
 
-    public TMP_Text challengeText;
-    protected List<string> challenges = new List<string>();
 
-    protected string currentChallenge = "";
-    public string CurrentChallenge => currentChallenge;
-
-    public Creature currentCreature;
-
-    protected string result = "";
 
     public void Start()
     {
@@ -44,8 +36,9 @@ public class Challenge : MonoBehaviour
     private void SetListItem()
     {
         // Add challenges to the list
-        challenges.Add("Green");
-        challenges.Add("Yellow");
+        challenges.Add("Long");
+        challenges.Add("Short");
+        challenges.Add("No");
 
     }
 
@@ -63,9 +56,10 @@ public class Challenge : MonoBehaviour
         result = phenotype;
         currentCreature = creature;
         Debug.Log("[Challenge] Received result: " + phenotype);
+        ProcessResult();
     }
 
-    public void Update()
+    private void ProcessResult()
     {
         if (currentCreature == null)
         {
@@ -73,23 +67,26 @@ public class Challenge : MonoBehaviour
             return;
         }
 
+        Debug.LogWarning(currentChallenge + " vs " + result);
         if (result.ToLower() == currentChallenge.ToLower())
         {
             SetChallengeText("You Completed this challenge");
             challenges.Remove(currentChallenge);
             PickNextChallenge();
 
-            // Optionally reset currentCreature & result so it only triggers once per challenge
-            currentCreature = null;
-            result = "";
         }
+
+        // Reset to prevent multiple triggers
+        currentCreature = null;
+        result = "";
     }
+
     private void PickNextChallenge()
     {
         if (challenges.Count > 0)
         {
             currentChallenge = challenges[0];
-            string challenge = "Breed a " + currentChallenge + " creature";
+            string challenge = "Breed a " + currentChallenge + " horned creature";
             SetChallengeText(challenge);
             Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
         }

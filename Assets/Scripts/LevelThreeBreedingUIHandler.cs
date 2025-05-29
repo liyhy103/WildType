@@ -1,8 +1,17 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelThreeBreedingUIHandler : IBreedingUIHandler
 {
+
+    private LevelThreeChallenges challenge;
+
+    public LevelThreeBreedingUIHandler(LevelThreeChallenges challenge)
+    {
+        this.challenge = challenge;
+    }
+
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
         string phenotype = offspring.GetPhenotype("hornlength").ToLower();
@@ -18,11 +27,30 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
             }
 
             bool match = meta.Phenotype.ToLower() == phenotype &&
-                         meta.BodyColor.ToLower() == bodyColor;
+                                    meta.BodyColor.ToLower() == bodyColor;
+
+
 
 
             obj.SetActive(match);
-            Debug.Log($"[Offspring Match Test] {obj.name} - Match: {match} | Phenotype: {meta.Phenotype}/{phenotype}, Color: {meta.BodyColor}/{bodyColor}");
+            UnityEngine.Debug.Log($"[Offspring Match Test] {obj.name} - Match: {match} | Phenotype: {meta.Phenotype}/{phenotype}, Color: {meta.BodyColor}/{bodyColor}");
+
+            string result = offspring.GetPhenotype("hornlength").ToLower();
+
+            UnityEngine.Debug.Log(result);
+
+            if (match)
+            {
+                if (challenge != null)
+                {
+                    challenge?.SetResult(phenotype, offspring);
+                    UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + result);
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("Challenge is NULL in LevelThreeBreedingUIHandler!");
+                }
+            }
 
         }
     }

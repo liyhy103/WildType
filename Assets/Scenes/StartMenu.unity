@@ -732,6 +732,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6607886448344728210, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607886448344728210, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9dd011cb8ce6e4047990385cb3dbe2db, type: 3}
     - target: {fileID: 6784287333873388174, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
       propertyPath: m_text
       value: Start
@@ -1131,6 +1139,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6607886448344728210, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6607886448344728210, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9dd011cb8ce6e4047990385cb3dbe2db, type: 3}
     - target: {fileID: 7729615692156984635, guid: 93dc53c3ecd813a4b934ed9305cae665, type: 3}
       propertyPath: m_Name
       value: Quit
@@ -1148,6 +1164,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1912728852}
     m_Modifications:
+    - target: {fileID: 8345712536905618, guid: 009805e71b8fe7a41ab9fb675ade90b4, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8345712536905618, guid: 009805e71b8fe7a41ab9fb675ade90b4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9dd011cb8ce6e4047990385cb3dbe2db, type: 3}
     - target: {fileID: 1958855122063387707, guid: 009805e71b8fe7a41ab9fb675ade90b4, type: 3}
       propertyPath: m_Name
       value: Level Selection
