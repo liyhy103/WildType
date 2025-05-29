@@ -3516,9 +3516,9 @@ MonoBehaviour:
   SkipButton: {fileID: 208685824}
   Parent1: {fileID: 184029121}
   Parent2: {fileID: 1400382331}
-  BreedButton: {fileID: 0}
+  BreedButton: {fileID: 2102800414}
   breedingUI: {fileID: 2140115827}
-  challengeManager: {fileID: 0}
+  challengeManager: {fileID: 1417759385}
 --- !u!4 &1519897256
 Transform:
   m_ObjectHideFlags: 0

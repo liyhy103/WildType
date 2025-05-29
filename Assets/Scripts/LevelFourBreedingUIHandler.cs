@@ -2,17 +2,10 @@ using UnityEngine;
 
 public class LevelFourBreedingUIHandler : IBreedingUIHandler
 {
-    private LevelFourChallenge challenge;
-
-    public LevelFourBreedingUIHandler(LevelFourChallenge challenge)
-    {
-        this.challenge = challenge;
-    }
-
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
         string tailType = offspring.GetPhenotype("TailLength").ToLower();
-        string bodyColor = offspring.BodyColor.ToLower();
+        string bodyColor = offspring.GetPhenotype("CoatColor").ToLower();
 
         foreach (GameObject obj in ui.level4OffspringDisplayObjects)
         {
@@ -27,19 +20,7 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
                          meta.Phenotype.ToLower() == tailType;
 
             obj.SetActive(match);
-
-            if (match)
-            {
-                if(challenge != null)
-                {
-                    challenge?.SetResult(tailType, bodyColor, offspring);
-                    UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + tailType + ", " + bodyColor);
-                }
-                else
-                {
-                    UnityEngine.Debug.LogError("Challenge is NULL in LevelFourBreedingUIHandler!");
-                }
-            }
+            Debug.Log($"[Level4 Show] Matching: {obj.name} | Meta = {meta.BodyColor}/{meta.Phenotype}, Creature = {bodyColor}/{tailType}, Match = {match}");
         }
     }
 

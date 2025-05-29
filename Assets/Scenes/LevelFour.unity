@@ -920,7 +920,7 @@ Animator:
   m_GameObject: {fileID: 175913409}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dd0b8a50488f064bbbfe1bb3afa9997, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6808068ddeaca2d43ae845d642c0f8ef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3681,7 +3681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gender: Male
   Phenotype: Short
-  BodyColor: Yellow
+  BodyColor: Green
 --- !u!95 &884648640
 Animator:
   serializedVersion: 7
@@ -4056,7 +4056,7 @@ Animator:
   m_GameObject: {fileID: 931662339}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dd0b8a50488f064bbbfe1bb3afa9997, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6808068ddeaca2d43ae845d642c0f8ef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5399,7 +5399,7 @@ GameObject:
   - component: {fileID: 1443730171}
   - component: {fileID: 1443730174}
   m_Layer: 5
-  m_Name: Parent2_Yellow_ShortTail_Male
+  m_Name: Parent2_Yellow_ShortTail_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5434,7 +5434,7 @@ Animator:
   m_GameObject: {fileID: 1443730169}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dd0b8a50488f064bbbfe1bb3afa9997, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6808068ddeaca2d43ae845d642c0f8ef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5496,7 +5496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
+  Gender: Female
   Phenotype: Short
   BodyColor: Yellow
 --- !u!1 &1447301321
@@ -6992,7 +6992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gender: Female
   Phenotype: Short
-  BodyColor: Yellow
+  BodyColor: Green
 --- !u!95 &1844773480
 Animator:
   serializedVersion: 7
@@ -8012,7 +8012,7 @@ GameObject:
   - component: {fileID: 2135982741}
   - component: {fileID: 2135982744}
   m_Layer: 5
-  m_Name: Parent1_Yellow_ShortTail_Male
+  m_Name: Parent1_Yellow_ShortTail_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8047,7 +8047,7 @@ Animator:
   m_GameObject: {fileID: 2135982739}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3dd0b8a50488f064bbbfe1bb3afa9997, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6808068ddeaca2d43ae845d642c0f8ef, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8109,7 +8109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
+  Gender: Female
   Phenotype: Short
   BodyColor: Yellow
 --- !u!1 &2140115826
