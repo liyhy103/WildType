@@ -10,14 +10,14 @@ using Debug = UnityEngine.Debug;
 public class LevelFourChallenge : Challenge
 {
 
-    private List<string> colourcoatChallenge = new List<string>();
-    private List<string> tailChallenge = new List<string>();
+    private List<string> TailChallenges = new List<string>();
+    private List<string> colourChallenges = new List<string>();
 
-    private string currentCoatColourChallenge = "";
+    private string currentCollourChallenge = "";
     private string currentTailChallenge = "";
 
-   // public string currentCoatColourChallenge => currentCoatColourChallenge;
-   // public string currentTailChallenge => currentTailChallenge;
+  //  public string currentCollourChallenge => currentCollourChallenge;
+    //public string currentTailChallenge => currentTailChallenge;
 
 
 
@@ -45,17 +45,17 @@ public class LevelFourChallenge : Challenge
 
     private void SetColourList()
     {
-        colourcoatChallenge.Add("Dark");
-        colourcoatChallenge.Add("Light");
-        colourcoatChallenge.Add("Light");
-        colourcoatChallenge.Add("Dark");
+        TailChallenges.Add("Green");
+        TailChallenges.Add("Green");
+        TailChallenges.Add("Yellow");
+        TailChallenges.Add("Yellow");
     }
     private void SetGenderList()
     {
-        tailChallenge.Add("Female");
-        tailChallenge.Add("Male");
-        tailChallenge.Add("Female");
-        tailChallenge.Add("Male");
+        colourChallenges.Add("Long");
+        colourChallenges.Add("Short");
+        colourChallenges.Add("Long");
+        colourChallenges.Add("Short");
 
     }
     public void SetChallengeText(string text)
@@ -67,9 +67,9 @@ public class LevelFourChallenge : Challenge
         }
     }
 
-    public void SetResult(string phenotype, string gender, Creature creature)
+    public void SetResult(string colour, string tail, Creature creature)
     {
-        result = phenotype + "_" + gender; 
+        result = tail + "_" + colour; 
         currentCreature = creature;
         UnityEngine.Debug.Log("[Challenge] Received result: " + result);
         ProcessResult();
@@ -77,23 +77,25 @@ public class LevelFourChallenge : Challenge
 
     private void ProcessResult()
     {
+
+        UnityEngine.Debug.Log("result being processed");
         if (currentCreature == null)
         {
             Debug.LogWarning("No creature has been bred yet!");
             return;
         }
 
-        string expectedResult = currentCoatColourChallenge + "_" + currentTailChallenge;
-        Debug.LogWarning(expectedResult + " vs " + result);
+        string expectedResult = currentCollourChallenge + "_" + currentTailChallenge;
+        UnityEngine.Debug.Log(expectedResult + " vs " + result);
 
         if (result.ToLower() == expectedResult.ToLower())
         {
             SetChallengeText("You Completed this challenge");
 
             int index = -1;
-            for (int i = 0; i < colourcoatChallenge.Count; i++)
+            for (int i = 0; i < TailChallenges.Count; i++)
             {
-                if (colourcoatChallenge[i] == currentCoatColourChallenge && tailChallenge[i] == currentTailChallenge)
+                if (TailChallenges[i] == currentCollourChallenge && colourChallenges[i] == currentTailChallenge)
                 {
                     index = i;
                     break;
@@ -102,8 +104,8 @@ public class LevelFourChallenge : Challenge
 
             if (index >= 0)
             {
-                colourcoatChallenge.RemoveAt(index);
-                tailChallenge.RemoveAt(index);
+                TailChallenges.RemoveAt(index);
+                colourChallenges.RemoveAt(index);
             }
 
             PickNextChallenge();
@@ -116,13 +118,13 @@ public class LevelFourChallenge : Challenge
     }
     private void PickNextChallenge()
     {
-        if (colourcoatChallenge.Count > 0 && tailChallenge.Count > 0)
+        if (TailChallenges.Count > 0 && colourChallenges.Count > 0)
         {
-            int index = UnityEngine.Random.Range(0, colourcoatChallenge.Count);
-            currentCoatColourChallenge = colourcoatChallenge[index];
-            currentTailChallenge = tailChallenge[index];
+            int index = UnityEngine.Random.Range(0, TailChallenges.Count);
+            currentCollourChallenge = TailChallenges[index];
+            currentTailChallenge = colourChallenges[index];
 
-            currentChallenge = "Breed a " + currentCoatColourChallenge + " shelled " + currentTailChallenge + " creature";
+            currentChallenge = "Breed a " + currentCollourChallenge + " coloured creature with a  " + currentTailChallenge + " tail";
             SetChallengeText(currentChallenge);
             UnityEngine.Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
         }

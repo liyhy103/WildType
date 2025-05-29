@@ -113,7 +113,7 @@ public class BreedingUI : MonoBehaviour
         }
         else if (sceneName == "LevelFour")
         {
-            breedingUIHandler = new LevelFourBreedingUIHandler();
+            breedingUIHandler = new LevelFourBreedingUIHandler(challengeManager as LevelFourChallenge);
         }
         else
         {
