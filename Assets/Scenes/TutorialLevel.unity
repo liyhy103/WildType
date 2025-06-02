@@ -1330,7 +1330,6 @@ RectTransform:
   - {fileID: 1912728852}
   - {fileID: 1041954291}
   - {fileID: 1751703528}
-  - {fileID: 1578210169}
   - {fileID: 938236907}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1882,6 +1881,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 297536948853180066, guid: 23b40a16339ca8d409f11953fa250db8, type: 3}
   m_PrefabInstance: {fileID: 938236906}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &938236908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9126843269009112078, guid: 23b40a16339ca8d409f11953fa250db8, type: 3}
+  m_PrefabInstance: {fileID: 938236906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &989329449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2249,6 +2259,63 @@ RectTransform:
   m_AnchoredPosition: {x: 51, y: -32.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1199599754
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 746.49457
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 243.21812
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751202104616816554, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600662609054529660, guid: b7a96833c189df244838cbac3025720d, type: 3}
+      propertyPath: m_Name
+      value: Bootstrapper
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b7a96833c189df244838cbac3025720d, type: 3}
 --- !u!1 &1231425628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3643,6 +3710,8 @@ MonoBehaviour:
   BreedButton: {fileID: 2102800414}
   breedingUI: {fileID: 2140115827}
   challengeManager: {fileID: 1417759385}
+  SaveToCompendiumButton: {fileID: 1855370614}
+  OpenCompendiumButton: {fileID: 938236908}
 --- !u!4 &1519897256
 Transform:
   m_ObjectHideFlags: 0
@@ -4670,7 +4739,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 593336971}
+    m_TransformParent: {fileID: 1912728852}
     m_Modifications:
     - target: {fileID: 749217964440803891, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_Pivot.x
@@ -4722,15 +4791,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 749217964440803891, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 749217964440803891, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 749217964440803891, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 749217964440803891, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4781,6 +4850,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
+--- !u!114 &1855370614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5900374289078640441, guid: 846052605c3761f48b3cdb5ee611c5f2, type: 3}
+  m_PrefabInstance: {fileID: 1855370613}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1865244237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,6 +5220,7 @@ RectTransform:
   - {fileID: 525455655}
   - {fileID: 1045337945}
   - {fileID: 233919334}
+  - {fileID: 1578210169}
   m_Father: {fileID: 593336971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5868,7 +5949,7 @@ MonoBehaviour:
   OffspringText: {fileID: 2010293486}
   Parent1GenotypeText: {fileID: 0}
   Parent2GenotypeText: {fileID: 0}
-  SaveToCompendiumButton: {fileID: 0}
+  SaveToCompendiumButton: {fileID: 1855370614}
   tutorialUI: {fileID: 1519897255}
   breedingType: 0
 --- !u!4 &2140115828
@@ -5995,3 +6076,4 @@ SceneRoots:
   - {fileID: 2140115828}
   - {fileID: 1532836289}
   - {fileID: 1519897256}
+  - {fileID: 1199599754}

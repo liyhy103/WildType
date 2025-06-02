@@ -386,6 +386,10 @@ public class BreedingUI : MonoBehaviour
         SaveToCompendiumButton.gameObject.SetActive(true);
 
 
+        if (tutorialUI != null)
+        {
+            tutorialUI.NotifyOffspring(offspring);
+        }
     }
 
     public void OnSaveToCompendiumClicked()

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -16,13 +17,32 @@ public class TutorialUI : MonoBehaviour
     public List<Creature> creatures;
     public BreedingUI breedingUI;
     public Challenge challengeManager;
+    public Button SaveToCompendiumButton;
+    public Button OpenCompendiumButton;
+    private Creature currentOffspring;
+    private static TutorialUI instance;
 
     private int step = 0; // tutorial step
     private bool challengeChecked = false;
 
     void Start(){
+        // Avoid repeating the ShowWelcomeMessage
+        if (step == 0){
+            ShowWelcomeMessage();
+        }
         BreedButton.interactable = false; // disable breeding initially
-        ShowWelcomeMessage();
+        SaveToCompendiumButton.interactable = false;
+        OpenCompendiumButton.interactable = false;
+    }
+
+    void Awake(){
+        if (instance == null){
+            instance = this;
+            DontDestroyOnLoad(gameObject);  // Keep TutorialManager across Scenes
+        }
+        else{
+            Destroy(gameObject);  // Avoid duplicate creation
+        }
     }
 
     void ShowWelcomeMessage(){
@@ -62,9 +82,11 @@ public class TutorialUI : MonoBehaviour
         TutorialPanel.SetActive(false);
         ContinueButton.gameObject.SetActive(false);
         SkipButton.gameObject.SetActive(false);
-        BreedButton.interactable = true;
 
         CancelInvoke(nameof(CheckParentSelection));
+        BreedButton.interactable = true;
+        SaveToCompendiumButton.interactable = true;
+        OpenCompendiumButton.interactable = true;
         Debug.Log("Skipped.");
     }
 
@@ -82,10 +104,10 @@ public class TutorialUI : MonoBehaviour
         bool isP2Correct = p2.Gender == "Female" && p2.GetPhenotype("coatcolor") == "Yellow";
 
         if (isP1Correct && isP2Correct && step == 1){
-            step = 3;
+            step = 2;
             CancelInvoke(nameof(CheckParentSelection));
 
-            TutorialText.text = "Perfect!\nNow read the <b>Challenge</b> and click the <b>Breed</b> button to continue!";;
+            TutorialText.text = "Perfect!\nNow read the <b>Challenge</b> and click the <b>Breed</b> button to continue!"; ;
             TutorialPanel.SetActive(true);
             StartCoroutine(HidePanelAfterDelay(2.5f));
 
@@ -100,34 +122,33 @@ public class TutorialUI : MonoBehaviour
     }
 
     void Update(){
-        // Step 3: challenge result check
-        if (step == 3 && challengeManager != null){
-            if (!challengeChecked && challengeManager.currentCreature != null){
-                challengeChecked = true;
-                StartCoroutine(CheckChallengeOutcome());
-            }
-        }
-    }
-
-    IEnumerator CheckChallengeOutcome(){
-        yield return new WaitForSeconds(1.0f); // let challenge manager check
-        
-        TutorialText.text = "Challenge result has been updated.";
-        TutorialPanel.SetActive(true);
-        StartCoroutine(HidePanelAfterDelay(2.5f));
-
-        if (challengeManager.CurrentChallenge == ""){
-            step = 4;
-            TutorialText.text = "Well done!\nYou've completed all challenge!";
-
+        // Step 2 → Step 3: After offspring is created
+        if (step == 2 && currentOffspring != null && !SaveToCompendiumButton.interactable){
+            step = 3;
+            TutorialText.text = "Well done!\nNow click <b>Save</b> to store this creature.";
             TutorialPanel.SetActive(true);
             StartCoroutine(HidePanelAfterDelay(2.5f));
+            SaveToCompendiumButton.interactable = true;
+
+        }
+
+        // Step 3 → Step 4: After save is done (button hidden)
+        if (step == 3 && !SaveToCompendiumButton.gameObject.activeSelf){
+            step = 4;
+            TutorialText.text = "Awesome!\nYou can now open the <b>Compendium</b> to view saved creatures.\n" +
+                                "You can click on a saved creature.\nAnd assign it as Parent 1 or Parent 2 to try new breeding combinations.\n" +
+                                "Put your knowledge and strategy to the test.\nComplete the challenge to finish the Tutorial!";
+            TutorialPanel.SetActive(true);
+            StartCoroutine(HidePanelAfterDelay(7.0f));
+            OpenCompendiumButton.interactable = true;
         }
     }
 
     // Called by BreedingUI after offspring is created
     public void NotifyOffspring(Creature offspring){
-        challengeChecked = false;
+        currentOffspring = offspring;
         challengeManager.currentCreature = offspring;
+        challengeChecked = false;
+        Debug.Log($"[Tutorial] Offspring notified: {offspring.CreatureName}");
     }
-}
+}   
