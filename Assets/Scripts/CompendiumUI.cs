@@ -30,7 +30,7 @@ public class CompendiumUI : MonoBehaviour
 
             groupedCreatures[levelKey].Add(creature);
         }
-        List<string> levelOrder = new List<string> { "LevelOne", "LevelTwo", "LevelThree", "LevelFour" };
+        List<string> levelOrder = new List<string> { "TutorialLevel", "LevelOne", "LevelTwo", "LevelThree", "LevelFour" };
 
         foreach (var level in levelOrder)
         {

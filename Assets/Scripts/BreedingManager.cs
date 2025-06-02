@@ -5,9 +5,9 @@ public class BreedingManager : MonoBehaviour
 {
     void Start(){
         // Create two parent creatures with coatColor and tailLength traits
-        Gene gene1 = new Gene("CoatColor", 'G', 'y');
+        Gene gene1 = new Gene("CoatColor", 'G', 'g');
         Gene gene1_2 = new Gene("TailLength", 'L', 'l');
-        Gene gene2 = new Gene("CoatColor", 'y', 'y');
+        Gene gene2 = new Gene("CoatColor", 'g', 'g');
         Gene gene2_2 = new Gene("TailLength", 'l', 'l');
 
         Creature parent1 = new Creature("Parent1", "Male", new List<Gene> { gene1, gene1_2 });
