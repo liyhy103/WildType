@@ -123,7 +123,7 @@ public class BreedingUI : MonoBehaviour
         else if (sceneName == "LevelThree")
         {
             Creatures.Add(new Creature("LongHorn", "Male", new List<Gene> { new Gene("HornLength", 'L', 'L') }, "Green"));
-           
+            Creatures.Add(new Creature("NoHorn", "Male", new List<Gene> { new Gene("HornLength", 'l', 'l') }, "Green"));
             Creatures.Add(new Creature("NoHorn", "Female", new List<Gene> { new Gene("HornLength", 'l', 'l') }, "Green"));
         }
         else if (sceneName == "TutorialLevel")
