@@ -11,6 +11,12 @@ public class CompendiumUI : MonoBehaviour
 
     private void OnEnable()
     {
+       
+        RefreshDisplay();
+    }
+
+    public void RefreshDisplay()
+    {
         if (CompendiumManager.Instance == null)
         {
             Debug.LogError("[CompendiumUI] No CompendiumManager found!");
@@ -30,6 +36,7 @@ public class CompendiumUI : MonoBehaviour
 
             groupedCreatures[levelKey].Add(creature);
         }
+
         List<string> levelOrder = new List<string> { "TutorialLevel", "LevelOne", "LevelTwo", "LevelThree", "LevelFour" };
 
         foreach (var level in levelOrder)
@@ -54,6 +61,7 @@ public class CompendiumUI : MonoBehaviour
                 {
                     clickHandler.creatureData = creature;
                 }
+
                 TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
                 Image image = entry.transform.Find("CreatureImage")?.GetComponent<Image>();
 
@@ -80,15 +88,13 @@ public class CompendiumUI : MonoBehaviour
                 Debug.Log($"[CompendiumUI] Displaying: {creature.GetFullDescription()}");
             }
         }
+    }
 
-
-
-        void ClearExistingEntries()
+    private void ClearExistingEntries()
+    {
+        foreach (Transform child in creatureListParent)
         {
-            foreach (Transform child in creatureListParent)
-            {
-                Destroy(child.gameObject);
-            }
+            Destroy(child.gameObject);
         }
     }
 }

@@ -25,6 +25,8 @@ public class Gene
     // Returns the phenotype based on genotype (for lesson 1 Mendelian)
     public string GetPhenotype()
     {
+        //{ "trait":"taillength", "alleleDominant":"L", }
+
         if (TraitName.ToLower() == "coatcolor")
             return ResolveCoatColorPhenotype(Allele1, Allele2);
 

@@ -1,8 +1,9 @@
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class CompendiumNavigator : MonoBehaviour
 {
+    public GameObject compendiumPanel;
+
     public static CompendiumNavigator Instance;
 
     void Awake()
@@ -10,7 +11,7 @@ public class CompendiumNavigator : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional if you need it to persist across scenes
+            DontDestroyOnLoad(gameObject);
             Debug.Log("[CompendiumNavigator] Singleton instance assigned.");
         }
         else
@@ -18,27 +19,34 @@ public class CompendiumNavigator : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void GoToCompendium()
     {
-        CompendiumManager.Instance.PreviousSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log("[SceneTracker] Previous scene saved as: " + CompendiumManager.Instance.PreviousSceneName);
-        SceneManager.LoadScene("CompendiumScene");
+        Debug.Log("[CompendiumNavigator] GoToCompendium() called!");
+        if (compendiumPanel != null)
+        {
+            
+            compendiumPanel.SetActive(true);
+
+            CompendiumUI ui = compendiumPanel.GetComponent<CompendiumUI>();
+            if (ui != null)
+            {
+                Debug.Log("[CompendiumNavigator] Refreshing compendium");
+                ui.RefreshDisplay();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[CompendiumNavigator] No compendium panel set.");
+        }
     }
 
     public void ReturnToPreviousScene()
     {
-        Debug.Log("[SceneTracker] Return button was clicked!");
-        string previous = CompendiumManager.Instance.PreviousSceneName;
-        Debug.Log("[SceneTracker] Trying to return to previous scene: " + previous);
-
-        if (!string.IsNullOrEmpty(previous))
+        if (compendiumPanel != null)
         {
-            SceneManager.LoadScene(previous);
-        }
-        else
-        {
-            Debug.LogWarning("[SceneTracker] No scene to return to. Defaulting to LevelOne.");
-            SceneManager.LoadScene("LevelOne");
+          
+            compendiumPanel.SetActive(false);
         }
     }
 }

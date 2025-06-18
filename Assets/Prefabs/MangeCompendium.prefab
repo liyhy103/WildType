@@ -58,3 +58,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425039c633cdbc347a25c4f6e9651231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
+  compendiumPanel: {fileID: 2858789517299973506, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
+  compendiumSceneName: CompendiumScene

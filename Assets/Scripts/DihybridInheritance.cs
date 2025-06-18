@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class DihybridInheritance : IBreedingStrategy{
+    
+    
+    
     public Creature Breed(Creature p1, Creature p2){
         List<Gene> childGenes = new List<Gene>();
 

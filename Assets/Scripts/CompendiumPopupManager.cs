@@ -44,14 +44,16 @@ public class CompendiumPopupManager : MonoBehaviour
                 incompatiblePopup.SetActive(true);
                 StartCoroutine(HidePopupAfterDelay(3f));
             }
-            return; 
+            return;
         }
 
-        CreatureTransfer.CreatureToAssign = currentCreature;
-        CreatureTransfer.TargetParentIndex = 1;
-        Debug.Log($"[Popup] Assigning {currentCreature.CreatureName} to Parent 1 and switching scene.");
+        BreedingUI breedingUI = FindObjectOfType<BreedingUI>();
+        if (breedingUI != null)
+        {
+            breedingUI.AssignCompendiumCreature(1, currentCreature);
+            Debug.Log($"[Popup] Assigned {currentCreature.CreatureName} to Parent 1 via panel.");
+        }
 
-        CompendiumNavigator.Instance.ReturnToPreviousScene();
         popupPanel.SetActive(false);
     }
 
@@ -65,14 +67,16 @@ public class CompendiumPopupManager : MonoBehaviour
                 incompatiblePopup.SetActive(true);
                 StartCoroutine(HidePopupAfterDelay(3f));
             }
-            return; 
+            return;
         }
 
-        CreatureTransfer.CreatureToAssign = currentCreature;
-        CreatureTransfer.TargetParentIndex = 2;
-        Debug.Log($"[Popup] Assigning {currentCreature.CreatureName} to Parent 2 and switching scene.");
+        BreedingUI breedingUI = FindObjectOfType<BreedingUI>();
+        if (breedingUI != null)
+        {
+            breedingUI.AssignCompendiumCreature(2, currentCreature);
+            Debug.Log($"[Popup] Assigned {currentCreature.CreatureName} to Parent 2 via panel.");
+        }
 
-        CompendiumNavigator.Instance.ReturnToPreviousScene();
         popupPanel.SetActive(false);
     }
 
@@ -85,7 +89,7 @@ public class CompendiumPopupManager : MonoBehaviour
 
     private bool IsCreatureCompatible()
     {
-        return currentCreature?.SourceLevel == CompendiumManager.Instance.PreviousSceneName;
+        return currentCreature?.SourceLevel == SceneManager.GetActiveScene().name;
     }
 
     public void Cancel()
