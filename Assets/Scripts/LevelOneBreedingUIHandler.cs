@@ -21,22 +21,19 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 
     }
 
-    public void ShowOffspring(BreedingUI ui, Creature offspring)
-    {
-        ui.greenOffspringDisplay?.SetActive(false);
-        ui.yellowOffspringDisplay?.SetActive(false);
+   public void ShowOffspring(BreedingUI ui, Creature offspring)
+{
+    ui.greenOffspringDisplay?.SetActive(false);
+    ui.yellowOffspringDisplay?.SetActive(false);
 
-        if (offspring.GetPhenotype("coatcolor") == "Green")
-        {
+    string phenotype = offspring.GetPhenotype("CoatColor").ToLowerInvariant();
 
-            ui.greenOffspringDisplay?.SetActive(true);
-        }
-        else if (offspring.GetPhenotype("coatcolor") == "Yellow")
-        {
+    if (phenotype == "green")
+        ui.greenOffspringDisplay?.SetActive(true);
+    else if (phenotype == "yellow")
+        ui.yellowOffspringDisplay?.SetActive(true);
+}
 
-            ui.yellowOffspringDisplay?.SetActive(true);
-        }
-    }
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
     {
