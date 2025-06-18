@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f0f8ba2a1f6b144ba52b8eb551f742, type: 3}
+  m_Name: LevelFourQuestions
+  m_EditorClassIdentifier: 
+  LevelType: LevelFour
+  questions:
+  - question: When crossing a homozygous green, long-tailed creature (G/G; L/L) with
+      a yellow, short-tailed creature (g/g; l/l), what will be the phenotype of all
+      F1 offspring?
+    answers:
+    - Green, long-tailed
+    - Yellow, short-tailed
+    - Green, short-tailed
+    - A mixture of all possible phenotypes
+    correctAnswerIndex: 0
+  - question: When two dihybrid individuals (G/g; L/l) are crossed, what fraction
+      of the offspring will have red, curly hair
+    answers:
+    - 9/16
+    - 3/16
+    - 1/16
+    - 1/4
+    correctAnswerIndex: 2
+  - question: To determine if a green, long-tailed creature is homozygous for both
+      traits (G/G; L/L) or heterozygous for both traits (G/g; L/l), what would be
+      the most efficient test cross?
+    answers:
+    - Cross with another green, long-tailed creature
+    - Cross with a green, short-tailed creature
+    - 'Cross with a yellow, long-tailed creature '
+    - Cross with a yellow, short-tailed creature
+    correctAnswerIndex: 3

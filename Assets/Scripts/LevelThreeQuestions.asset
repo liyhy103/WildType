@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f0f8ba2a1f6b144ba52b8eb551f742, type: 3}
+  m_Name: LevelThreeQuestions
+  m_EditorClassIdentifier: 
+  LevelType: LevelThree
+  questions:
+  - question: 'When a long-horned creature (L/L) is crossed with a no horned creature
+      (l/l), the horn length of all offspring will be:'
+    answers:
+    - Long
+    - Short
+    - No Horn
+    - A mixture of long and short
+    correctAnswerIndex: 1
+  - question: When two short-horned creatures (L/l) are crossed, what phenotypic
+      ratio of offspring is expected?
+    answers:
+    - 1:2:1 (long:short:no-horn)
+    - 3:1 (short:no-horn)
+    - 1:1 (long:no-horn)
+    - All short
+    correctAnswerIndex: 0
+  - question: To maximize production of short-horned creatures, which breeding strategy
+      works best?
+    answers:
+    - Repeatedly cross short-horned (L/l) creatures together
+    - Create short-horned (L/l) creatures once, then breed them with each other
+    - Cross short-horned (L/l) with no-horned (l/l) creatures, then select only short-horned
+      offspring
+    - Cross short-horned (L/l) with long-horned (L/L) creatures
+    correctAnswerIndex: 2

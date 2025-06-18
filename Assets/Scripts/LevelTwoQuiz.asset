@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f0f8ba2a1f6b144ba52b8eb551f742, type: 3}
+  m_Name: LevelTwoQuiz
+  m_EditorClassIdentifier: 
+  LevelType: LevelTwo
+  questions:
+  - question: When crossing a light shelled female (X^l/X^l) with a dark shelled
+      male (X^L/Y), what will be the shell colour of all male offspring?
+    answers:
+    - All light
+    - All dark
+    - 50% dark, 50% light
+    - 75% dark, 25% light
+    correctAnswerIndex: 0
+  - question: In sex-linked inheritance for shell colour, why do males tend to express
+      the recessive trait more frequently than females?
+    answers:
+    - Males have two X chromosomes
+    - Males only have one X chromosome, so a recessive allele on that X will always
+      be expressed
+    - The Y chromosome suppresses dominant traits
+    - Sex-linked traits are always expressed differently in male
+    correctAnswerIndex: 1
+  - question: To produce 100% light shelled offspring, which parental cross would
+      work?
+    answers:
+    - "Light shelled female (X^b/X^b) \xD7 Dark shelled male (X^B/Y)"
+    - "Light shelled female (X^b/X^b) \xD7 Light shelled male (X^b/Y)"
+    - "Dark shelled female (X^B/X^b) \xD7 Light shelled male (X^b/Y)"
+    - "Dark shelled female (X^B/X^B) \xD7 Dark shelled male (X^B/Y)"
+    correctAnswerIndex: 1
