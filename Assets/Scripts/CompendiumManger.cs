@@ -51,7 +51,7 @@ public class CompendiumManager : MonoBehaviour
         creatureSprites[levelOneDad] = SpriteRegistry.GetSprite("Male", "Green", "Green");
         creatureSprites[levelOneMom] = SpriteRegistry.GetSprite("Female", "Yellow", "Yellow");
 
-        var levelTwoMale = new Creature("Parent2_Green_Light_Male", "Male", new List<Gene> { new Gene("ShellColor", 'b', 'Y') }, "Green") { SourceLevel = "LevelTwo" };
+        var levelTwoMale = new Creature("Parent1_Green_Light_Male", "Male", new List<Gene> { new Gene("ShellColor", 'b', 'Y') }, "Green") { SourceLevel = "LevelTwo" };
         var levelTwoFemale = new Creature("Parent2_Green_Dark_Female", "Female", new List<Gene> { new Gene("ShellColor", 'B', 'b') }, "Green") { SourceLevel = "LevelTwo" };
         LevelStarters["LevelTwo"] = new List<Creature> { levelTwoMale, levelTwoFemale };
         creatureSprites[levelTwoMale] = SpriteRegistry.GetSprite("Male", levelTwoMale.GetPhenotype("ShellColor"), "Green");

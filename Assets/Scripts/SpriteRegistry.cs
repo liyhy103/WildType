@@ -27,7 +27,7 @@ public static class SpriteRegistry
         return phenotypeMap.TryGetValue(key, out var sprite) ? sprite : null;
     }
 
-    private static string MakeKey(string gender, string phenotype, string bodyColor)
+    public static string MakeKey(string gender, string phenotype, string bodyColor)
     {
         return $"{gender.Trim().ToLower()}_{phenotype.Trim().ToLower()}_{bodyColor.Trim().ToLower()}";
     }
