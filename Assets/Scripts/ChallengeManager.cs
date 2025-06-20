@@ -1,18 +1,22 @@
-using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using TMPro;
-using System.Diagnostics;
-using System;
+using UnityEngine.UI;
+
 using Debug = UnityEngine.Debug;
 
 
 public class Challenge : MonoBehaviour
 {
-    public Animator challengeAnimator;
+    //public Animator challengeAnimator;
     public TMP_Text challengeText;
     protected List<string> challenges = new List<string>();
+
+    public Image GreenTurtle;
+    public Image YellowTurtle;
 
     protected string currentChallenge = "";
     public string CurrentChallenge => currentChallenge;
@@ -77,11 +81,7 @@ public class Challenge : MonoBehaviour
         {
             SetChallengeText("You Completed this challenge");
 
-            if (challengeAnimator != null)
-            {
-                challengeAnimator.SetTrigger("ChallengeCompleted");
 
-            }
 
             challenges.Remove(currentChallenge);
             PickNextChallenge();
@@ -94,7 +94,19 @@ public class Challenge : MonoBehaviour
     {
         if (challenges.Count > 0)
         {
+
             currentChallenge = challenges[0];
+            if (currentChallenge.ToLower() == "green")
+            {
+                GreenTurtle.gameObject.SetActive(true);
+                YellowTurtle.gameObject.SetActive(false);
+            }
+            else if (currentChallenge.ToLower() == "yellow")
+            {
+                GreenTurtle.gameObject.SetActive(false);
+                YellowTurtle.gameObject.SetActive(true);
+            }
+
             string challenge = "Breed a " + currentChallenge + " creature";
             SetChallengeText(challenge);
             Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
