@@ -194,12 +194,13 @@ public class BreedingUI : MonoBehaviour
 
         BreedButton.onClick.AddListener(OnBreedClicked);
 
+        
 
     }
 
 
 
-   
+
 
 
     private bool ShouldCompareBodyColor()

@@ -56,4 +56,20 @@ public class Creature
 
         return descripition;
     }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is not Creature other) return false;
+        return CreatureName == other.CreatureName &&
+               Gender == other.Gender &&
+               SourceLevel == other.SourceLevel;
+    }
+
+    public override int GetHashCode()
+    {
+        return (CreatureName + Gender + SourceLevel).GetHashCode();
+    }
+
+
+
 }
