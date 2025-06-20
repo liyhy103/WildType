@@ -10,7 +10,7 @@ using Debug = UnityEngine.Debug;
 
 public class Challenge : MonoBehaviour
 {
-
+    public Animator challengeAnimator;
     public TMP_Text challengeText;
     protected List<string> challenges = new List<string>();
 
@@ -76,10 +76,16 @@ public class Challenge : MonoBehaviour
         if (result.ToLower() == currentChallenge.ToLower())
         {
             SetChallengeText("You Completed this challenge");
+
+            if (challengeAnimator != null)
+            {
+                challengeAnimator.SetTrigger("ChallengeCompleted");
+
+            }
+
             challenges.Remove(currentChallenge);
             PickNextChallenge();
 
-            // Optionally reset currentCreature & result so it only triggers once per challenge
             currentCreature = null;
             result = "";
         }
