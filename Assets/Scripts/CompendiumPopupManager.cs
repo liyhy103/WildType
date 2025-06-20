@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -9,22 +9,14 @@ public class CompendiumPopupManager : MonoBehaviour
 
     public GameObject popupPanel;
     public TMP_Text popupText;
-    private Creature currentCreature;
-
     public GameObject incompatiblePopup;
 
+    private Creature currentCreature;
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            Debug.Log("[CompendiumPopupManager] Singleton assigned.");
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        Debug.Log("[CompendiumPopupManager] Instance assigned for this scene.");
     }
 
     public void ShowPopup(Creature creature)
@@ -40,20 +32,11 @@ public class CompendiumPopupManager : MonoBehaviour
         {
             Debug.LogWarning("[Popup] Incompatible creature!");
             if (incompatiblePopup != null)
-            {
-                incompatiblePopup.SetActive(true);
-                StartCoroutine(HidePopupAfterDelay(3f));
-            }
+                StartCoroutine(ShowIncompatible());
             return;
         }
 
-        BreedingUI breedingUI = FindObjectOfType<BreedingUI>();
-        if (breedingUI != null)
-        {
-            breedingUI.AssignCompendiumCreature(1, currentCreature);
-            Debug.Log($"[Popup] Assigned {currentCreature.CreatureName} to Parent 1 via panel.");
-        }
-
+        FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(1, currentCreature);
         popupPanel.SetActive(false);
     }
 
@@ -63,27 +46,18 @@ public class CompendiumPopupManager : MonoBehaviour
         {
             Debug.LogWarning("[Popup] Incompatible creature!");
             if (incompatiblePopup != null)
-            {
-                incompatiblePopup.SetActive(true);
-                StartCoroutine(HidePopupAfterDelay(3f));
-            }
+                StartCoroutine(ShowIncompatible());
             return;
         }
 
-        BreedingUI breedingUI = FindObjectOfType<BreedingUI>();
-        if (breedingUI != null)
-        {
-            breedingUI.AssignCompendiumCreature(2, currentCreature);
-            Debug.Log($"[Popup] Assigned {currentCreature.CreatureName} to Parent 2 via panel.");
-        }
-
+        FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(2, currentCreature);
         popupPanel.SetActive(false);
     }
 
-
-    private IEnumerator HidePopupAfterDelay(float delay)
+    private IEnumerator ShowIncompatible()
     {
-        yield return new WaitForSeconds(delay);
+        incompatiblePopup.SetActive(true);
+        yield return new WaitForSeconds(3f);
         incompatiblePopup.SetActive(false);
     }
 

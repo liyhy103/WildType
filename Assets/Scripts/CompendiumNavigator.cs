@@ -2,42 +2,28 @@ using UnityEngine;
 
 public class CompendiumNavigator : MonoBehaviour
 {
+    public static CompendiumNavigator Instance;
     public GameObject compendiumPanel;
 
-    public static CompendiumNavigator Instance;
-
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            Debug.Log("[CompendiumNavigator] Singleton instance assigned.");
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
+        Debug.Log("[CompendiumNavigator] Instance assigned for this scene.");
     }
 
     public void GoToCompendium()
     {
-        Debug.Log("[CompendiumNavigator] GoToCompendium() called!");
-        if (compendiumPanel != null)
+        if (compendiumPanel == null)
         {
-            
-            compendiumPanel.SetActive(true);
-
-            CompendiumUI ui = compendiumPanel.GetComponent<CompendiumUI>();
-            if (ui != null)
-            {
-                Debug.Log("[CompendiumNavigator] Refreshing compendium");
-                ui.RefreshDisplay();
-            }
+            Debug.LogWarning("[Navigator] Compendium panel not set!");
+            return;
         }
-        else
+
+        compendiumPanel.SetActive(true);
+        var ui = compendiumPanel.GetComponent<CompendiumUI>();
+        if (ui != null)
         {
-            Debug.LogWarning("[CompendiumNavigator] No compendium panel set.");
+            ui.RefreshDisplay();
         }
     }
 
@@ -45,7 +31,6 @@ public class CompendiumNavigator : MonoBehaviour
     {
         if (compendiumPanel != null)
         {
-          
             compendiumPanel.SetActive(false);
         }
     }
