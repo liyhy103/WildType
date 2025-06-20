@@ -1,6 +1,7 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
@@ -28,10 +29,17 @@ public class QuizManager : MonoBehaviour
 
     public void StartQuiz(QuizOptions data)
     {
-        quizOptions = data;
+        //quizOptions = data;
+
+        if (quizOptions == null)
+        {
+            UnityEngine.Debug.LogError("QuizOptions not assigned!");
+            return;
+        }
+
         currentQuestionIndex = 0;
         correctAnswersCount = 0;
-        quizPanel.SetActive(true); // Show the quiz panel
+        quizPanel.SetActive(true);
         ShowQuestion();
     }
 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      explosion_yellow_79_0: -3302049580230797324
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
