@@ -21,6 +21,8 @@ public class QuizManager : MonoBehaviour
 
     public event QuizFinishedHandler OnQuizFinished; // Event to notify when the quiz is finished
 
+    public ParticleSystem particleSystem;// Particle system to play effects when the question is answered correctly
+
     void Start()
     {
         // Hide the quiz panel at the start
@@ -29,7 +31,6 @@ public class QuizManager : MonoBehaviour
 
     public void StartQuiz(QuizOptions data)
     {
-        //quizOptions = data;
 
         if (quizOptions == null)
         {
@@ -63,6 +64,7 @@ public class QuizManager : MonoBehaviour
         if (index == question.correctAnswerIndex)
         {
             correctAnswersCount++;
+            particleSystem.Play();
             resultText.text = (correctAnswersCount + "/3 correct"); // Show correct answer message
         }
         else

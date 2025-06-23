@@ -15,6 +15,8 @@ public class Challenge : MonoBehaviour
     public TMP_Text challengeText;
     protected List<string> challenges = new List<string>();
 
+    public ParticleSystem particleSystem;
+
     public Image GreenTurtle;
     public Image YellowTurtle;
 
@@ -81,11 +83,11 @@ public class Challenge : MonoBehaviour
         {
             SetChallengeText("You Completed this challenge");
 
-
+            
 
             challenges.Remove(currentChallenge);
             PickNextChallenge();
-
+            particleSystem.Play();
             currentCreature = null;
             result = "";
         }
