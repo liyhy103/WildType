@@ -143,22 +143,32 @@ public class BreedingUI : MonoBehaviour
             foreach (var starter in starters)
             {
                 Creatures.Add(starter);
+                Sprite sprite = starterSprites.Find(s => s.creatureName == starter.CreatureName)?.sprite;
+
+                if (sprite == null)
+                {
+                    Debug.LogWarning($"[BreedingUI] No sprite found in inspector for: {starter.CreatureName}");
+                    continue;
+                }
+
                 if (!CompendiumManager.Instance.compendium.Contains(starter))
                 {
-                    Sprite sprite = starterSprites.Find(s => s.creatureName == starter.CreatureName)?.sprite;
-
-                    if (sprite == null)
-                    {
-                        Debug.LogWarning($"[BreedingUI] No sprite found in inspector for: {starter.CreatureName}");
-                        continue;
-                    }
                     CompendiumManager.Instance.AddToCompendium(starter, sprite);
                     Debug.Log($"[BreedingUI] Starter added to compendium: {starter.CreatureName}");
                 }
                 else
                 {
-                    Debug.Log($"[BreedingUI] Starter already in compendium: {starter.CreatureName}");
+                    if (CompendiumManager.Instance.GetCreatureSprite(starter) == null)
+                    {
+                        CompendiumManager.Instance.AddToCompendium(starter, sprite);
+                        Debug.Log($"[BreedingUI] Starter sprite re-linked in compendium: {starter.CreatureName}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[BreedingUI] Starter already in compendium with sprite: {starter.CreatureName}");
+                    }
                 }
+
             }
 
         }
@@ -296,12 +306,11 @@ public class BreedingUI : MonoBehaviour
         PlayHeartEffect();
 
         if (OffspringText != null)
-            OffspringText.text = ""; // You can replace this with a message if needed
+            OffspringText.text = ""; 
 
         string phenotype = offspring.GetPhenotype("CoatColor");
         Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
 
-        // Try to get offspring sprite
         Sprite offspringSprite = breedingUIHandler?.GetOffspringSprite(this);
         if (offspringSprite == null)
         {
@@ -310,7 +319,6 @@ public class BreedingUI : MonoBehaviour
         }
 
 
-        // Display offspring
         if (breedingUIHandler != null)
         {
             Debug.Log("[BreedingUI] Displaying offspring using handler.");
