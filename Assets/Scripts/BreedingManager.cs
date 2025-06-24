@@ -5,10 +5,10 @@ public class BreedingManager : MonoBehaviour
 {
     void Start(){
         // Create two parent creatures with coatColor and tailLength traits
-        Gene gene1 = new Gene("CoatColor", 'G', 'g');
-        Gene gene1_2 = new Gene("TailLength", 'L', 'l');
-        Gene gene2 = new Gene("CoatColor", 'g', 'g');
-        Gene gene2_2 = new Gene("TailLength", 'l', 'l');
+        Gene gene1 = new Gene(Gene.Traits.CoatColor, 'G', 'g');
+        Gene gene1_2 = new Gene(Gene.Traits.TailLength, 'L', 'l');
+        Gene gene2 = new Gene(Gene.Traits.CoatColor, 'g', 'g');
+        Gene gene2_2 = new Gene(Gene.Traits.TailLength, 'l', 'l');
 
         Creature parent1 = new Creature("Parent1", "Male", new List<Gene> { gene1, gene1_2 });
         Creature parent2 = new Creature("Parent2", "Female", new List<Gene> { gene2, gene2_2 });

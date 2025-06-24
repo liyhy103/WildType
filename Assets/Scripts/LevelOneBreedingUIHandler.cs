@@ -7,32 +7,35 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 {
     private Challenge challenge;
 
-    public void Awake()
+    public LevelOneBreedingUIHandler()
     {
-        challenge = GameObject.FindObjectOfType<Challenge>();
+        challenge = GameObject.FindFirstObjectByType<Challenge>();
         if (challenge == null)
         {
             UnityEngine.Debug.LogError("Challenge instance not found in scene!");
         }
     }
-    public LevelOneBreedingUIHandler()
+
+    public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        challenge = GameObject.FindObjectOfType<Challenge>();
+        ui.greenOffspringDisplay?.SetActive(false);
+        ui.yellowOffspringDisplay?.SetActive(false);
 
+        string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
+
+        if (phenotype == "Green")
+        {
+            ui.greenOffspringDisplay?.SetActive(true);
+        }
+        else if (phenotype == "Yellow")
+        {
+            ui.yellowOffspringDisplay?.SetActive(true);
+        }
+        else
+        {
+            UnityEngine.Debug.LogWarning($"[LevelOne] Unknown phenotype: {phenotype}");
+        }
     }
-
-   public void ShowOffspring(BreedingUI ui, Creature offspring)
-{
-    ui.greenOffspringDisplay?.SetActive(false);
-    ui.yellowOffspringDisplay?.SetActive(false);
-
-    string phenotype = offspring.GetPhenotype("CoatColor").ToLowerInvariant();
-
-    if (phenotype == "green")
-        ui.greenOffspringDisplay?.SetActive(true);
-    else if (phenotype == "yellow")
-        ui.yellowOffspringDisplay?.SetActive(true);
-}
 
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)

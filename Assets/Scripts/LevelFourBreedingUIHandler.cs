@@ -10,8 +10,8 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
     }
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        string tailType = offspring.GetPhenotype("TailLength").ToLower();
-        string bodyColor = offspring.GetPhenotype("CoatColor").ToLower();
+        string tailType = offspring.GetPhenotype(Gene.Traits.TailLength);
+        string bodyColor = offspring.GetPhenotype(Gene.Traits.CoatColor);
 
         foreach (GameObject obj in ui.level4OffspringDisplayObjects)
         {
@@ -22,8 +22,7 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
                 continue;
             }
 
-            bool match = meta.BodyColor.ToLower() == bodyColor &&
-                         meta.Phenotype.ToLower() == tailType;
+            bool match = meta.BodyColor == bodyColor && meta.Phenotype == tailType;
 
             obj.SetActive(match);
 
@@ -32,11 +31,11 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
                 if (challenge != null)
                 {
                     challenge?.SetResult(tailType, bodyColor, offspring);
-                    UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + tailType + ", " + bodyColor);
+                    Debug.Log("[DEBUG] Sent result to challenge: " + tailType + ", " + bodyColor);
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError("Challenge is NULL in LevelFourBreedingUIHandler!");
+                    Debug.LogError("Challenge is NULL in LevelFourBreedingUIHandler!");
                 }
             }
 

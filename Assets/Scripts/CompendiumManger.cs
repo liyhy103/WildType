@@ -89,64 +89,62 @@ public class CompendiumManager : MonoBehaviour
     {
         // Level One
         var levelOneDad = new Creature("GreenDad", "Male", new List<Gene> {
-            new Gene("CoatColor", 'G', 'G') }, "Green")
+            new Gene(Gene.Traits.CoatColor, 'G', 'G') }, "Green")
         { SourceLevel = "LevelOne" };
         var levelOneMom = new Creature("YellowMom", "Female", new List<Gene> {
-            new Gene("CoatColor", 'g', 'g') }, "Yellow")
+            new Gene(Gene.Traits.CoatColor, 'g', 'g') }, "Yellow")
         { SourceLevel = "LevelOne" };
 
         LevelStarters["LevelOne"] = new List<Creature> { levelOneDad, levelOneMom };
-        creatureSprites[levelOneDad] = SpriteRegistry.GetSprite("Male", levelOneDad.GetPhenotype("CoatColor"), "Green");
-        creatureSprites[levelOneMom] = SpriteRegistry.GetSprite("Female", levelOneMom.GetPhenotype("CoatColor"), "Yellow");
+        creatureSprites[levelOneDad] = SpriteRegistry.GetSprite("Male", levelOneDad.GetPhenotype(Gene.Traits.CoatColor), "Green");
+        creatureSprites[levelOneMom] = SpriteRegistry.GetSprite("Female", levelOneMom.GetPhenotype(Gene.Traits.CoatColor), "Yellow");
 
         // Level Two
         var levelTwoMale = new Creature("Parent1_Green_Light_Male", "Male", new List<Gene> {
-            new Gene("ShellColor", 'b', 'Y') }, "Green")
+            new Gene(Gene.Traits.ShellColor, 'b', 'Y') }, "Green")
         { SourceLevel = "LevelTwo" };
         var levelTwoFemale = new Creature("Parent2_Green_Dark_Female", "Female", new List<Gene> {
-            new Gene("ShellColor", 'B', 'b') }, "Green")
+            new Gene(Gene.Traits.ShellColor, 'B', 'b') }, "Green")
         { SourceLevel = "LevelTwo" };
 
         LevelStarters["LevelTwo"] = new List<Creature> { levelTwoMale, levelTwoFemale };
-        creatureSprites[levelTwoMale] = SpriteRegistry.GetSprite("Male", levelTwoMale.GetPhenotype("ShellColor"), "Green");
-        creatureSprites[levelTwoFemale] = SpriteRegistry.GetSprite("Female", levelTwoFemale.GetPhenotype("ShellColor"), "Green");
+        creatureSprites[levelTwoMale] = SpriteRegistry.GetSprite("Male", levelTwoMale.GetPhenotype(Gene.Traits.ShellColor), "Green");
+        creatureSprites[levelTwoFemale] = SpriteRegistry.GetSprite("Female", levelTwoFemale.GetPhenotype(Gene.Traits.ShellColor), "Green");
 
         // Level  Three
         var levelThreeMale = new Creature("Parent1_Green_Long_Male", "Male", new List<Gene> {
-            new Gene("HornLength", 'L', 'L') }, "Green")
+            new Gene(Gene.Traits.HornLength, 'L', 'L') }, "Green")
         { SourceLevel = "LevelThree" };
         var levelThreeFemale = new Creature("Parent1_Green_No_Female", "Female", new List<Gene> {
-            new Gene("HornLength", 'l', 'l') }, "Green")
+            new Gene(Gene.Traits.HornLength, 'l', 'l') }, "Green")
         { SourceLevel = "LevelThree" };
 
         LevelStarters["LevelThree"] = new List<Creature> { levelThreeMale, levelThreeFemale };
-        creatureSprites[levelThreeMale] = SpriteRegistry.GetSprite("Male", levelThreeMale.GetPhenotype("HornLength"), "Green");
-        creatureSprites[levelThreeFemale] = SpriteRegistry.GetSprite("Female", levelThreeFemale.GetPhenotype("HornLength"), "Green");
+        creatureSprites[levelThreeMale] = SpriteRegistry.GetSprite("Male", levelThreeMale.GetPhenotype(Gene.Traits.HornLength), "Green");
+        creatureSprites[levelThreeFemale] = SpriteRegistry.GetSprite("Female", levelThreeFemale.GetPhenotype(Gene.Traits.HornLength), "Green");
 
         // Level Four-c stands creature since there a four starters this time
         var c1 = new Creature("Parent1_Green_LongTail_Male", "Male", new List<Gene> {
-            new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'L', 'L') }, "Green")
+            new Gene(Gene.Traits.CoatColor, 'G', 'G'), new Gene(Gene.Traits.TailLength, 'L', 'L') }, "Green")
         { SourceLevel = "LevelFour" };
 
         var c2 = new Creature("Parent1_Yellow_ShortTail_Female", "Female", new List<Gene> {
-            new Gene("CoatColor", 'g', 'g'), new Gene("TailLength", 'l', 'l') }, "Yellow")
+            new Gene(Gene.Traits.CoatColor, 'g', 'g'), new Gene(Gene.Traits.TailLength, 'l', 'l') }, "Yellow")
         { SourceLevel = "LevelFour" };
 
         var c3 = new Creature("Parent1_Yellow_ShortTail_Male", "Male", new List<Gene> {
-            new Gene("CoatColor", 'g', 'g'), new Gene("TailLength", 'l', 'l') }, "Yellow")
+            new Gene(Gene.Traits.CoatColor, 'g', 'g'), new Gene(Gene.Traits.TailLength, 'l', 'l') }, "Yellow")
         { SourceLevel = "LevelFour" };
 
         var c4 = new Creature("Parent1_Green_ShortTail_Female", "Female", new List<Gene> {
-            new Gene("CoatColor", 'G', 'G'), new Gene("TailLength", 'l', 'l') }, "Green")
+            new Gene(Gene.Traits.CoatColor, 'G', 'G'), new Gene(Gene.Traits.TailLength, 'l', 'l') }, "Green")
         { SourceLevel = "LevelFour" };
 
         LevelStarters["LevelFour"] = new List<Creature> { c1, c2, c3, c4 };
 
-        creatureSprites[c1] = SpriteRegistry.GetSprite("Male", c1.GetPhenotype("TailLength"), "Green");
-        creatureSprites[c2] = SpriteRegistry.GetSprite("Female", c2.GetPhenotype("TailLength"), "Yellow");
-        creatureSprites[c3] = SpriteRegistry.GetSprite("Male", c3.GetPhenotype("TailLength"), "Yellow");
-        creatureSprites[c4] = SpriteRegistry.GetSprite("Female", c4.GetPhenotype("TailLength"), "Green");
-
-
+        creatureSprites[c1] = SpriteRegistry.GetSprite("Male", c1.GetPhenotype(Gene.Traits.TailLength), "Green");
+        creatureSprites[c2] = SpriteRegistry.GetSprite("Female", c2.GetPhenotype(Gene.Traits.TailLength), "Yellow");
+        creatureSprites[c3] = SpriteRegistry.GetSprite("Male", c3.GetPhenotype(Gene.Traits.TailLength), "Yellow");
+        creatureSprites[c4] = SpriteRegistry.GetSprite("Female", c4.GetPhenotype(Gene.Traits.TailLength), "Green");
     }
 }

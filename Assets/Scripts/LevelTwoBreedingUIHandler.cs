@@ -30,7 +30,7 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
             return;
         }
 
-        string phenotype = offspring.GetPhenotype("shellcolor");
+        string phenotype = offspring.GetPhenotype(Gene.Traits.ShellColor);
         string gender = offspring.Gender;
 
         ui.greenOffspringDisplay?.SetActive(false);

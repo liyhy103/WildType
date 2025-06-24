@@ -14,8 +14,8 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
 
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        string phenotype = offspring.GetPhenotype("hornlength").ToLower();
-        string bodyColor = offspring.BodyColor.ToLower();
+        string phenotype = offspring.GetPhenotype(Gene.Traits.HornLength);
+        string bodyColor = offspring.BodyColor;
 
         foreach (var obj in ui.level3OffspringDisplayObjects)
         {
@@ -26,16 +26,12 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
                 continue;
             }
 
-            bool match = meta.Phenotype.ToLower() == phenotype &&
-                                    meta.BodyColor.ToLower() == bodyColor;
-
-
-
+            bool match = meta.Phenotype == phenotype && meta.BodyColor == bodyColor;
 
             obj.SetActive(match);
             UnityEngine.Debug.Log($"[Offspring Match Test] {obj.name} - Match: {match} | Phenotype: {meta.Phenotype}/{phenotype}, Color: {meta.BodyColor}/{bodyColor}");
 
-            string result = offspring.GetPhenotype("hornlength").ToLower();
+            string result = offspring.GetPhenotype(Gene.Traits.HornLength).ToLower();
 
             UnityEngine.Debug.Log(result);
 

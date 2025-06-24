@@ -76,11 +76,11 @@ public class BreedingUI : MonoBehaviour
     {
         return breedingType switch
         {
-            BreedingType.Mendelian => "CoatColor",
-            BreedingType.SexLinked => "ShellColor",
-            BreedingType.IncompleteDominance => "HornLength",
-            BreedingType.DihybridInheritance => "TailLength",
-            _ => "CoatColor"
+            BreedingType.Mendelian => Gene.Traits.CoatColor,
+            BreedingType.SexLinked => Gene.Traits.ShellColor,
+            BreedingType.IncompleteDominance => Gene.Traits.HornLength,
+            BreedingType.DihybridInheritance => Gene.Traits.TailLength,
+            _ => Gene.Traits.CoatColor
         };
     }
 
@@ -108,8 +108,6 @@ public class BreedingUI : MonoBehaviour
         }
         Debug.Log($"[BreedingUI] Breeding strategy initialized: {breedingStrategy?.GetType().Name ?? "null"}");
 
-       
-
 
         string sceneName = SceneManager.GetActiveScene().name;
 
@@ -129,7 +127,7 @@ public class BreedingUI : MonoBehaviour
 
         if (challengeManager == null)
         {
-            challengeManager = FindObjectOfType<Challenge>();
+            challengeManager = FindFirstObjectByType<Challenge>();;
             if (challengeManager == null)
                 Debug.LogWarning("ChallengeManager not found in the scene!");
         }
@@ -182,10 +180,10 @@ public class BreedingUI : MonoBehaviour
             Debug.Log($"[BreedingUI] Compendium creature incoming: {compendiumCreature.CreatureName} from level {compendiumCreature.SourceLevel}");
             if (compendiumCreature.SourceLevel == sceneName)
             {
-                if (string.IsNullOrEmpty(compendiumCreature.BodyColor) || compendiumCreature.BodyColor == "Unknown")
+                if (string.IsNullOrEmpty(compendiumCreature.BodyColor) || compendiumCreature.BodyColor == null)
                 {
                     string trait = GetCurrentTrait();
-                    if (trait == "CoatColor" || trait == "ShellColor")
+                    if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)
                     {
                         compendiumCreature.BodyColor = compendiumCreature.GetPhenotype(trait);
                         Debug.Log($"[BreedingUI] Set missing BodyColor to {compendiumCreature.BodyColor} based on {trait}");
@@ -200,17 +198,8 @@ public class BreedingUI : MonoBehaviour
             }
         }
 
-
-
         BreedButton.onClick.AddListener(OnBreedClicked);
-
-        
-
     }
-
-
-
-
 
 
     private bool ShouldCompareBodyColor()
@@ -218,8 +207,6 @@ public class BreedingUI : MonoBehaviour
         string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         return levelName == "LevelOne" || levelName == "LevelFour";
     }
-
-
 
     public void UpdateCreatureDisplayParent1(Creature creature)
     {
@@ -260,11 +247,6 @@ public class BreedingUI : MonoBehaviour
             obj.SetActive(match);
         }
     }
-
-
-
-
-
 
     public void OnBreedClicked()
     {
@@ -308,7 +290,7 @@ public class BreedingUI : MonoBehaviour
         if (OffspringText != null)
             OffspringText.text = ""; 
 
-        string phenotype = offspring.GetPhenotype("CoatColor");
+        string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
         Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
 
         Sprite offspringSprite = breedingUIHandler?.GetOffspringSprite(this);
@@ -351,11 +333,6 @@ public class BreedingUI : MonoBehaviour
         }
     }
 
-
-
-
-
-
     public void OnSaveToCompendiumClicked()
     {
         if (lastOffspring != null)
@@ -374,7 +351,7 @@ public class BreedingUI : MonoBehaviour
             if (lastOffspring.BodyColor == "Unknown" || string.IsNullOrEmpty(lastOffspring.BodyColor))
             {
                 string trait = GetCurrentTrait();
-                if (trait == "CoatColor" || trait == "ShellColor")
+                if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)
                     lastOffspring.BodyColor = lastOffspring.GetPhenotype(trait);
             }
 
@@ -383,16 +360,10 @@ public class BreedingUI : MonoBehaviour
         }
     }
 
-
-
-
-
-
     Creature Breed(Creature p1, Creature p2)
     {
         return breedingStrategy.Breed(p1, p2);
     }
-
 
     void PlayHeartEffect()
     {
@@ -447,8 +418,6 @@ public class BreedingUI : MonoBehaviour
             BreedButton.interactable = true;
     }
 
-
-
     void UpdateCreatureImage(GameObject displayObj, Sprite sprite)
     {
         var image = displayObj.GetComponent<Image>();
@@ -458,9 +427,4 @@ public class BreedingUI : MonoBehaviour
             image.preserveAspect = true;
         }
     }
-
-
-
 }
-
-
