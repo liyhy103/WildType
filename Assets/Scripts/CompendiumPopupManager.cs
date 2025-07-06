@@ -37,7 +37,7 @@ public class CompendiumPopupManager : MonoBehaviour
         }
 
         FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(1, currentCreature);
-        popupPanel.SetActive(false);
+        StartCoroutine(DisableButtonAfterDelay(0.3f));
     }
 
     public void AssignToParent2()
@@ -51,6 +51,12 @@ public class CompendiumPopupManager : MonoBehaviour
         }
 
         FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(2, currentCreature);
+        StartCoroutine(DisableButtonAfterDelay(0.3f));
+    }
+
+    private IEnumerator DisableButtonAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
         popupPanel.SetActive(false);
     }
 
@@ -68,6 +74,6 @@ public class CompendiumPopupManager : MonoBehaviour
 
     public void Cancel()
     {
-        popupPanel.SetActive(false);
+        StartCoroutine(DisableButtonAfterDelay(0.3f));
     }
 }

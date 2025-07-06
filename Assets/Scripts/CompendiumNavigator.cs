@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CompendiumNavigator : MonoBehaviour
 {
@@ -31,7 +33,13 @@ public class CompendiumNavigator : MonoBehaviour
     {
         if (compendiumPanel != null)
         {
-            compendiumPanel.SetActive(false);
+            StartCoroutine(DisableButtonAfterDelay(0.3f));
         }
+    }
+
+    private IEnumerator DisableButtonAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        compendiumPanel.SetActive(false);
     }
 }

@@ -9,69 +9,66 @@ using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 
-public class Challenge : MonoBehaviour
+public abstract class Challenge : MonoBehaviour
 {
-    //public Animator challengeAnimator;
+
     public TMP_Text challengeText;
-    protected List<string> challenges = new List<string>();
-
     public ParticleSystem particleSystem;
+    public Image TurtleOne, TurtleTwo, TurtleThree, TurtleFour;
 
-    public Image GreenTurtle;
-    public Image YellowTurtle;
-
+    protected List<string> challenges = new();
     protected string currentChallenge = "";
-    public string CurrentChallenge => currentChallenge;
-
+    protected string result = "";
     public Creature currentCreature;
 
-    protected string result = "";
+    public string CurrentChallenge => currentChallenge;
 
     public void Start()
     {
-        
-
-        if (challengeText == null)
-        {
-            UnityEngine.Debug.LogError("challengeText is not assigned in the Inspector!");
-            return;
-        }
-        UnityEngine.Debug.Log("challengeText is correctly assigned.");
-
+        ValidateReferences();
         SetListItem();
-        challengeText.text = "";
-        challengeText.gameObject.SetActive(false);
-
         PickNextChallenge();
-        challengeText.gameObject.SetActive(true);
-
     }
 
-    private void SetListItem()
+    protected virtual void SetListItem() { }
+
+    protected virtual void ValidateReferences()
     {
-        // Add challenges to the list
-        challenges.Add("Green");
-        challenges.Add("Yellow");
+        if (challengeText == null)
+            Debug.LogError("[Challenge] challengeText not assigned!");
 
+        if (particleSystem == null)
+            Debug.LogWarning("[Challenge] particleSystem not assigned!");
+
+        if (TurtleOne == null || TurtleTwo == null)
+            Debug.LogWarning("[Challenge] One or more turtle images not assigned!");
     }
 
-    public void SetChallengeText(string text)
+
+    public virtual void SetChallengeText(string text)
     {
-        if (challengeText != null)
-        {
-            challengeText.text = text;
-            UnityEngine.Debug.Log("[Challenge] Showing challenge text: " + text);
-        }
+        challengeText.text = text;
+        UnityEngine.Debug.Log("[Challenge] Showing challenge text: " + text);
     }
 
-    public void SetResult(string phenotype, Creature creature)
+    public virtual void SetResult(string phenotype, Creature creature)
     {
         result = phenotype;
         currentCreature = creature;
-        Debug.Log("[Challenge] Received result: " + phenotype);
+        Debug.Log($"[Challenge] Received result: '{phenotype}'");
+
+        if (string.IsNullOrEmpty(currentChallenge))
+        {
+            Debug.Log("[Challenge] No active challenge — assuming all are complete.");
+            return;
+        }
+
+        Debug.Log($"[Challenge] Comparing result '{result}' with current challenge '{currentChallenge}'");
+
+        ProcessResult();
     }
 
-    public void Update()
+    protected virtual void ProcessResult()
     {
         if (currentCreature == null)
         {
@@ -79,45 +76,53 @@ public class Challenge : MonoBehaviour
             return;
         }
 
-        if (result.ToLower() == currentChallenge.ToLower())
+        if (string.IsNullOrWhiteSpace(result) || string.IsNullOrWhiteSpace(currentChallenge))
+        {
+            Debug.Log($"[ProcessResult] Empty result or challenge! result: '{result}', challenge: '{currentChallenge}'");
+            return;
+        }
+
+        if (string.Equals(result.Trim(), currentChallenge.Trim(), System.StringComparison.OrdinalIgnoreCase))
         {
             SetChallengeText("You Completed this challenge");
-
-            
-
             challenges.Remove(currentChallenge);
+            Debug.Log("[Challenge] Challenge completed! Removing from list.");
             PickNextChallenge();
-            particleSystem.Play();
-            currentCreature = null;
-            result = "";
-        }
-    }
-    private void PickNextChallenge()
-    {
-        if (challenges.Count > 0)
-        {
 
-            currentChallenge = challenges[0];
-            if (currentChallenge.ToLower() == "green")
+            if (particleSystem != null)
             {
-                GreenTurtle.gameObject.SetActive(true);
-                YellowTurtle.gameObject.SetActive(false);
+                particleSystem.Play();
             }
-            else if (currentChallenge.ToLower() == "yellow")
-            {
-                GreenTurtle.gameObject.SetActive(false);
-                YellowTurtle.gameObject.SetActive(true);
-            }
-
-            string challenge = "Breed a " + currentChallenge + " creature";
-            SetChallengeText(challenge);
-            Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
         }
         else
         {
-            string completed = "All challenges have been completed";
-            SetChallengeText(completed);
+            Debug.Log($"[Challenge] Result did not match. result: '{result}', expected: '{currentChallenge}'");
+        }
+
+        currentCreature = null;
+        result = "";
+    }
+
+    protected virtual void TriggerSuccessEffect()
+    {
+        if (particleSystem != null)
+            particleSystem.Play();
+    }
+
+    protected virtual void PickNextChallenge()
+    {
+        if (challenges.Count > 0)
+        {
+            currentChallenge = challenges[0];
+            SetChallengeText($"Breed a {currentChallenge} creature");
+            ShowVisualCue();
+        }
+        else
+        {
+            SetChallengeText("All challenges completed!");
             currentChallenge = "";
         }
     }
+
+    protected virtual void ShowVisualCue() { }
 }

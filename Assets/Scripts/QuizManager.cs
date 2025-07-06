@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class QuizManager : MonoBehaviour
 {
     public GameObject quizPanel; // The panel that contains the quiz UI elements
@@ -22,6 +23,7 @@ public class QuizManager : MonoBehaviour
     public event QuizFinishedHandler OnQuizFinished; // Event to notify when the quiz is finished
 
     public ParticleSystem particleSystem;// Particle system to play effects when the question is answered correctly
+
 
     void Start()
     {

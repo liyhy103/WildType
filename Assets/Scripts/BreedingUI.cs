@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class CreatureSpriteEntry
@@ -101,36 +102,53 @@ public class BreedingUI : MonoBehaviour
                 breedingStrategy = new DihybridInheritance();
                 break;
             default:
-                Debug.LogWarning("Unsupported breeding type selected.");
+                UnityEngine.Debug.LogWarning("Unsupported breeding type selected.");
 
                 break;
 
         }
-        Debug.Log($"[BreedingUI] Breeding strategy initialized: {breedingStrategy?.GetType().Name ?? "null"}");
+        UnityEngine.Debug.Log($"[BreedingUI] Breeding strategy initialized: {breedingStrategy?.GetType().Name ?? "null"}");
 
 
         string sceneName = SceneManager.GetActiveScene().name;
 
-
-        if (sceneName == "LevelOne")
-            breedingUIHandler = new LevelOneBreedingUIHandler();
-        else if (sceneName == "LevelTwo")
-            breedingUIHandler = new LevelTwoBreedingUIHandler(challengeManager as LevelTwoChallenge);
-        else if (sceneName == "LevelThree")
-            breedingUIHandler = new LevelThreeBreedingUIHandler(challengeManager as LevelThreeChallenges);
-        else if (sceneName == "TutorialLevel")
-            breedingUIHandler = new LevelOneBreedingUIHandler();
-        else if (sceneName == "LevelFour")
-            breedingUIHandler = new LevelFourBreedingUIHandler(challengeManager as LevelFourChallenge);
-        else
-            breedingUIHandler = null;
-
         if (challengeManager == null)
         {
-            challengeManager = FindFirstObjectByType<Challenge>();;
+            challengeManager = FindFirstObjectByType<Challenge>(); ;
             if (challengeManager == null)
-                Debug.LogWarning("ChallengeManager not found in the scene!");
+                UnityEngine.Debug.LogWarning("ChallengeManager not found in the scene!");
         }
+
+        if (sceneName == "LevelOne")
+        {
+            breedingUIHandler = new LevelOneBreedingUIHandler();
+        }
+        else if (sceneName == "LevelTwo")
+        {
+            breedingUIHandler = new LevelTwoBreedingUIHandler(challengeManager as LevelTwoChallenge);
+        }
+        else if (sceneName == "LevelThree")
+        {
+            LevelThreeChallenges challenge = challengeManager as LevelThreeChallenges;
+            if (challenge == null)
+            {
+                UnityEngine.Debug.LogError("challengeManager is not a LevelThreeChallenges or is null!");
+            }
+            breedingUIHandler = new LevelThreeBreedingUIHandler(challengeManager as LevelThreeChallenges);
+        }
+        else if (sceneName == "TutorialLevel")
+        {
+            breedingUIHandler = new LevelOneBreedingUIHandler();
+        }
+        else if (sceneName == "LevelFour")
+        {
+            breedingUIHandler = new LevelFourBreedingUIHandler(challengeManager as LevelFourChallenge);
+        }
+        else
+        {
+            breedingUIHandler = null;
+        }
+
 
         Creature compendiumCreature = CreatureTransfer.CreatureToAssign;
         int targetParent = CreatureTransfer.TargetParentIndex;
@@ -145,25 +163,25 @@ public class BreedingUI : MonoBehaviour
 
                 if (sprite == null)
                 {
-                    Debug.LogWarning($"[BreedingUI] No sprite found in inspector for: {starter.CreatureName}");
+                    UnityEngine.Debug.LogWarning($"[BreedingUI] No sprite found in inspector for: {starter.CreatureName}");
                     continue;
                 }
 
                 if (!CompendiumManager.Instance.compendium.Contains(starter))
                 {
                     CompendiumManager.Instance.AddToCompendium(starter, sprite);
-                    Debug.Log($"[BreedingUI] Starter added to compendium: {starter.CreatureName}");
+                    UnityEngine.Debug.Log($"[BreedingUI] Starter added to compendium: {starter.CreatureName}");
                 }
                 else
                 {
                     if (CompendiumManager.Instance.GetCreatureSprite(starter) == null)
                     {
                         CompendiumManager.Instance.AddToCompendium(starter, sprite);
-                        Debug.Log($"[BreedingUI] Starter sprite re-linked in compendium: {starter.CreatureName}");
+                        UnityEngine.Debug.Log($"[BreedingUI] Starter sprite re-linked in compendium: {starter.CreatureName}");
                     }
                     else
                     {
-                        Debug.Log($"[BreedingUI] Starter already in compendium with sprite: {starter.CreatureName}");
+                        UnityEngine.Debug.Log($"[BreedingUI] Starter already in compendium with sprite: {starter.CreatureName}");
                     }
                 }
 
@@ -172,12 +190,12 @@ public class BreedingUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"[BreedingUI] No level starters defined for scene {sceneName}");
+            UnityEngine.Debug.LogWarning($"[BreedingUI] No level starters defined for scene {sceneName}");
         }
 
         if (compendiumCreature != null)
         {
-            Debug.Log($"[BreedingUI] Compendium creature incoming: {compendiumCreature.CreatureName} from level {compendiumCreature.SourceLevel}");
+            UnityEngine.Debug.Log($"[BreedingUI] Compendium creature incoming: {compendiumCreature.CreatureName} from level {compendiumCreature.SourceLevel}");
             if (compendiumCreature.SourceLevel == sceneName)
             {
                 if (string.IsNullOrEmpty(compendiumCreature.BodyColor) || compendiumCreature.BodyColor == null)
@@ -186,15 +204,15 @@ public class BreedingUI : MonoBehaviour
                     if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)
                     {
                         compendiumCreature.BodyColor = compendiumCreature.GetPhenotype(trait);
-                        Debug.Log($"[BreedingUI] Set missing BodyColor to {compendiumCreature.BodyColor} based on {trait}");
+                        UnityEngine.Debug.Log($"[BreedingUI] Set missing BodyColor to {compendiumCreature.BodyColor} based on {trait}");
                     }
                 }
                 Creatures.Add(compendiumCreature);
-                Debug.Log($"[BreedingUI] Added compendium creature: {compendiumCreature.CreatureName} ({compendiumCreature.Gender})");
+                UnityEngine.Debug.Log($"[BreedingUI] Added compendium creature: {compendiumCreature.CreatureName} ({compendiumCreature.Gender})");
             }
             else
             {
-                Debug.LogWarning("[BreedingUI] Compendium creature source level mismatch. Not adding.");
+                UnityEngine.Debug.LogWarning("[BreedingUI] Compendium creature source level mismatch. Not adding.");
             }
         }
 
@@ -250,7 +268,7 @@ public class BreedingUI : MonoBehaviour
 
     public void OnBreedClicked()
     {
-        Debug.Log("[BreedingUI] Breed button clicked");
+        UnityEngine.Debug.Log("[BreedingUI] Breed button clicked");
 
         if (selectedParent1 == null || selectedParent2 == null)
         {
@@ -267,23 +285,23 @@ public class BreedingUI : MonoBehaviour
         if (breedingUIHandler != null &&
             !breedingUIHandler.ValidateParents(this, selectedParent1, selectedParent2, out string errorMessage))
         {
-            Debug.LogWarning($"[BreedingUI] Breeding failed: Validation failed with message: {errorMessage}");
+            UnityEngine.Debug.LogWarning($"[BreedingUI] Breeding failed: Validation failed with message: {errorMessage}");
             OffspringText.text = errorMessage;
             return;
         }
 
         string trait = GetCurrentTrait();
-        Debug.Log($"[BreedingUI] Breeding using trait: {trait}");
+        UnityEngine.Debug.Log($"[BreedingUI] Breeding using trait: {trait}");
 
         Creature offspring = Breed(selectedParent1, selectedParent2);
         if (offspring == null)
         {
-            Debug.LogError("[BreedingUI] Breeding strategy returned null. Check logic.");
+            UnityEngine.Debug.LogError("[BreedingUI] Breeding strategy returned null. Check logic.");
             OffspringText.text = "Breeding failed: no offspring was created!";
             return;
         }
 
-        Debug.Log($"[BreedingUI] Offspring created: {offspring.CreatureName} ({offspring.Gender})");
+        UnityEngine.Debug.Log($"[BreedingUI] Offspring created: {offspring.CreatureName} ({offspring.Gender})");
 
         PlayHeartEffect();
 
@@ -291,46 +309,46 @@ public class BreedingUI : MonoBehaviour
             OffspringText.text = ""; 
 
         string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
-        Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
+        UnityEngine.Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
 
         Sprite offspringSprite = breedingUIHandler?.GetOffspringSprite(this);
         if (offspringSprite == null)
         {
             offspringSprite = CompendiumManager.Instance.GetCreatureSprite(offspring);
-            Debug.Log("[BreedingUI] Offspring sprite fallback: used GetCreatureSprite()");
+            UnityEngine.Debug.Log("[BreedingUI] Offspring sprite fallback: used GetCreatureSprite()");
         }
 
 
         if (breedingUIHandler != null)
         {
-            Debug.Log("[BreedingUI] Displaying offspring using handler.");
+            UnityEngine.Debug.Log("[BreedingUI] Displaying offspring using handler.");
             breedingUIHandler.ShowOffspring(this, offspring);
         }
         else
         {
-            Debug.Log("[BreedingUI] No handler found. Instantiating offspring manually.");
+            UnityEngine.Debug.Log("[BreedingUI] No handler found. Instantiating offspring manually.");
             GameObject offspringInstance = Instantiate(parentDisplayPrefab, offspringSlot);
             offspringInstance.transform.localPosition = Vector3.zero;
             offspringInstance.transform.localScale = Vector3.one;
             UpdateCreatureImage(offspringInstance, offspringSprite);
-            Debug.Log($"[BreedingUI] Displayed offspring: {offspring.CreatureName}, Sprite: {offspringSprite?.name ?? "NULL"}");
-        }
-
-        if (challengeManager != null)
-        {
-            challengeManager.SetResult(phenotype, offspring);
-            Debug.Log("[BreedingUI] ChallengeManager updated with offspring result");
+            UnityEngine.Debug.Log($"[BreedingUI] Displayed offspring: {offspring.CreatureName}, Sprite: {offspringSprite?.name ?? "NULL"}");
         }
 
         lastOffspring = offspring;
         SaveToCompendiumButton.gameObject.SetActive(true);
-        Debug.Log("[BreedingUI] Offspring saved to lastOffspring, save button enabled.");
+        UnityEngine.Debug.Log("[BreedingUI] Offspring saved to lastOffspring, save button enabled.");
 
         if (tutorialUI != null)
         {
             tutorialUI.NotifyOffspring(offspring);
-            Debug.Log("[BreedingUI] TutorialUI notified of new offspring");
+            UnityEngine.Debug.Log("[BreedingUI] TutorialUI notified of new offspring");
         }
+    }
+
+    IEnumerator DisableButtonAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SaveToCompendiumButton.gameObject.SetActive(false);
     }
 
     public void OnSaveToCompendiumClicked()
@@ -339,14 +357,14 @@ public class BreedingUI : MonoBehaviour
         {
             if (CompendiumManager.Instance.compendium.Contains(lastOffspring))
             {
-                Debug.Log("[BreedingUI] Creature already in compendium. Skipping save.");
+                UnityEngine.Debug.Log("[BreedingUI] Creature already in compendium. Skipping save.");
                 SaveToCompendiumButton.gameObject.SetActive(false);
                 return;
             }
 
             Sprite sprite = breedingUIHandler?.GetOffspringSprite(this);
             lastOffspring.SourceLevel = SceneManager.GetActiveScene().name;
-            Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
+            UnityEngine.Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
 
             if (lastOffspring.BodyColor == "Unknown" || string.IsNullOrEmpty(lastOffspring.BodyColor))
             {
@@ -356,7 +374,7 @@ public class BreedingUI : MonoBehaviour
             }
 
             CompendiumManager.Instance.AddToCompendium(lastOffspring, sprite);
-            SaveToCompendiumButton.gameObject.SetActive(false);
+            StartCoroutine(DisableButtonAfterDelay(0.3f));
         }
     }
 
@@ -384,7 +402,7 @@ public class BreedingUI : MonoBehaviour
     {
         if (creature.SourceLevel != SceneManager.GetActiveScene().name)
         {
-            Debug.LogWarning("Cannot use this creature in a different level!");
+            UnityEngine.Debug.LogWarning("Cannot use this creature in a different level!");
             return;
         }
 
@@ -400,7 +418,7 @@ public class BreedingUI : MonoBehaviour
             parent1Instance = Instantiate(parentDisplayPrefab, parent1Slot);
             UpdateCreatureImage(parent1Instance, sprite);
             UpdateCreatureDisplayParent1(creature);
-            Debug.Log($"[BreedingUI] parent1Instance set to: {creature.CreatureName}");
+            UnityEngine.Debug.Log($"[BreedingUI] parent1Instance set to: {creature.CreatureName}");
         }
         else
         {
@@ -409,10 +427,10 @@ public class BreedingUI : MonoBehaviour
             parent2Instance = Instantiate(parentDisplayPrefab, parent2Slot);
             UpdateCreatureImage(parent2Instance, sprite);
             UpdateCreatureDisplayParent2(creature);
-            Debug.Log($"[BreedingUI] parent2Instance set to: {creature.CreatureName}");
+            UnityEngine.Debug.Log($"[BreedingUI] parent2Instance set to: {creature.CreatureName}");
         }
 
-        Debug.Log($"[BreedingUI] Assigned {creature.CreatureName} to Parent {parentIndex}");
+        UnityEngine.Debug.Log($"[BreedingUI] Assigned {creature.CreatureName} to Parent {parentIndex}");
 
         if (selectedParent1 != null && selectedParent2 != null)
             BreedButton.interactable = true;
@@ -428,3 +446,4 @@ public class BreedingUI : MonoBehaviour
         }
     }
 }
+
