@@ -25,8 +25,11 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
                 obj.SetActive(false);
                 continue;
             }
+            UnityEngine.Debug.Log($"[MatchCheck] Offspring phenotype: {phenotype}, bodyColor: {bodyColor}");
+            UnityEngine.Debug.Log($"[MatchCheck] Prefab meta: {meta.Phenotype}, {meta.BodyColor}");
 
-            bool match = meta.Phenotype == phenotype && meta.BodyColor == bodyColor;
+            bool match = meta.Phenotype.Trim().ToLower() == phenotype.Trim().ToLower()
+                      && meta.BodyColor.Trim().ToLower() == bodyColor.Trim().ToLower();
 
             obj.SetActive(match);
             UnityEngine.Debug.Log($"[Offspring Match Test] {obj.name} - Match: {match} | Phenotype: {meta.Phenotype}/{phenotype}, Color: {meta.BodyColor}/{bodyColor}");

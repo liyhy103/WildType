@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using static LevelNames;
 
 public class CompendiumUI : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class CompendiumUI : MonoBehaviour
 
     private void OnEnable()
     {
-       
         RefreshDisplay();
     }
 
@@ -29,33 +29,45 @@ public class CompendiumUI : MonoBehaviour
 
         foreach (var creature in CompendiumManager.Instance.compendium)
         {
-            string levelKey = string.IsNullOrEmpty(creature.SourceLevel) ? "Unknown Level" : creature.SourceLevel;
+            if (string.IsNullOrWhiteSpace(creature.SourceLevel))
+            {
+                Debug.LogError($"[CompendiumUI] Creature {creature.CreatureName} has no SourceLevel assigned.");
+                continue; // skip this creature
+            }
 
-            if (!groupedCreatures.ContainsKey(levelKey))
-                groupedCreatures[levelKey] = new List<Creature>();
+            if (!groupedCreatures.ContainsKey(creature.SourceLevel))
+                groupedCreatures[creature.SourceLevel] = new List<Creature>();
 
-            groupedCreatures[levelKey].Add(creature);
+            groupedCreatures[creature.SourceLevel].Add(creature);
         }
 
-        List<string> levelOrder = new List<string> { "TutorialLevel", "LevelOne", "LevelTwo", "LevelThree", "LevelFour" };
+        List<string> levelOrder = new()
+        {
+            Tutorial,
+            LevelOne,
+            LevelTwo,
+            LevelThree,
+            LevelFour
+        };
 
         foreach (var level in levelOrder)
         {
-            if (!groupedCreatures.ContainsKey(level)) continue;
+            if (!groupedCreatures.TryGetValue(level, out var creatures))
+                continue;
 
             GameObject header = Instantiate(levelHeaderPrefab, creatureListParent);
             TMP_Text headerText = header.GetComponentInChildren<TMP_Text>();
             if (headerText != null)
             {
-                Debug.Log($"[CompendiumUI] Creating header for: {level}");
                 headerText.text = level;
                 headerText.fontSize = 28;
                 headerText.alignment = TextAlignmentOptions.Center;
             }
 
-            foreach (var creature in groupedCreatures[level])
+            foreach (var creature in creatures)
             {
                 GameObject entry = Instantiate(creatureEntryPrefab, creatureListParent);
+
                 var clickHandler = entry.GetComponent<CompendiumEntryClickHandler>();
                 if (clickHandler != null)
                 {
@@ -63,11 +75,10 @@ public class CompendiumUI : MonoBehaviour
                 }
 
                 TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
-                Image image = entry.transform.Find("CreatureImage")?.GetComponent<Image>();
-
                 if (text != null)
                     text.text = creature.GetFullDescription();
 
+                Image image = entry.transform.Find("CreatureImage")?.GetComponent<Image>();
                 if (image != null)
                 {
                     Sprite sprite = CompendiumManager.Instance.GetCreatureSprite(creature);

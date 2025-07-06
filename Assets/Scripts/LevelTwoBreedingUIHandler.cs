@@ -34,9 +34,9 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         string gender = offspring.Gender;
 
         ui.greenOffspringDisplay?.SetActive(false);
-        ui.yellowOffspringDisplay?.SetActive(false);       // now unused
+        ui.yellowOffspringDisplay?.SetActive(false);       
         ui.greenLightShellDisplay?.SetActive(false);
-        ui.yellowLightShellDisplay?.SetActive(false);      // now unused
+        ui.yellowLightShellDisplay?.SetActive(false);      
 
         if (phenotype == "Dark" && gender == "Male")
         {
