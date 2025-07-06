@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class LevelOneBreedingUIHandler : IBreedingUIHandler
 {
-    private Challenge challenge;
+    private LevelOneChallenge challenge;
 
-    public LevelOneBreedingUIHandler()
+    public LevelOneBreedingUIHandler(LevelOneChallenge challenge)
     {
-        challenge = GameObject.FindFirstObjectByType<Challenge>();
-        if (challenge == null)
-        {
-            UnityEngine.Debug.LogError("Challenge instance not found in scene!");
-        }
+        this.challenge = challenge;
     }
 
     public void ShowOffspring(BreedingUI ui, Creature offspring)
@@ -22,6 +18,8 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
         ui.yellowOffspringDisplay?.SetActive(false);
 
         string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
+
+        string result = offspring.GetPhenotype(Gene.Traits.CoatColor);
 
         if (phenotype == "Green")
         {
@@ -34,6 +32,11 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
         else
         {
             UnityEngine.Debug.LogWarning($"[LevelOne] Unknown phenotype: {phenotype}");
+        }
+        if (challenge != null)
+        {
+            challenge?.SetResult(phenotype, offspring);
+            UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + result);
         }
     }
 

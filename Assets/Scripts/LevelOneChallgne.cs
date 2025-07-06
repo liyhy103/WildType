@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelOneChallgne : Challenge
+public class LevelOneChallenge : Challenge
 {
     protected override void SetListItem()
     {

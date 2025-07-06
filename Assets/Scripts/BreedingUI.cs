@@ -121,7 +121,13 @@ public class BreedingUI : MonoBehaviour
 
         if (sceneName == "LevelOne")
         {
-            breedingUIHandler = new LevelOneBreedingUIHandler();
+            LevelOneChallenge challenge = challengeManager as LevelOneChallenge;
+            if (challenge == null)
+            {
+                UnityEngine.Debug.LogError("challengeManager is not a LevelThreeChallenges or is null!");
+            }
+            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
+
         }
         else if (sceneName == "LevelTwo")
         {
@@ -138,7 +144,13 @@ public class BreedingUI : MonoBehaviour
         }
         else if (sceneName == "TutorialLevel")
         {
-            breedingUIHandler = new LevelOneBreedingUIHandler();
+            LevelOneChallenge challenge = challengeManager as LevelOneChallenge;
+            if (challenge == null)
+            {
+                UnityEngine.Debug.LogError("challengeManager is not a LevelThreeChallenges or is null!");
+            }
+            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
+
         }
         else if (sceneName == "LevelFour")
         {
