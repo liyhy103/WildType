@@ -2,18 +2,29 @@
 
 public class Gene
 {
-    // Name of the trait this gene controls (e.g., "coatColor")
     public string TraitName;
-
-    // Two alleles for this gene (e.g., 'G' and ''g)
     public char Allele1;
     public char Allele2;
+
     public static class Traits
     {
         public const string CoatColor = "coatColor";
         public const string ShellColor = "shellColor";
         public const string HornLength = "hornLength";
         public const string TailLength = "tailLength";
+    }
+
+    public static class Phenotypes
+    {
+        public const string Green = "Green";
+        public const string Yellow = "Yellow";
+
+        public const string Light = "Light";
+        public const string Dark = "Dark";
+
+        public const string Long = "Long";
+        public const string Short = "Short";
+        public const string No = "No";
     }
 
     public Gene(string traitName, char allele1, char allele2)
@@ -23,99 +34,70 @@ public class Gene
         this.Allele2 = allele2;
     }
 
-    // Returns the genotype as a string (e.g., "G/g")
     public string GetGenotype()
     {
         return $"{Allele1}/{Allele2}";
     }
 
-    // Returns the phenotype based on genotype
     public string GetPhenotype()
     {
-        if (TraitName == Traits.CoatColor)
+        return TraitName switch
         {
-            return ResolveCoatColorPhenotype(Allele1, Allele2);           
-        }
+            var t when t == Traits.CoatColor => ResolveCoatColorPhenotype(Allele1, Allele2),
+            var t when t == Traits.TailLength => ResolveTailLengthPhenotype(Allele1, Allele2),
+            var t when t == Traits.ShellColor => ResolveShellColorPhenotype(Allele1, Allele2),
+            var t when t == Traits.HornLength => ResolveHornLengthPhenotype(Allele1, Allele2),
+            _ => WarnUnknownTrait()
+        };
+    }
 
-        if (TraitName == Traits.TailLength)
-        { 
-            return ResolveTailLengthPhenotype(Allele1, Allele2);            
-        }
-
-        if (TraitName == Traits.ShellColor)
-        {
-            return ResolveShellColorPhenotype(Allele1, Allele2);
-        }
-
-        if (TraitName == Traits.HornLength)
-        {
-            return ResolveHornLengthPhenotype(Allele1, Allele2);
-        }
-
+    private string WarnUnknownTrait()
+    {
         Debug.LogWarning($"[Gene] Unknown trait: {TraitName}");
         return null;
     }
 
-    // Trait logic for Shell Color
     private string ResolveShellColorPhenotype(char allele1, char allele2)
     {
-        // XB = 'B', Xb = 'b', Y = 'Y'
-        if (allele1 == 'Y' || allele2 == 'Y') //Male
-        {
-            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
-        }
-        else // Female
-        {
-            return (allele1 == 'B' || allele2 == 'B') ? "Dark" : "Light";
-        }
+        return (allele1 == 'B' || allele2 == 'B') ? Phenotypes.Dark : Phenotypes.Light;
     }
 
-    // Trait logic for Horn Length
     private string ResolveHornLengthPhenotype(char allele1, char allele2)
     {
         if (allele1 == 'L' && allele2 == 'L')
-            return "Long";
+            return Phenotypes.Long;
         if ((allele1 == 'L' && allele2 == 'l') || (allele1 == 'l' && allele2 == 'L'))
-            return "Short";
+            return Phenotypes.Short;
         if (allele1 == 'l' && allele2 == 'l')
-            return "No";
+            return Phenotypes.No;
 
         Debug.LogWarning($"[Gene] Unknown HornLength genotype: {allele1}/{allele2}");
         return null;
     }
 
-
-
-    // Trait logic for Coat Color
     private string ResolveCoatColorPhenotype(char allele1, char allele2)
     {
         string genotype = $"{allele1}/{allele2}";
         string reverseGenotype = $"{allele2}/{allele1}";
 
-        // Green / Yellow
-        if (genotype == "G/G")
-            return "Green";
-        if (genotype == "G/g" || reverseGenotype == "G/g")
-            return "Green";
+        if (genotype == "G/G" || genotype == "G/g" || reverseGenotype == "G/g")
+            return Phenotypes.Green;
         if (genotype == "g/g")
-            return "Yellow";
+            return Phenotypes.Yellow;
 
         Debug.LogWarning($"[Gene] Unknown CoatColor genotype: {allele1}/{allele2}");
         return null;
     }
 
-    // Trait logic for Tail Length
     private string ResolveTailLengthPhenotype(char allele1, char allele2)
     {
         string genotype = $"{allele1}/{allele2}";
         string reverseGenotype = $"{allele2}/{allele1}";
 
-        if (genotype == "L/L") 
-            return "Long";
-        if (genotype == "L/l" || reverseGenotype == "L/l") 
-            return "Long";
-        if (genotype == "l/l") 
-            return "Short";
+        if (genotype == "L/L" || genotype == "L/l" || reverseGenotype == "L/l")
+            return Phenotypes.Long;
+        if (genotype == "l/l")
+            return Phenotypes.Short;
 
         Debug.LogWarning($"[Gene] Unknown TailLength genotype: {allele1}/{allele2}");
         return null;

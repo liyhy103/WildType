@@ -3961,8 +3961,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf3bb359446d1f4bbb4b5ae7a861a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  challengeAnimator: {fileID: 0}
   challengeText: {fileID: 1018097661}
+  particleSystem: {fileID: 0}
+  TurtleOne: {fileID: 0}
+  TurtleTwo: {fileID: 0}
+  TurtleThree: {fileID: 0}
+  TurtleFour: {fileID: 0}
 --- !u!1 &1070179335
 GameObject:
   m_ObjectHideFlags: 0
@@ -4616,6 +4620,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -17
       objectReference: {fileID: 0}
+    - target: {fileID: 7721175676384548987, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
+      propertyPath: m_Spacing
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8801329138016017224, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -4702,6 +4710,7 @@ MonoBehaviour:
   - {fileID: 103895896}
   resultText: {fileID: 887810893}
   quizOptions: {fileID: 11400000, guid: de1b384d279d067418dabb3ead019d3b, type: 2}
+  particleSystem: {fileID: 0}
 --- !u!224 &1176959596
 RectTransform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using static LevelNames;
 
 public class CompendiumUI : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class CompendiumUI : MonoBehaviour
             if (string.IsNullOrWhiteSpace(creature.SourceLevel))
             {
                 Debug.LogError($"[CompendiumUI] Creature {creature.CreatureName} has no SourceLevel assigned.");
-                continue; // skip this creature
+                continue; 
             }
 
             if (!groupedCreatures.ContainsKey(creature.SourceLevel))
@@ -40,16 +39,15 @@ public class CompendiumUI : MonoBehaviour
 
             groupedCreatures[creature.SourceLevel].Add(creature);
         }
-
+        
         List<string> levelOrder = new()
-        {
-            Tutorial,
-            LevelOne,
-            LevelTwo,
-            LevelThree,
-            LevelFour
-        };
-
+            {
+                Creature.Tutorial,
+                Creature.LevelOne,
+                Creature.LevelTwo,
+                Creature.LevelThree,
+                Creature.LevelFour
+            };
         foreach (var level in levelOrder)
         {
             if (!groupedCreatures.TryGetValue(level, out var creatures))

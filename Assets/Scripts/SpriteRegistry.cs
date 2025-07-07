@@ -38,23 +38,13 @@ public static class SpriteRegistry
             return sprite;
         }
 
+        Debug.LogWarning($"[SpriteRegistry] No sprite found for key: {key}");
         return null;
     }
 
-    public static Sprite GetSprite(Gender gender, string phenotype, string bodyColor)
-    {
-        return GetSprite(gender.ToString(), phenotype, bodyColor);
-    }
-
-    //default string formatter
     public static string MakeKey(string gender, string phenotype, string bodyColor)
     {
-        return $"{gender.Trim().ToLower()}_{phenotype.Trim().ToLower()}_{bodyColor.Trim().ToLower()}";
+        return $"{gender}_{phenotype}_{bodyColor}";
     }
 
-    //overloaded type formatter 
-    public static string MakeKey(Gender gender, string phenotype, string bodyColor)
-    {
-        return MakeKey(gender.ToString(), phenotype, bodyColor);
-    }
 }
