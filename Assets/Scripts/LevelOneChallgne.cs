@@ -17,8 +17,7 @@ public class LevelOneChallenge : Challenge
 
     protected override void ShowVisualCue()
     {
-        if (currentChallenge.ToLower() == "green" +
-            "")
+        if (currentChallenge.ToLower() == "green")
         {
             TurtleOne?.gameObject.SetActive(true);
             TurtleTwo?.gameObject.SetActive(false);
@@ -29,5 +28,22 @@ public class LevelOneChallenge : Challenge
             TurtleTwo?.gameObject.SetActive(true);
         }
 
+    }
+
+    protected override void PickNextChallenge()
+    {
+        if (challenges.Count > 0)
+        {
+            currentChallenge = challenges[0];
+            expectedTraits = new List<string> { currentChallenge }; 
+
+            SetChallengeText($"Breed a {currentChallenge} creature");
+            ShowVisualCue();
+        }
+        else
+        {
+            SetChallengeText("All challenges completed!");
+            currentChallenge = "";
+        }
     }
 }

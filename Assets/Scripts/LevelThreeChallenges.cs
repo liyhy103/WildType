@@ -42,4 +42,21 @@ public class LevelThreeChallenges : Challenge
             TurtleThree?.gameObject.SetActive(true);
         }
     }
+
+    protected override void PickNextChallenge()
+    {
+        if (challenges.Count > 0)
+        {
+            currentChallenge = challenges[0];
+            expectedTraits = new List<string> { currentChallenge }; 
+
+            SetChallengeText($"Breed a {currentChallenge} horned creature");
+            ShowVisualCue();
+        }
+        else
+        {
+            SetChallengeText("All challenges completed!");
+            currentChallenge = "";
+        }
+    }
 }
