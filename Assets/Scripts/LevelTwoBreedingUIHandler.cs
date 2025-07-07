@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class LevelTwoBreedingUIHandler : IBreedingUIHandler
 {
@@ -11,57 +9,41 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
     {
         this.challenge = challenge;
     }
-    public void HandleBreed(Creature p1, Creature p2, BreedingUI context)
-    {
-        throw new System.NotImplementedException();
-    }
 
     public void ShowOffspring(BreedingUI ui, Creature offspring)
     {
-        if (ui == null)
+        if (ui == null || offspring == null)
         {
-            UnityEngine.Debug.LogError("BreedingUI reference is null!");
-            return;
-        }
-
-        if (offspring == null)
-        {
-            UnityEngine.Debug.LogError("Offspring Creature is null!");
+            Debug.LogError("[LevelTwo] BreedingUI or Offspring is null!");
             return;
         }
 
         string phenotype = offspring.GetPhenotype(Gene.Traits.ShellColor);
         string gender = offspring.Gender;
 
+        // Reset all displays
         ui.greenOffspringDisplay?.SetActive(false);
-        ui.yellowOffspringDisplay?.SetActive(false);       
         ui.greenLightShellDisplay?.SetActive(false);
-        ui.yellowLightShellDisplay?.SetActive(false);      
 
-        if (phenotype == "Dark" && gender == "Male")
+        Debug.Log($"[LevelTwo] Offspring: Gender={gender}, Phenotype={phenotype}");
+
+        if (phenotype == Gene.Phenotypes.Dark)
         {
             ui.greenOffspringDisplay?.SetActive(true);
-
+            Debug.Log("[LevelTwo] Showing greenOffspringDisplay (Dark Shell)");
         }
-        else if (phenotype == "Dark" && gender == "Female")
-        {
-            ui.greenOffspringDisplay?.SetActive(true);
-
-        }
-        else if (phenotype == "Light" && gender == "Male")
+        else if (phenotype == Gene.Phenotypes.Light)
         {
             ui.greenLightShellDisplay?.SetActive(true);
-
+            Debug.Log("[LevelTwo] Showing greenLightShellDisplay (Light Shell)");
         }
-        else if (phenotype == "Light" && gender == "Female")
+        else
         {
-            ui.greenLightShellDisplay?.SetActive(true);
-
+            Debug.LogWarning($"[LevelTwo] Unrecognized phenotype: {phenotype}");
         }
 
         challenge?.SetResult(phenotype, gender, offspring);
     }
-
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
     {
@@ -79,13 +61,9 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
     {
         if (ui.greenOffspringDisplay.activeSelf)
             return ui.greenOffspringDisplay.GetComponent<Image>().sprite;
-        if (ui.yellowOffspringDisplay.activeSelf)
-            return ui.yellowOffspringDisplay.GetComponent<Image>().sprite;
         if (ui.greenLightShellDisplay.activeSelf)
             return ui.greenLightShellDisplay.GetComponent<Image>().sprite;
-        if (ui.yellowLightShellDisplay.activeSelf)
-            return ui.yellowLightShellDisplay.GetComponent<Image>().sprite;
+
         return null;
     }
-
 }

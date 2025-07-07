@@ -19,13 +19,17 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
 
         string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
 
-        string result = offspring.GetPhenotype(Gene.Traits.CoatColor);
+        if (string.IsNullOrEmpty(offspring.BodyColor))
+        {
+            offspring.BodyColor = phenotype;
+            UnityEngine.Debug.Log($"[LevelOne] Assigned BodyColor={offspring.BodyColor} based on phenotype={phenotype}");
+        }
 
-        if (phenotype == "Green")
+        if (phenotype == Gene.Phenotypes.Green)
         {
             ui.greenOffspringDisplay?.SetActive(true);
         }
-        else if (phenotype == "Yellow")
+        else if (phenotype == Gene.Phenotypes.Yellow)
         {
             ui.yellowOffspringDisplay?.SetActive(true);
         }
@@ -33,12 +37,12 @@ public class LevelOneBreedingUIHandler : IBreedingUIHandler
         {
             UnityEngine.Debug.LogWarning($"[LevelOne] Unknown phenotype: {phenotype}");
         }
-        if (challenge != null)
-        {
-            challenge?.SetResult(phenotype, offspring);
-            UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + result);
-        }
+
+        challenge?.SetResult(phenotype, offspring);
+        UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + phenotype);
     }
+
+
 
 
     public bool ValidateParents(BreedingUI ui, Creature p1, Creature p2, out string errorMessage)
