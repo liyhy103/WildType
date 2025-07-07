@@ -36,7 +36,7 @@ public class CompendiumPopupManager : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(1, currentCreature);
+        Object.FindFirstObjectByType<BreedingUI>()?.AssignCompendiumCreature(1, currentCreature);
         StartCoroutine(DisableButtonAfterDelay(0.3f));
     }
 
@@ -50,7 +50,7 @@ public class CompendiumPopupManager : MonoBehaviour
             return;
         }
 
-        FindObjectOfType<BreedingUI>()?.AssignCompendiumCreature(2, currentCreature);
+        Object.FindFirstObjectByType<BreedingUI>()?.AssignCompendiumCreature(2, currentCreature);
         StartCoroutine(DisableButtonAfterDelay(0.3f));
     }
 
