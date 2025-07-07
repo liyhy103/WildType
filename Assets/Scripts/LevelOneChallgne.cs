@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelOneChallenge : Challenge
@@ -7,6 +8,11 @@ public class LevelOneChallenge : Challenge
         challenges.Add("Green");
         challenges.Add("Yellow");
 
+    }
+
+    public void SetResult(string phenotype, Creature creature)
+    {
+        SetResult(new List<string> { phenotype }, creature);
     }
 
     protected override void ShowVisualCue()

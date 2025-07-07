@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,7 +19,8 @@ public abstract class Challenge : MonoBehaviour
 
     protected List<string> challenges = new();
     protected string currentChallenge = "";
-    protected string result = "";
+    protected List<string> expectedTraits = new();
+    protected List<string> submittedTraits = new();
     public Creature currentCreature;
 
     public string CurrentChallenge => currentChallenge;
@@ -51,11 +53,11 @@ public abstract class Challenge : MonoBehaviour
         UnityEngine.Debug.Log("[Challenge] Showing challenge text: " + text);
     }
 
-    public virtual void SetResult(string phenotype, Creature creature)
+    public virtual void SetResult(List<string> traits, Creature creature)
     {
-        result = phenotype;
+        submittedTraits = traits;
         currentCreature = creature;
-        Debug.Log($"[Challenge] Received result: '{phenotype}'");
+        Debug.Log($"[Challenge] Received result: [{string.Join(", ", traits)}]");
 
         if (string.IsNullOrEmpty(currentChallenge))
         {
@@ -63,7 +65,7 @@ public abstract class Challenge : MonoBehaviour
             return;
         }
 
-        Debug.Log($"[Challenge] Comparing result '{result}' with current challenge '{currentChallenge}'");
+        Debug.Log($"[Challenge] Comparing result '{string.Join(", ", submittedTraits)}' with current challenge '{currentChallenge}'");
 
         ProcessResult();
     }
@@ -76,31 +78,19 @@ public abstract class Challenge : MonoBehaviour
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(result) || string.IsNullOrWhiteSpace(currentChallenge))
-        {
-            Debug.Log($"[ProcessResult] Empty result or challenge! result: '{result}', challenge: '{currentChallenge}'");
-            return;
-        }
+        bool match = expectedTraits.Count == submittedTraits.Count &&
+                     expectedTraits.Zip(submittedTraits, (a, b) => a.ToLower() == b.ToLower()).All(x => x);
 
-        if (string.Equals(result.Trim(), currentChallenge.Trim(), System.StringComparison.OrdinalIgnoreCase))
+        if (match)
         {
-            SetChallengeText("You Completed this challenge");
-            challenges.Remove(currentChallenge);
-            Debug.Log("[Challenge] Challenge completed! Removing from list.");
+            SetChallengeText("Challenge complete!");
+            TriggerSuccessEffect();
+            RemoveCurrentChallenge();
             PickNextChallenge();
-
-            if (particleSystem != null)
-            {
-                particleSystem.Play();
-            }
-        }
-        else
-        {
-            Debug.Log($"[Challenge] Result did not match. result: '{result}', expected: '{currentChallenge}'");
         }
 
         currentCreature = null;
-        result = "";
+        submittedTraits.Clear();
     }
 
     protected virtual void TriggerSuccessEffect()
@@ -123,6 +113,9 @@ public abstract class Challenge : MonoBehaviour
             currentChallenge = "";
         }
     }
-
+    protected virtual void RemoveCurrentChallenge()
+    {
+        challenges.Remove(currentChallenge);
+    }
     protected virtual void ShowVisualCue() { }
 }

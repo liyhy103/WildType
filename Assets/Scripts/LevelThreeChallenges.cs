@@ -16,6 +16,10 @@ public class LevelThreeChallenges : Challenge
         challenges.Add("Short");
         challenges.Add("No");
     }
+    public void SetResult(string phenotype, Creature creature)
+    {
+        SetResult(new List<string> { phenotype }, creature);
+    }
 
     protected override void ShowVisualCue()
     {
