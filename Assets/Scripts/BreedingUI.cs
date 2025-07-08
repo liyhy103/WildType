@@ -45,7 +45,6 @@ public class BreedingUI : MonoBehaviour
 
     public Button SaveToCompendiumButton;
     private Creature lastOffspring;
-    public TutorialUI tutorialUI;
     public RectTransform parent1Slot;
     public RectTransform parent2Slot;
     public GameObject parentDisplayPrefab;
@@ -325,12 +324,6 @@ public class BreedingUI : MonoBehaviour
         lastOffspring = offspring;
         SaveToCompendiumButton.gameObject.SetActive(true);
         Debug.Log("[BreedingUI] Offspring saved to lastOffspring, save button enabled.");
-
-        if (tutorialUI != null)
-        {
-            tutorialUI.NotifyOffspring(offspring);
-            Debug.Log("[BreedingUI] TutorialUI notified of new offspring");
-        }
     }
 
     public void OnSaveToCompendiumClicked()
