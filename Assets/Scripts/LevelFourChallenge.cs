@@ -37,6 +37,8 @@ public class LevelFourChallenge : Challenge
             currentChallenge = $"Breed a {currentColourChallenge} coloured creature with a {currentTailChallenge} tail";
             SetChallengeText(currentChallenge);
             Debug.Log("[Challenge] CurrentChallenge set to: " + currentChallenge);
+
+            ShowVisualCue();
         }
         else
         {
@@ -68,4 +70,29 @@ public class LevelFourChallenge : Challenge
             tailChallenges.RemoveAt(index);
         }
     }
+    protected override void ShowVisualCue()
+    {
+        TurtleOne?.gameObject.SetActive(false);
+        TurtleTwo?.gameObject.SetActive(false);
+        TurtleThree?.gameObject.SetActive(false);
+        TurtleFour?.gameObject.SetActive(false);
+
+        if (currentColourChallenge.ToLower() == "green" && currentTailChallenge.ToLower() == "long")
+        {
+            TurtleOne?.gameObject.SetActive(true);
+        }
+        else if (currentColourChallenge.ToLower() == "green" && currentTailChallenge.ToLower() == "short")
+        {
+            TurtleTwo?.gameObject.SetActive(true);
+        }
+        else if (currentColourChallenge.ToLower() == "yellow" && currentTailChallenge.ToLower() == "long")
+        {
+            TurtleThree?.gameObject.SetActive(true);
+        }
+        else if (currentColourChallenge.ToLower() == "yellow" && currentTailChallenge.ToLower() == "short")
+        {
+            TurtleFour?.gameObject.SetActive(true);
+        }
+    }
+
 }

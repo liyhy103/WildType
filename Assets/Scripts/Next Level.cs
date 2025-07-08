@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,7 @@ public class NextLevel : MonoBehaviour
 
     public void playerReady()
     {
+        UnityEngine.Debug.Log("[LevelThreeChallenges] NextLevel button clicked.");
         quizManager.StartQuiz(QuizToShow); // Start the quiz with the specified options
        
     }

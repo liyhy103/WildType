@@ -37,6 +37,8 @@ public class LevelTwoChallenge : Challenge
 
             currentChallenge = $"Breed a {currentShellChallenge} shelled {currentGenderChallenge} creature";
             SetChallengeText(currentChallenge);
+
+            ShowVisualCue();
         }
         else
         {
@@ -70,5 +72,41 @@ public class LevelTwoChallenge : Challenge
             genderChallenges.RemoveAt(index);
         }
     }
+    protected override void ShowVisualCue()
+    {
+        TurtleOne?.gameObject.SetActive(false);
+        TurtleTwo?.gameObject.SetActive(false);
+        TurtleThree?.gameObject.SetActive(false);
+        TurtleFour?.gameObject.SetActive(false);
 
+        string shell = currentShellChallenge.ToLower().Trim();
+        string gender = currentGenderChallenge.ToLower().Trim();
+
+        Debug.Log($"[LevelTwoChallenge] Visual cue: shell='{shell}' gender='{gender}'");
+
+        if (shell == "light" && gender == "female")
+        {
+            TurtleOne?.gameObject.SetActive(true);
+            Debug.Log("[LevelTwoChallenge] Showing TurtleOne");
+        }
+        else if (shell == "light" && gender == "male")
+        {
+            TurtleTwo?.gameObject.SetActive(true);
+            Debug.Log("[LevelTwoChallenge] Showing TurtleTwo");
+        }
+        else if (shell == "dark" && gender == "female")
+        {
+            TurtleThree?.gameObject.SetActive(true);
+            Debug.Log("[LevelTwoChallenge] Showing TurtleThree");
+        }
+        else if (shell == "dark" && gender == "male")
+        {
+            TurtleFour?.gameObject.SetActive(true);
+            Debug.Log("[LevelTwoChallenge] Showing TurtleFour");
+        }
+        else
+        {
+            Debug.LogWarning($"[LevelTwoChallenge] No turtle matched for shell='{shell}' and gender='{gender}'");
+        }
+    }
 }

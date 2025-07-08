@@ -30,7 +30,7 @@ public class LevelFourBreedingUIHandler : IBreedingUIHandler
             {
                 if (challenge != null)
                 {
-                    challenge?.SetResult(tailType, bodyColor, offspring);
+                    challenge?.SetResult(bodyColor, tailType, offspring); 
                     Debug.Log("[DEBUG] Sent result to challenge: " + tailType + ", " + bodyColor);
                 }
                 else

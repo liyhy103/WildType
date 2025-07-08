@@ -29,6 +29,7 @@ public abstract class Challenge : MonoBehaviour
     {
         ValidateReferences();
         SetListItem();
+        HideAllVisuals();
         PickNextChallenge();
     }
 
@@ -46,6 +47,13 @@ public abstract class Challenge : MonoBehaviour
             Debug.LogWarning("[Challenge] One or more turtle images not assigned!");
     }
 
+    protected virtual void HideAllVisuals()
+    {
+        TurtleOne?.gameObject.SetActive(false);
+        TurtleTwo?.gameObject.SetActive(false);
+        TurtleThree?.gameObject.SetActive(false);
+        TurtleFour?.gameObject.SetActive(false);
+    }
 
     public virtual void SetChallengeText(string text)
     {
