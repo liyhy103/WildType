@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 using Debug = UnityEngine.Debug;
 
 [System.Serializable]
@@ -59,8 +58,7 @@ public class BreedingUI : MonoBehaviour
     private Creature selectedParent1;
     private Creature selectedParent2;
 
-    [SerializeField]
-    private List<CreatureSpriteEntry> starterSprites = new();
+ 
 
 
     public enum BreedingType
@@ -143,18 +141,14 @@ public class BreedingUI : MonoBehaviour
             foreach (var starter in starters)
             {
                 Creatures.Add(starter);
-                Sprite sprite = starterSprites.Find(s => s.creatureName == starter.CreatureName)?.sprite;
-
-                if (sprite == null)
-                {
-                    Debug.LogWarning($"[BreedingUI] No sprite found in inspector for: {starter.CreatureName}");
-                    continue;
-                }
+                Sprite sprite = CompendiumManager.Instance.GetCreatureSprite(starter);
 
                 if (!CompendiumManager.Instance.compendium.Contains(starter))
                 {
-                    CompendiumManager.Instance.AddToCompendium(starter, sprite);
-                    Debug.Log($"[BreedingUI] Starter added to compendium: {starter.CreatureName}");
+                    if (sprite == null)
+                        Debug.LogWarning($"[BreedingUI] No sprite found for: {starter.CreatureName}");
+                    else
+                        CompendiumManager.Instance.AddToCompendium(starter, sprite);
                 }
                 else
                 {
@@ -168,14 +162,13 @@ public class BreedingUI : MonoBehaviour
                         Debug.Log($"[BreedingUI] Starter already in compendium with sprite: {starter.CreatureName}");
                     }
                 }
-
             }
-
         }
         else
         {
             Debug.LogWarning($"[BreedingUI] No level starters defined for scene {sceneName}");
         }
+
 
         if (compendiumCreature != null)
         {

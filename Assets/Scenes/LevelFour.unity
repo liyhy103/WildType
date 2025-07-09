@@ -15778,6 +15778,10 @@ PrefabInstance:
       propertyPath: m_Spacing
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7721175676384548987, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8801329138016017224, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -19290,15 +19294,6 @@ MonoBehaviour:
   parent2Slot: {fileID: 1887825556}
   parentDisplayPrefab: {fileID: 318201284981110694, guid: b4904c1fd6298634581aa5155f2cb2c6, type: 3}
   offspringSlot: {fileID: 520812489}
-  starterSprites:
-  - creatureName: Parent1_Green_LongTail_Male
-    sprite: {fileID: 21300000, guid: 5c57e449c34d44240bcf06552641140f, type: 3}
-  - creatureName: Parent1_Yellow_ShortTail_Female
-    sprite: {fileID: 21300000, guid: 9ba63f991fb2dab488574164d97632f6, type: 3}
-  - creatureName: Parent1_Yellow_ShortTail_Male
-    sprite: {fileID: 21300000, guid: 9ba63f991fb2dab488574164d97632f6, type: 3}
-  - creatureName: Parent1_Green_ShortTail_Female
-    sprite: {fileID: 21300000, guid: bec17167f9c78e64aa86fc1611f1228b, type: 3}
   breedingType: 3
 --- !u!4 &2140115828
 Transform:

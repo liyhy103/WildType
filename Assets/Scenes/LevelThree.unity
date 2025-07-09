@@ -10321,6 +10321,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -17
       objectReference: {fileID: 0}
+    - target: {fileID: 7721175676384548987, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7964023704280696598, guid: 328a2027934d5694b9b19db5323ae4f2, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -13613,11 +13617,6 @@ MonoBehaviour:
   parent2Slot: {fileID: 823755430}
   parentDisplayPrefab: {fileID: 318201284981110694, guid: b4904c1fd6298634581aa5155f2cb2c6, type: 3}
   offspringSlot: {fileID: 819803199}
-  starterSprites:
-  - creatureName: Parent1_Green_Long_Male
-    sprite: {fileID: 21300000, guid: d3b624458aec5d54bb0e37409542633b, type: 3}
-  - creatureName: Parent1_Green_No_Female
-    sprite: {fileID: 21300000, guid: e46fb76c7eafc6948a5e785a21b19efd, type: 3}
   breedingType: 2
 --- !u!4 &2140115828
 Transform:

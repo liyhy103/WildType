@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+
 public class Creature
 {
     public const string GenderMale = "male";
@@ -56,7 +57,6 @@ public class Creature
             return gene.GetPhenotype();
         }
 
-        UnityEngine.Debug.LogWarning($"[Creature] Trait '{trait}' not found in creature '{CreatureName}'");
         return null;
     }
 
@@ -98,4 +98,15 @@ public class Creature
     {
         return (CreatureName + Gender + SourceLevel).GetHashCode();
     }
+    public List<string> GetTraitNames()
+    {
+        List<string> traitNames = new();
+        foreach (var pair in Genes)
+        {
+            traitNames.Add(pair.Key);
+        }
+        return traitNames;
+    }
 }
+
+
