@@ -86,6 +86,18 @@ public class CompendiumManager : MonoBehaviour
 
     private void InitializeLevelStarters()
     {
+        // Tutorial Level
+        var TutorialLevelDad = new Creature("GreenDad", "Male", new List<Gene> {
+            new Gene(Gene.Traits.CoatColor, 'G', 'G') }, "Green")
+        { SourceLevel = "TutorialLevel" };
+        var TutorialLevelMom = new Creature("YellowMom", "Female", new List<Gene> {
+            new Gene(Gene.Traits.CoatColor, 'g', 'g') }, "Yellow")
+        { SourceLevel = "TutorialLevel" };
+
+        LevelStarters["TutorialLevel"] = new List<Creature> { TutorialLevelDad, TutorialLevelMom };
+        creatureSprites[TutorialLevelDad] = SpriteRegistry.GetSprite("Male", TutorialLevelDad.GetPhenotype(Gene.Traits.CoatColor), "Green");
+        creatureSprites[TutorialLevelMom] = SpriteRegistry.GetSprite("Female", TutorialLevelMom.GetPhenotype(Gene.Traits.CoatColor), "Yellow");
+
         // Level One
         var levelOneDad = new Creature("GreenDad", Creature.GenderMale, new List<Gene> {
             new Gene(Gene.Traits.CoatColor, 'G', 'G') }, Gene.Phenotypes.Green)

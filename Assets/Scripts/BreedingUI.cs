@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class CreatureSpriteEntry
@@ -12,9 +12,12 @@ public class CreatureSpriteEntry
     public Sprite sprite;
 }
 
+
 public class BreedingUI : MonoBehaviour
 {
+ 
     public Button BreedButton;
+
     private IBreedingUIHandler breedingUIHandler;
 
     public GameObject[] parent1DisplayObjects;
@@ -33,6 +36,7 @@ public class BreedingUI : MonoBehaviour
     public float heartDuration = 2f;
 
     public Challenge challengeManager;
+
     public TMP_Text OffspringText;
     private List<Creature> Creatures = new List<Creature>();
 
@@ -41,7 +45,6 @@ public class BreedingUI : MonoBehaviour
 
     public Button SaveToCompendiumButton;
     private Creature lastOffspring;
-    public TutorialUI tutorialUI;
     public RectTransform parent1Slot;
     public RectTransform parent2Slot;
     public GameObject parentDisplayPrefab;
@@ -55,6 +58,7 @@ public class BreedingUI : MonoBehaviour
 
     [SerializeField]
     private List<CreatureSpriteEntry> starterSprites = new();
+
 
     public enum BreedingType
     {
@@ -79,50 +83,53 @@ public class BreedingUI : MonoBehaviour
         };
     }
 
-    private bool TraitControlsBodyColor(string trait)
-    {
-        return trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor;
-    }
-
     void Start()
     {
         switch (breedingType)
         {
             case BreedingType.Mendelian:
-                breedingStrategy = new MendelianBreedingStrategy(); break;
+                breedingStrategy = new MendelianBreedingStrategy();
+                break;
             case BreedingType.SexLinked:
-                breedingStrategy = new SexLinkedBreedingStrategy(); break;
+                breedingStrategy = new SexLinkedBreedingStrategy();
+                break;
             case BreedingType.IncompleteDominance:
-                breedingStrategy = new IncompleteDominance(); break;
+                breedingStrategy = new IncompleteDominance();
+                break;
             case BreedingType.DihybridInheritance:
-                breedingStrategy = new DihybridInheritance(); break;
+                breedingStrategy = new DihybridInheritance();
+                break;
             default:
-                Debug.LogWarning("Unsupported breeding type selected."); break;
-        }
+                Debug.LogWarning("Unsupported breeding type selected.");
 
+                break;
+
+        }
         Debug.Log($"[BreedingUI] Breeding strategy initialized: {breedingStrategy?.GetType().Name ?? "null"}");
+
 
         string sceneName = SceneManager.GetActiveScene().name;
 
-        if (challengeManager == null)
-        {
-            challengeManager = FindFirstObjectByType<Challenge>();
-            if (challengeManager == null)
-                Debug.LogWarning("ChallengeManager not found in the scene!");
-        }
 
         if (sceneName == "LevelOne")
-            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
+            breedingUIHandler = new LevelOneBreedingUIHandler();
         else if (sceneName == "LevelTwo")
             breedingUIHandler = new LevelTwoBreedingUIHandler(challengeManager as LevelTwoChallenge);
         else if (sceneName == "LevelThree")
             breedingUIHandler = new LevelThreeBreedingUIHandler(challengeManager as LevelThreeChallenges);
         else if (sceneName == "TutorialLevel")
-            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
+            breedingUIHandler = new LevelOneBreedingUIHandler();
         else if (sceneName == "LevelFour")
             breedingUIHandler = new LevelFourBreedingUIHandler(challengeManager as LevelFourChallenge);
         else
             breedingUIHandler = null;
+
+        if (challengeManager == null)
+        {
+            challengeManager = FindFirstObjectByType<Challenge>();;
+            if (challengeManager == null)
+                Debug.LogWarning("ChallengeManager not found in the scene!");
+        }
 
         Creature compendiumCreature = CreatureTransfer.CreatureToAssign;
         int targetParent = CreatureTransfer.TargetParentIndex;
@@ -142,10 +149,29 @@ public class BreedingUI : MonoBehaviour
                 }
 
                 if (!CompendiumManager.Instance.compendium.Contains(starter))
+                {
                     CompendiumManager.Instance.AddToCompendium(starter, sprite);
-                else if (CompendiumManager.Instance.GetCreatureSprite(starter) == null)
-                    CompendiumManager.Instance.AddToCompendium(starter, sprite);
+                    Debug.Log($"[BreedingUI] Starter added to compendium: {starter.CreatureName}");
+                }
+                else
+                {
+                    if (CompendiumManager.Instance.GetCreatureSprite(starter) == null)
+                    {
+                        CompendiumManager.Instance.AddToCompendium(starter, sprite);
+                        Debug.Log($"[BreedingUI] Starter sprite re-linked in compendium: {starter.CreatureName}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[BreedingUI] Starter already in compendium with sprite: {starter.CreatureName}");
+                    }
+                }
+
             }
+
+        }
+        else
+        {
+            Debug.LogWarning($"[BreedingUI] No level starters defined for scene {sceneName}");
         }
 
         if (compendiumCreature != null)
@@ -153,14 +179,17 @@ public class BreedingUI : MonoBehaviour
             Debug.Log($"[BreedingUI] Compendium creature incoming: {compendiumCreature.CreatureName} from level {compendiumCreature.SourceLevel}");
             if (compendiumCreature.SourceLevel == sceneName)
             {
-                string trait = GetCurrentTrait();
-                if (string.IsNullOrEmpty(compendiumCreature.BodyColor) && TraitControlsBodyColor(trait))
+                if (string.IsNullOrEmpty(compendiumCreature.BodyColor) || compendiumCreature.BodyColor == null)
                 {
-                    compendiumCreature.BodyColor = compendiumCreature.GetPhenotype(trait);
-                    Debug.Log($"[BreedingUI] Set missing BodyColor to {compendiumCreature.BodyColor} based on {trait}");
+                    string trait = GetCurrentTrait();
+                    if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)
+                    {
+                        compendiumCreature.BodyColor = compendiumCreature.GetPhenotype(trait);
+                        Debug.Log($"[BreedingUI] Set missing BodyColor to {compendiumCreature.BodyColor} based on {trait}");
+                    }
                 }
-
                 Creatures.Add(compendiumCreature);
+                Debug.Log($"[BreedingUI] Added compendium creature: {compendiumCreature.CreatureName} ({compendiumCreature.Gender})");
             }
             else
             {
@@ -171,71 +200,57 @@ public class BreedingUI : MonoBehaviour
         BreedButton.onClick.AddListener(OnBreedClicked);
     }
 
+
     private bool ShouldCompareBodyColor()
     {
-        string levelName = SceneManager.GetActiveScene().name;
+        string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         return levelName == "LevelOne" || levelName == "LevelFour";
     }
 
     public void UpdateCreatureDisplayParent1(Creature creature)
     {
         string currentTrait = GetCurrentTrait();
-        Debug.Log($"[DEBUG] Updating Parent1 display for: {creature.CreatureName}, Gender={creature.Gender}, Phenotype={creature.GetPhenotype(currentTrait)}, BodyColor={creature.BodyColor}");
 
         foreach (GameObject obj in parent1DisplayObjects)
         {
             var meta = obj.GetComponent<DisplayMetadata>();
-            if (meta == null) continue;
+            bool match = meta != null &&
+                         meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower() &&
+                         meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
 
-            bool genderMatch = meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower();
-            bool phenotypeMatch = meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
-            bool bodyColorMatch = !ShouldCompareBodyColor() || meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
-
-            bool isMatch = genderMatch && phenotypeMatch && bodyColorMatch;
-            Debug.Log($"[DEBUG] Checking {obj.name} ? Gender: {genderMatch}, Phenotype: {phenotypeMatch}, BodyColor: {bodyColorMatch} => MATCH: {isMatch}");
-
-            obj.SetActive(isMatch);
-
-            if (isMatch)
+            if (ShouldCompareBodyColor())
             {
-                Debug.Log($"[DEBUG] Activated Parent1 display: {obj.name}");
+                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
             }
+
+            obj.SetActive(match);
         }
     }
-
-
-
 
     public void UpdateCreatureDisplayParent2(Creature creature)
     {
         string currentTrait = GetCurrentTrait();
-        Debug.Log($"[DEBUG] Updating Parent2 display for: {creature.CreatureName}, Gender={creature.Gender}, Phenotype={creature.GetPhenotype(currentTrait)}, BodyColor={creature.BodyColor}");
 
         foreach (GameObject obj in parent2DisplayObjects)
         {
             var meta = obj.GetComponent<DisplayMetadata>();
-            if (meta == null) continue;
+            bool match = meta != null &&
+                         meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower() &&
+                         meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
 
-            bool genderMatch = meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower();
-            bool phenotypeMatch = meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
-            bool bodyColorMatch = !ShouldCompareBodyColor() || meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
-
-            bool isMatch = genderMatch && phenotypeMatch && bodyColorMatch;
-            Debug.Log($"[DEBUG] Checking {obj.name} ? Gender: {genderMatch}, Phenotype: {phenotypeMatch}, BodyColor: {bodyColorMatch} => MATCH: {isMatch}");
-
-            obj.SetActive(isMatch);
-
-            if (isMatch)
+            if (ShouldCompareBodyColor())
             {
-                Debug.Log($"[DEBUG] Activated Parent2 display: {obj.name}");
+                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
             }
+
+            obj.SetActive(match);
         }
     }
 
-
-
     public void OnBreedClicked()
     {
+        Debug.Log("[BreedingUI] Breed button clicked");
+
         if (selectedParent1 == null || selectedParent2 == null)
         {
             OffspringText.text = "Both parents must be selected!";
@@ -251,44 +266,64 @@ public class BreedingUI : MonoBehaviour
         if (breedingUIHandler != null &&
             !breedingUIHandler.ValidateParents(this, selectedParent1, selectedParent2, out string errorMessage))
         {
+            Debug.LogWarning($"[BreedingUI] Breeding failed: Validation failed with message: {errorMessage}");
             OffspringText.text = errorMessage;
             return;
         }
 
         string trait = GetCurrentTrait();
+        Debug.Log($"[BreedingUI] Breeding using trait: {trait}");
+
         Creature offspring = Breed(selectedParent1, selectedParent2);
         if (offspring == null)
         {
+            Debug.LogError("[BreedingUI] Breeding strategy returned null. Check logic.");
             OffspringText.text = "Breeding failed: no offspring was created!";
             return;
         }
 
-        PlayHeartEffect();
-        OffspringText.text = "";
+        Debug.Log($"[BreedingUI] Offspring created: {offspring.CreatureName} ({offspring.Gender})");
 
-        Sprite offspringSprite = breedingUIHandler?.GetOffspringSprite(this)
-                                 ?? CompendiumManager.Instance.GetCreatureSprite(offspring);
+        PlayHeartEffect();
+
+        if (OffspringText != null)
+            OffspringText.text = ""; 
+
+        string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
+        Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
+
+        Sprite offspringSprite = breedingUIHandler?.GetOffspringSprite(this);
+        if (offspringSprite == null)
+        {
+            offspringSprite = CompendiumManager.Instance.GetCreatureSprite(offspring);
+            Debug.Log("[BreedingUI] Offspring sprite fallback: used GetCreatureSprite()");
+        }
+
 
         if (breedingUIHandler != null)
+        {
+            Debug.Log("[BreedingUI] Displaying offspring using handler.");
             breedingUIHandler.ShowOffspring(this, offspring);
+        }
         else
         {
+            Debug.Log("[BreedingUI] No handler found. Instantiating offspring manually.");
             GameObject offspringInstance = Instantiate(parentDisplayPrefab, offspringSlot);
             offspringInstance.transform.localPosition = Vector3.zero;
             offspringInstance.transform.localScale = Vector3.one;
             UpdateCreatureImage(offspringInstance, offspringSprite);
+            Debug.Log($"[BreedingUI] Displayed offspring: {offspring.CreatureName}, Sprite: {offspringSprite?.name ?? "NULL"}");
+        }
+
+        if (challengeManager != null)
+        {
+            challengeManager.SetResult(phenotype, offspring);
+            Debug.Log("[BreedingUI] ChallengeManager updated with offspring result");
         }
 
         lastOffspring = offspring;
         SaveToCompendiumButton.gameObject.SetActive(true);
-
-        tutorialUI?.NotifyOffspring(offspring);
-    }
-
-    IEnumerator DisableButtonAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SaveToCompendiumButton.gameObject.SetActive(false);
+        Debug.Log("[BreedingUI] Offspring saved to lastOffspring, save button enabled.");
     }
 
     public void OnSaveToCompendiumClicked()
@@ -297,24 +332,31 @@ public class BreedingUI : MonoBehaviour
         {
             if (CompendiumManager.Instance.compendium.Contains(lastOffspring))
             {
+                Debug.Log("[BreedingUI] Creature already in compendium. Skipping save.");
                 SaveToCompendiumButton.gameObject.SetActive(false);
                 return;
             }
 
-            string trait = GetCurrentTrait();
-            if (string.IsNullOrEmpty(lastOffspring.BodyColor) && TraitControlsBodyColor(trait))
-                lastOffspring.BodyColor = lastOffspring.GetPhenotype(trait);
-
             Sprite sprite = breedingUIHandler?.GetOffspringSprite(this);
             lastOffspring.SourceLevel = SceneManager.GetActiveScene().name;
-            Debug.Log($"[DEBUG] Saving offspring sprite: {(sprite != null ? sprite.name : "NULL")} for {lastOffspring.CreatureName}");
+            Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
+
+            if (lastOffspring.BodyColor == "Unknown" || string.IsNullOrEmpty(lastOffspring.BodyColor))
+            {
+                string trait = GetCurrentTrait();
+                if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)
+                    lastOffspring.BodyColor = lastOffspring.GetPhenotype(trait);
+            }
 
             CompendiumManager.Instance.AddToCompendium(lastOffspring, sprite);
-            StartCoroutine(DisableButtonAfterDelay(0.3f));
+            SaveToCompendiumButton.gameObject.SetActive(false);
         }
     }
 
-    Creature Breed(Creature p1, Creature p2) => breedingStrategy.Breed(p1, p2);
+    Creature Breed(Creature p1, Creature p2)
+    {
+        return breedingStrategy.Breed(p1, p2);
+    }
 
     void PlayHeartEffect()
     {
@@ -324,52 +366,50 @@ public class BreedingUI : MonoBehaviour
 
     public Creature GetCreature(int index)
     {
-        return (index >= 0 && index < Creatures.Count) ? Creatures[index] : null;
+        if (index >= 0 && index < Creatures.Count)
+            return Creatures[index];
+
+        UnityEngine.Debug.LogWarning($"[BreedingUI] Invalid creature index: {index}");
+        return null;
     }
 
     public void AssignCompendiumCreature(int parentIndex, Creature creature)
     {
         if (creature.SourceLevel != SceneManager.GetActiveScene().name)
+        {
+            Debug.LogWarning("Cannot use this creature in a different level!");
             return;
+        }
 
         if (!Creatures.Contains(creature))
             Creatures.Add(creature);
 
         Sprite sprite = CompendiumManager.Instance.GetCreatureSprite(creature);
-        Debug.Log($"[DEBUG] Retrieved sprite for {creature.CreatureName}: {(sprite != null ? sprite.name : "NULL")}");
-
-        string trait = GetCurrentTrait();
-        if (string.IsNullOrEmpty(creature.BodyColor) && TraitControlsBodyColor(trait))
-        {
-            creature.BodyColor = creature.GetPhenotype(trait);
-            Debug.Log($"[DEBUG] Assigned BodyColor: {creature.BodyColor} from trait: {trait}");
-        }
 
         if (parentIndex == 1)
         {
             selectedParent1 = creature;
-
             if (parent1Instance != null) Destroy(parent1Instance);
             parent1Instance = Instantiate(parentDisplayPrefab, parent1Slot);
             UpdateCreatureImage(parent1Instance, sprite);
             UpdateCreatureDisplayParent1(creature);
+            Debug.Log($"[BreedingUI] parent1Instance set to: {creature.CreatureName}");
         }
         else
         {
             selectedParent2 = creature;
-
             if (parent2Instance != null) Destroy(parent2Instance);
             parent2Instance = Instantiate(parentDisplayPrefab, parent2Slot);
             UpdateCreatureImage(parent2Instance, sprite);
             UpdateCreatureDisplayParent2(creature);
+            Debug.Log($"[BreedingUI] parent2Instance set to: {creature.CreatureName}");
         }
+
+        Debug.Log($"[BreedingUI] Assigned {creature.CreatureName} to Parent {parentIndex}");
 
         if (selectedParent1 != null && selectedParent2 != null)
             BreedButton.interactable = true;
     }
-
-
-
 
     void UpdateCreatureImage(GameObject displayObj, Sprite sprite)
     {
