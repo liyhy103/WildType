@@ -24,6 +24,9 @@ public class QuizManager : MonoBehaviour
 
     public ParticleSystem particleSystem;// Particle system to play effects when the question is answered correctly
 
+    public AudioSource cheerAudio;
+
+    public AudioSource IncorrectAudio;
 
     void Start()
     {
@@ -67,11 +70,13 @@ public class QuizManager : MonoBehaviour
         {
             correctAnswersCount++;
             particleSystem.Play();
-            resultText.text = (correctAnswersCount + "/3 correct"); // Show correct answer message
+            resultText.text = (correctAnswersCount + "/3 correct");
+            cheerAudio.Play();
         }
         else
         {
-            resultText.text = (correctAnswersCount + "/3 correct"); // Show wrong answer message
+            resultText.text = (correctAnswersCount + "/3 correct");
+            IncorrectAudio.Play();
         }
 
             currentQuestionIndex++; // Move to the next question

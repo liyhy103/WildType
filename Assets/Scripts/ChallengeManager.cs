@@ -6,7 +6,6 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
 using Debug = UnityEngine.Debug;
 
 
@@ -16,13 +15,14 @@ public abstract class Challenge : MonoBehaviour
     public TMP_Text challengeText;
     public ParticleSystem particleSystem;
     public Image TurtleOne, TurtleTwo, TurtleThree, TurtleFour;
+    public AudioSource cheerAudio;
 
     protected List<string> challenges = new();
     protected string currentChallenge = "";
     protected List<string> expectedTraits = new();
     protected List<string> submittedTraits = new();
     public Creature currentCreature;
-
+ 
     public string CurrentChallenge => currentChallenge;
 
     public void Start()
@@ -31,6 +31,7 @@ public abstract class Challenge : MonoBehaviour
         SetListItem();
         HideAllVisuals();
         PickNextChallenge();
+        
     }
 
     protected virtual void SetListItem() { }
@@ -45,6 +46,9 @@ public abstract class Challenge : MonoBehaviour
 
         if (TurtleOne == null || TurtleTwo == null)
             Debug.LogWarning("[Challenge] One or more turtle images not assigned!");
+
+        if (cheerAudio == null )
+            Debug.LogWarning("[Challenge] CheerAudio not assigned!");
     }
 
     protected virtual void HideAllVisuals()
@@ -87,12 +91,14 @@ public abstract class Challenge : MonoBehaviour
         }
 
         bool match = expectedTraits.Count == submittedTraits.Count &&
-                     expectedTraits.Zip(submittedTraits, (a, b) => a.ToLower() == b.ToLower()).All(x => x);
-
+             expectedTraits.Zip(submittedTraits, (a, b) =>
+                 !string.IsNullOrEmpty(a) && !string.IsNullOrEmpty(b) && a.ToLower() == b.ToLower()
+             ).All(x => x);
         if (match)
         {
             SetChallengeText("Challenge complete!");
             TriggerSuccessEffect();
+            cheerAudio.Play();
             RemoveCurrentChallenge();
             PickNextChallenge();
         }

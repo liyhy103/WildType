@@ -5,6 +5,6 @@ public class StartScript : MonoBehaviour
 {
     public void OnButtonClick()
     {
-        SceneManager.LoadScene("LevelOne");
+        SceneManager.LoadScene("TutorialLevel");
     }
 }

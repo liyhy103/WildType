@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
+using Debug = UnityEngine.Debug;
 
 [System.Serializable]
 public class CreatureSpriteEntry
@@ -15,7 +18,7 @@ public class CreatureSpriteEntry
 
 public class BreedingUI : MonoBehaviour
 {
- 
+
     public Button BreedButton;
 
     private IBreedingUIHandler breedingUIHandler;
@@ -110,26 +113,26 @@ public class BreedingUI : MonoBehaviour
 
         string sceneName = SceneManager.GetActiveScene().name;
 
+        if (challengeManager == null)
+        {
+            challengeManager = FindFirstObjectByType<Challenge>(); ;
+            if (challengeManager == null)
+                Debug.LogWarning("ChallengeManager not found in the scene!");
+        }
 
         if (sceneName == "LevelOne")
-            breedingUIHandler = new LevelOneBreedingUIHandler();
+            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
         else if (sceneName == "LevelTwo")
             breedingUIHandler = new LevelTwoBreedingUIHandler(challengeManager as LevelTwoChallenge);
         else if (sceneName == "LevelThree")
             breedingUIHandler = new LevelThreeBreedingUIHandler(challengeManager as LevelThreeChallenges);
         else if (sceneName == "TutorialLevel")
-            breedingUIHandler = new LevelOneBreedingUIHandler();
+            breedingUIHandler = new LevelOneBreedingUIHandler(challengeManager as LevelOneChallenge);
         else if (sceneName == "LevelFour")
             breedingUIHandler = new LevelFourBreedingUIHandler(challengeManager as LevelFourChallenge);
         else
             breedingUIHandler = null;
 
-        if (challengeManager == null)
-        {
-            challengeManager = FindFirstObjectByType<Challenge>();;
-            if (challengeManager == null)
-                Debug.LogWarning("ChallengeManager not found in the scene!");
-        }
 
         Creature compendiumCreature = CreatureTransfer.CreatureToAssign;
         int targetParent = CreatureTransfer.TargetParentIndex;
@@ -287,7 +290,7 @@ public class BreedingUI : MonoBehaviour
         PlayHeartEffect();
 
         if (OffspringText != null)
-            OffspringText.text = ""; 
+            OffspringText.text = "";
 
         string phenotype = offspring.GetPhenotype(Gene.Traits.CoatColor);
         Debug.Log($"[BreedingUI] Offspring phenotype: {phenotype}");
@@ -317,7 +320,7 @@ public class BreedingUI : MonoBehaviour
 
         if (challengeManager != null)
         {
-            challengeManager.SetResult(phenotype, offspring);
+            challengeManager.SetResult(new List<string> { phenotype }, offspring);
             Debug.Log("[BreedingUI] ChallengeManager updated with offspring result");
         }
 
@@ -413,7 +416,7 @@ public class BreedingUI : MonoBehaviour
 
     void UpdateCreatureImage(GameObject displayObj, Sprite sprite)
     {
-        var image = displayObj.GetComponent<Image>();
+        var image = displayObj.GetComponent<UnityEngine.UI.Image>();
         if (image != null)
         {
             image.sprite = sprite;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,7 +43,7 @@ public class LevelThreeBreedingUIHandler : IBreedingUIHandler
             {
                 if (challenge != null)
                 {
-                    challenge?.SetResult(phenotype, offspring);
+                    challenge?.SetResult(new List<string> { offspring.GetPhenotype(Gene.Traits.HornLength) }, offspring);
                     UnityEngine.Debug.Log("[DEBUG] Sent result to challenge: " + result);
                 }
                 else
