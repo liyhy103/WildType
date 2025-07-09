@@ -21,7 +21,6 @@ public class LevelTwoBreedingUIHandler : IBreedingUIHandler
         string phenotype = offspring.GetPhenotype(Gene.Traits.ShellColor);
         string gender = offspring.Gender;
 
-        // Reset all displays
         ui.greenOffspringDisplay?.SetActive(false);
         ui.greenLightShellDisplay?.SetActive(false);
 
