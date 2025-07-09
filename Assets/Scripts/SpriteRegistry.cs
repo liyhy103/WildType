@@ -21,8 +21,12 @@ public static class SpriteRegistry
 
             if (phenotypeMap.ContainsKey(key))
             {
+#if UNITY_EDITOR
+                throw new System.Exception($"[SpriteRegistry] Duplicate sprite key: {key}");
+#else
                 Debug.LogWarning($"[SpriteRegistry] Duplicate key detected: {key}. Registration skipped.");
                 continue;
+#endif
             }
 
             phenotypeMap[key] = sprite;
@@ -46,5 +50,4 @@ public static class SpriteRegistry
     {
         return $"{gender}_{phenotype}_{bodyColor}";
     }
-
 }
