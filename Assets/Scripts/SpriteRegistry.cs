@@ -42,7 +42,6 @@ public static class SpriteRegistry
             return sprite;
         }
 
-        Debug.LogWarning($"[SpriteRegistry] No sprite found for key: {key}");
         return null;
     }
 
