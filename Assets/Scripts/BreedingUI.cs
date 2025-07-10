@@ -7,14 +7,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
-[System.Serializable]
-public class CreatureSpriteEntry
-{
-    public string creatureName;
-    public Sprite sprite;
-}
-
-
 public class BreedingUI : MonoBehaviour
 {
 
@@ -206,42 +198,56 @@ public class BreedingUI : MonoBehaviour
     public void UpdateCreatureDisplayParent1(Creature creature)
     {
         string currentTrait = GetCurrentTrait();
+        string gender = creature.Gender;
+        string phenotype = creature.GetPhenotype(currentTrait);
+        string bodyColor = creature.BodyColor;
 
         foreach (GameObject obj in parent1DisplayObjects)
         {
             var meta = obj.GetComponent<DisplayMetadata>();
-            bool match = meta != null &&
-                         meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower() &&
-                         meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
+            if (meta == null)
+                continue;
 
-            if (ShouldCompareBodyColor())
-            {
-                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
-            }
+            bool genderMatch = meta.Gender.Equals(gender, System.StringComparison.OrdinalIgnoreCase);
+            bool phenotypeMatch = meta.Phenotype.Equals(phenotype, System.StringComparison.OrdinalIgnoreCase);
+            bool bodyColorMatch = !ShouldCompareBodyColor() ||
+                                  meta.BodyColor.Equals(bodyColor, System.StringComparison.OrdinalIgnoreCase);
 
-            obj.SetActive(match);
+
+            obj.SetActive(genderMatch && phenotypeMatch && bodyColorMatch);
+
+            if (genderMatch && phenotypeMatch && bodyColorMatch)
+                Debug.Log($"[BreedingUI] Activated parent1 sprite: {obj.name}");
         }
     }
+
 
     public void UpdateCreatureDisplayParent2(Creature creature)
     {
         string currentTrait = GetCurrentTrait();
+        string gender = creature.Gender;
+        string phenotype = creature.GetPhenotype(currentTrait);
+        string bodyColor = creature.BodyColor;
 
         foreach (GameObject obj in parent2DisplayObjects)
         {
             var meta = obj.GetComponent<DisplayMetadata>();
-            bool match = meta != null &&
-                         meta.Gender.Trim().ToLower() == creature.Gender.Trim().ToLower() &&
-                         meta.Phenotype.Trim().ToLower() == creature.GetPhenotype(currentTrait).Trim().ToLower();
+            if (meta == null)
+                continue;
 
-            if (ShouldCompareBodyColor())
-            {
-                match &= meta.BodyColor.Trim().ToLower() == creature.BodyColor.Trim().ToLower();
-            }
+            bool genderMatch = meta.Gender.Equals(gender, System.StringComparison.OrdinalIgnoreCase);
+            bool phenotypeMatch = meta.Phenotype.Equals(phenotype, System.StringComparison.OrdinalIgnoreCase);
+            bool bodyColorMatch = !ShouldCompareBodyColor() ||
+                                  meta.BodyColor.Equals(bodyColor, System.StringComparison.OrdinalIgnoreCase);
 
-            obj.SetActive(match);
+
+            obj.SetActive(genderMatch && phenotypeMatch && bodyColorMatch);
+
+            if (genderMatch && phenotypeMatch && bodyColorMatch)
+                Debug.Log($"[BreedingUI] Activated parent2 sprite: {obj.name}");
         }
     }
+
 
     public void OnBreedClicked()
     {
@@ -337,7 +343,7 @@ public class BreedingUI : MonoBehaviour
             lastOffspring.SourceLevel = SceneManager.GetActiveScene().name;
             Debug.Log("Saving creature with sprite: " + (sprite != null ? sprite.name : "NULL"));
 
-            if (lastOffspring.BodyColor == "Unknown" || string.IsNullOrEmpty(lastOffspring.BodyColor))
+            if (string.IsNullOrEmpty(lastOffspring.BodyColor))
             {
                 string trait = GetCurrentTrait();
                 if (trait == Gene.Traits.CoatColor || trait == Gene.Traits.ShellColor)

@@ -9118,8 +9118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3ba988c30decc45b701375e322778b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gender: Male
-  Phenotype: Green
+  Gender: male
+  Phenotype: coatColor
   BodyColor: Green
 --- !u!1 &1304513712
 GameObject:
