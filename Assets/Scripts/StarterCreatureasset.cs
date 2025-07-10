@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewStarter", menuName = "WildType/Starter Creature")]
-public class StarterCreatureAsset : ScriptableObject
+[CreateAssetMenu(fileName = "NewStarter", menuName = "WildType/Starter Creature")] 
+public class StarterCreatureAsset : ScriptableObject 
 {
     public string CreatureName;
     public string Gender;
@@ -19,7 +19,7 @@ public class StarterCreatureAsset : ScriptableObject
         public char Allele2;
     }
 
-    public Creature ToCreature()
+    public Creature ToCreature()// takes in trait name and gets allieles 
     {
         List<Gene> geneList = new();
         foreach (var g in Genes)

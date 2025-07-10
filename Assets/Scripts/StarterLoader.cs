@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class StarterCreatureLoader
 {
- public static List<Creature> LoadStarters(string levelName)
+ public static List<Creature> LoadStarters(string levelName)//Loads the starter objects from the file path and name 
     {
         var starters = new List<Creature>();
         var allAssets = Resources.LoadAll<StarterCreatureAsset>($"LevelStarters/{levelName}");

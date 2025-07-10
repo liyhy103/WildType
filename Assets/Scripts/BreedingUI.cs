@@ -194,7 +194,7 @@ public class BreedingUI : MonoBehaviour
         string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         return levelName == "LevelOne" || levelName == "LevelFour";
     }
-
+    //updates the parents traits for parent one and  two
     public void UpdateCreatureDisplayParent1(Creature creature)
     {
         string currentTrait = GetCurrentTrait();
@@ -377,24 +377,23 @@ public class BreedingUI : MonoBehaviour
 
     public void AssignCompendiumCreature(int parentIndex, Creature creature)
     {
-        if (creature.SourceLevel != SceneManager.GetActiveScene().name)
-        {
-            Debug.LogWarning("Cannot use this creature in a different level!");
-            return;
-        }
+     
 
         if (!Creatures.Contains(creature))
             Creatures.Add(creature);
 
         Sprite sprite = CompendiumManager.Instance.GetCreatureSprite(creature);
-
+        //Assigns based on chose option
         if (parentIndex == 1)
         {
             selectedParent1 = creature;
             if (parent1Instance != null) Destroy(parent1Instance);
             parent1Instance = Instantiate(parentDisplayPrefab, parent1Slot);
+            
             UpdateCreatureImage(parent1Instance, sprite);
+            
             UpdateCreatureDisplayParent1(creature);
+
             Debug.Log($"[BreedingUI] parent1Instance set to: {creature.CreatureName}");
         }
         else
@@ -413,7 +412,7 @@ public class BreedingUI : MonoBehaviour
             BreedButton.interactable = true;
     }
 
-    void UpdateCreatureImage(GameObject displayObj, Sprite sprite)
+    void UpdateCreatureImage(GameObject displayObj, Sprite sprite)//instansiates the display object 
     {
         var image = displayObj.GetComponent<UnityEngine.UI.Image>();
         if (image != null)
