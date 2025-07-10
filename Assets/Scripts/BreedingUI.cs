@@ -390,7 +390,6 @@ public class BreedingUI : MonoBehaviour
             if (parent1Instance != null) Destroy(parent1Instance);
             parent1Instance = Instantiate(parentDisplayPrefab, parent1Slot);
             
-            UpdateCreatureImage(parent1Instance, sprite);
             
             UpdateCreatureDisplayParent1(creature);
 
@@ -401,7 +400,6 @@ public class BreedingUI : MonoBehaviour
             selectedParent2 = creature;
             if (parent2Instance != null) Destroy(parent2Instance);
             parent2Instance = Instantiate(parentDisplayPrefab, parent2Slot);
-            UpdateCreatureImage(parent2Instance, sprite);
             UpdateCreatureDisplayParent2(creature);
             Debug.Log($"[BreedingUI] parent2Instance set to: {creature.CreatureName}");
         }
