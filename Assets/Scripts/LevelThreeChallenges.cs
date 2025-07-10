@@ -10,48 +10,82 @@ using Debug = UnityEngine.Debug;
 
 public class LevelThreeChallenges : Challenge
 {
+    //Method to define the list of horn-related challenges
     protected override void SetListItem()
     {
         challenges.Add("Long");
         challenges.Add("Short");
         challenges.Add("No");
     }
+
+    //Method to submit a phenotype string and creature for result evaluation
     public void SetResult(string phenotype, Creature creature)
     {
         SetResult(new List<string> { phenotype }, creature);
     }
 
+    //Method to display the correct turtle visual based on current challenge
     protected override void ShowVisualCue()
     {
-        if (currentChallenge.ToLower() == "long")
+        try
         {
-            TurtleOne?.gameObject.SetActive(true);
-            TurtleTwo?.gameObject.SetActive(false);
-            TurtleThree?.gameObject.SetActive(false);
-        }
-        else if (currentChallenge.ToLower() == "short")
-        {
-            TurtleOne?.gameObject.SetActive(false);
-            TurtleTwo?.gameObject.SetActive(true);
-            TurtleThree?.gameObject.SetActive(false);
-        }
-        else
-        {
+            string challenge = currentChallenge?.ToLower().Trim();
+
+            //Hide all turtle visuals first
             TurtleOne?.gameObject.SetActive(false);
             TurtleTwo?.gameObject.SetActive(false);
-            TurtleThree?.gameObject.SetActive(true);
+            TurtleThree?.gameObject.SetActive(false);
+
+            if (string.IsNullOrEmpty(challenge))
+            {
+                Debug.LogWarning("[LevelThreeChallenge] currentChallenge is null or empty.");
+                return;
+            }
+
+            if (challenge == "long")
+            {
+                TurtleOne?.gameObject.SetActive(true);
+                Debug.Log("[LevelThreeChallenge] Showing TurtleOne (Long Horn)");
+            }
+            else if (challenge == "short")
+            {
+                TurtleTwo?.gameObject.SetActive(true);
+                Debug.Log("[LevelThreeChallenge] Showing TurtleTwo (Short Horn)");
+            }
+            else if (challenge == "no")
+            {
+                TurtleThree?.gameObject.SetActive(true);
+                Debug.Log("[LevelThreeChallenge] Showing TurtleThree (No Horn)");
+            }
+            else
+            {
+                Debug.LogWarning($"[LevelThreeChallenge] No matching visual for challenge: {challenge}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[LevelThreeChallenge] Error in ShowVisualCue: {ex.Message}");
         }
     }
 
+    //Method to select and display the next challenge
     protected override void PickNextChallenge()
     {
         if (challenges.Count > 0)
         {
-            currentChallenge = challenges[0];
-            expectedTraits = new List<string> { currentChallenge }; 
+            try
+            {
+                currentChallenge = challenges[0];
+                expectedTraits = new List<string> { currentChallenge };
 
-            SetChallengeText($"Breed a {currentChallenge} horned creature");
-            ShowVisualCue();
+                SetChallengeText($"Breed a {currentChallenge} horned creature");
+                ShowVisualCue();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[LevelThreeChallenge] Error in PickNextChallenge: {ex.Message}");
+                SetChallengeText("Error loading challenge.");
+            }
         }
         else
         {

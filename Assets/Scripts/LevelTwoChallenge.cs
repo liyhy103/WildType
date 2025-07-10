@@ -10,36 +10,55 @@ using Debug = UnityEngine.Debug;
 
 public class LevelTwoChallenge : Challenge
 {
-
+    //List of shell color challenges (Light or Dark)
     private List<string> shellChallenges = new();
+    //List of gender challenges (Male or Female)
     private List<string> genderChallenges = new();
 
+    //Current shell color to be matched
     private string currentShellChallenge = "";
+    //Current gender to be matched
     private string currentGenderChallenge = "";
 
+    //Public getters for external access
     public string CurrentShellChallenge => currentShellChallenge;
     public string CurrentGenderChallenge => currentGenderChallenge;
 
+    //Method to initialize the challenge lists
     protected override void SetListItem()
     {
         shellChallenges.AddRange(new[] { "Light", "Light", "Dark", "Dark" });
         genderChallenges.AddRange(new[] { "Female", "Male", "Female", "Male" });
     }
 
+    //Picks a new shell + gender combination as the active challenge
     protected override void PickNextChallenge()
     {
         if (shellChallenges.Count > 0 && genderChallenges.Count > 0)
         {
-            int index = UnityEngine.Random.Range(0, shellChallenges.Count);
-            currentShellChallenge = shellChallenges[index];
-            currentGenderChallenge = genderChallenges[index];
+            try
+            {
+                int index = UnityEngine.Random.Range(0, shellChallenges.Count);
 
-            expectedTraits = new List<string> { currentShellChallenge, currentGenderChallenge };
+                //Assign the current challenge pair
+                currentShellChallenge = shellChallenges[index];
+                currentGenderChallenge = genderChallenges[index];
 
-            currentChallenge = $"Breed a {currentShellChallenge} shelled {currentGenderChallenge} creature";
-            SetChallengeText(currentChallenge);
+                //Set expected traits used for validation
+                expectedTraits = new List<string> { currentShellChallenge, currentGenderChallenge };
 
-            ShowVisualCue();
+                //Update UI text
+                currentChallenge = $"Breed a {currentShellChallenge} shelled {currentGenderChallenge} creature";
+                SetChallengeText(currentChallenge);
+
+                //Trigger turtle visual hint
+                ShowVisualCue();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[LevelTwoChallenge] Exception in PickNextChallenge: {ex.Message}");
+                SetChallengeText("Error setting new challenge.");
+            }
         }
         else
         {
@@ -48,12 +67,14 @@ public class LevelTwoChallenge : Challenge
         }
     }
 
+    //Overload to support string-based result input
     public void SetResult(string shellPhenotype, string gender, Creature creature)
     {
         List<string> traits = new() { shellPhenotype, gender };
         SetResult(traits, creature);
     }
 
+    //Removes the current shell-gender pair from the challenge pool
     protected override void RemoveCurrentChallenge()
     {
         int index = -1;
@@ -72,42 +93,57 @@ public class LevelTwoChallenge : Challenge
             shellChallenges.RemoveAt(index);
             genderChallenges.RemoveAt(index);
         }
+        else
+        {
+            Debug.LogWarning("[LevelTwoChallenge] Tried to remove challenge that doesn't exist in list.");
+        }
     }
+
+    //Displays visual cue (Turtle image) based on challenge type
     protected override void ShowVisualCue()
     {
+        //Hide all turtles first
         TurtleOne?.gameObject.SetActive(false);
         TurtleTwo?.gameObject.SetActive(false);
         TurtleThree?.gameObject.SetActive(false);
         TurtleFour?.gameObject.SetActive(false);
 
-        string shell = currentShellChallenge.ToLower().Trim();
-        string gender = currentGenderChallenge.ToLower().Trim();
+        //Sanitize inputs
+        string shell = currentShellChallenge?.ToLower().Trim() ?? "";
+        string gender = currentGenderChallenge?.ToLower().Trim() ?? "";
 
         Debug.Log($"[LevelTwoChallenge] Visual cue: shell='{shell}' gender='{gender}'");
 
-        if (shell == "light" && gender == "female")
+        try
         {
-            TurtleOne?.gameObject.SetActive(true);
-            Debug.Log("[LevelTwoChallenge] Showing TurtleOne");
+            if (shell == "light" && gender == "female")
+            {
+                TurtleOne?.gameObject.SetActive(true);
+                Debug.Log("[LevelTwoChallenge] Showing TurtleOne");
+            }
+            else if (shell == "light" && gender == "male")
+            {
+                TurtleTwo?.gameObject.SetActive(true);
+                Debug.Log("[LevelTwoChallenge] Showing TurtleTwo");
+            }
+            else if (shell == "dark" && gender == "female")
+            {
+                TurtleThree?.gameObject.SetActive(true);
+                Debug.Log("[LevelTwoChallenge] Showing TurtleThree");
+            }
+            else if (shell == "dark" && gender == "male")
+            {
+                TurtleFour?.gameObject.SetActive(true);
+                Debug.Log("[LevelTwoChallenge] Showing TurtleFour");
+            }
+            else
+            {
+                Debug.LogWarning($"[LevelTwoChallenge] No matching turtle for shell='{shell}' and gender='{gender}'");
+            }
         }
-        else if (shell == "light" && gender == "male")
+        catch (Exception ex)
         {
-            TurtleTwo?.gameObject.SetActive(true);
-            Debug.Log("[LevelTwoChallenge] Showing TurtleTwo");
-        }
-        else if (shell == "dark" && gender == "female")
-        {
-            TurtleThree?.gameObject.SetActive(true);
-            Debug.Log("[LevelTwoChallenge] Showing TurtleThree");
-        }
-        else if (shell == "dark" && gender == "male")
-        {
-            TurtleFour?.gameObject.SetActive(true);
-            Debug.Log("[LevelTwoChallenge] Showing TurtleFour");
-        }
-        else
-        {
-            Debug.LogWarning($"[LevelTwoChallenge] No turtle matched for shell='{shell}' and gender='{gender}'");
+            Debug.LogError($"[LevelTwoChallenge] Error in ShowVisualCue: {ex.Message}");
         }
     }
 }

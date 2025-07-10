@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class QuizQuestion
 {
-    public string question; // The question text
-    public string[] answers; // The possible answers
-    public int correctAnswerIndex; // The index of the correct answer in the answers array
+    //The question text
+    public string question;
+    //The possible answers
+    public string[] answers;
+    //The index of the correct answer in the answers array
+    public int correctAnswerIndex;
 }
