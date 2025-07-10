@@ -45,12 +45,12 @@ public class CompendiumManager : MonoBehaviour
         }
     }
 
-    public Sprite GetCreatureSprite(Creature creature)
+    public Sprite GetCreatureSprite(Creature creature)//get sprite from sprite registery
     {
         return SpriteRegistry.GetSprite(creature);
     }
 
-    private void InitializeLevelStarters()
+    private void InitializeLevelStarters()//loads default options 
     {
         string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 

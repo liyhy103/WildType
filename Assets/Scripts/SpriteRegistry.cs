@@ -6,7 +6,7 @@ public static class SpriteRegistry
 {
     private static readonly Dictionary<string, Sprite> phenotypeMap = new();
 
-    public static void Register(Creature creature, Sprite sprite)
+    public static void Register(Creature creature, Sprite sprite)// adds a sprite and makes a key for it 
     {
         string key = MakeKey(creature);
 
@@ -14,7 +14,7 @@ public static class SpriteRegistry
         {
             if (existing == sprite)
             {
-                return;
+                return;//same sprite for this key - skip it  
             }
             else
             {
@@ -29,7 +29,7 @@ public static class SpriteRegistry
 
 
 
-    public static Sprite GetSprite(Creature creature)
+    public static Sprite GetSprite(Creature creature)//uses key to get value of sprite 
     {
         string key = MakeKey(creature);
         return phenotypeMap.TryGetValue(key, out var sprite) ? sprite : null;
@@ -41,7 +41,7 @@ public static class SpriteRegistry
 
         foreach (var trait in creature.GetTraitNames())
         {
-            string pheno = creature.GetPhenotype(trait);
+            string pheno = creature.GetPhenotype(trait);// uses the first phenotype found 
             if (!string.IsNullOrEmpty(pheno))
             {
                 phenotype = pheno;
