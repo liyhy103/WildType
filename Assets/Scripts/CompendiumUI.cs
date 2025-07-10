@@ -22,17 +22,16 @@ public class CompendiumUI : MonoBehaviour
             return;
         }
 
-        ClearExistingEntries();
+        ClearExistingEntries();// Clear to avoid stacking previous creatures on top of new refresh 
 
-        foreach (var creature in CompendiumManager.Instance.compendium)
-        {
+        foreach (var creature in CompendiumManager.Instance.compendium)  {
             if (string.IsNullOrWhiteSpace(creature.SourceLevel))
             {
                 Debug.LogError($"[CompendiumUI] Creature {creature.CreatureName} has no SourceLevel assigned.");
                 continue;
             }
 
-            GameObject entry = Instantiate(creatureEntryPrefab, creatureListParent);
+            GameObject entry = Instantiate(creatureEntryPrefab, creatureListParent);// Instantiate as a compendium entry prefab 
 
             var clickHandler = entry.GetComponent<CompendiumEntryClickHandler>();
             if (clickHandler != null)

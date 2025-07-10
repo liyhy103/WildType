@@ -14,7 +14,7 @@ public static class SpriteRegistry
         {
             if (existing == sprite)
             {
-                return;//same sprite for this key - skip it  
+                return;//same sprite for this key  skip it  
             }
             else
             {
@@ -63,5 +63,4 @@ public static class SpriteRegistry
 
 
 
-  
 }
