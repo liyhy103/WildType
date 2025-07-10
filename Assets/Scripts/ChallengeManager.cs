@@ -94,6 +94,7 @@ public abstract class Challenge : MonoBehaviour
              expectedTraits.Zip(submittedTraits, (a, b) =>
                  !string.IsNullOrEmpty(a) && !string.IsNullOrEmpty(b) && a.ToLower() == b.ToLower()
              ).All(x => x);
+
         if (match)
         {
             SetChallengeText("Challenge complete!");

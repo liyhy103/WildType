@@ -3,6 +3,7 @@ using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 
 public class QuizManager : MonoBehaviour
@@ -28,6 +29,8 @@ public class QuizManager : MonoBehaviour
 
     public AudioSource IncorrectAudio;
 
+    private bool canClickAnswers = false;
+
     void Start()
     {
         // Hide the quiz panel at the start
@@ -36,10 +39,11 @@ public class QuizManager : MonoBehaviour
 
     public void StartQuiz(QuizOptions data)
     {
+        quizOptions = data;
 
-        if (quizOptions == null)
+        if (quizOptions == null || quizOptions.questions == null || quizOptions.questions.Count == 0)
         {
-            UnityEngine.Debug.LogError("QuizOptions not assigned!");
+            UnityEngine.Debug.LogError("QuizOptions or questions list is not properly assigned!");
             return;
         }
 
@@ -51,20 +55,63 @@ public class QuizManager : MonoBehaviour
 
     void ShowQuestion()
     {
-        QuizQuestion q = quizOptions.questions[currentQuestionIndex]; // Get the current question
-        questionText.text = q.question; // Set the question text
-
-        for (int i = 0; i < answerButtons.Length; i++)
+        if (currentQuestionIndex < 0 || currentQuestionIndex >= quizOptions.questions.Count)
         {
+            Debug.LogError($"Invalid question index: {currentQuestionIndex}");
+            EndQuiz();
+            return;
+        }
+
+        QuizQuestion q = quizOptions.questions[currentQuestionIndex];
+
+        if (q.answers == null || q.answers.Length == 0)
+        {
+            Debug.LogError($"Question {currentQuestionIndex} has no answers.");
+            EndQuiz();
+            return;
+        }
+
+        if (q.correctAnswerIndex < 0 || q.correctAnswerIndex >= q.answers.Length)
+        {
+            Debug.LogError($"Question {currentQuestionIndex} has an invalid correctAnswerIndex.");
+            EndQuiz();
+            return;
+        }
+
+        questionText.text = q.question;
+
+        int optionsToShow = Mathf.Min(answerButtons.Length, q.answers.Length);
+        for (int i = 0; i < optionsToShow; i++)
+        {
+            answerButtons[i].interactable = true;
+            answerButtons[i].gameObject.SetActive(true); // Ensure the button is visible
             answerButtons[i].GetComponentInChildren<TMP_Text>().text = q.answers[i];
-            int index = i; // Capture the current index for the button click event
-            answerButtons[i].onClick.RemoveAllListeners(); // Remove previous listeners
-            answerButtons[i].onClick.AddListener(() => CheckAnswer(index)); // Add a new listener for the button click
+            int index = i;
+            answerButtons[i].onClick.RemoveAllListeners();
+            answerButtons[i].onClick.AddListener(() => CheckAnswer(index));
+        }
+        
+        canClickAnswers = true;
+
+        // Hide unused buttons
+        for (int i = q.answers.Length; i < answerButtons.Length; i++)
+        {
+            answerButtons[i].gameObject.SetActive(false);
         }
     }
 
     void CheckAnswer(int index)
     {
+        if (!canClickAnswers)
+        {
+            return;
+        }
+
+        canClickAnswers = false;
+        foreach (var button in answerButtons)
+        {
+            button.interactable = false;
+        }
         var question = quizOptions.questions[currentQuestionIndex]; // Get the current question
         if (index == question.correctAnswerIndex)
         {
