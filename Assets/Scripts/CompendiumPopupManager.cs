@@ -9,7 +9,6 @@ public class CompendiumPopupManager : MonoBehaviour
 
     public GameObject popupPanel;
     public TMP_Text popupText;
-    public GameObject incompatiblePopup;
 
     private Creature currentCreature;
 
@@ -31,8 +30,6 @@ public class CompendiumPopupManager : MonoBehaviour
         if (!IsCreatureCompatible())
         {
             Debug.LogWarning("[Popup] Incompatible creature!");
-            if (incompatiblePopup != null)
-                StartCoroutine(ShowIncompatible());
             return;
         }
 
@@ -45,8 +42,6 @@ public class CompendiumPopupManager : MonoBehaviour
         if (!IsCreatureCompatible())
         {
             Debug.LogWarning("[Popup] Incompatible creature!");
-            if (incompatiblePopup != null)
-                StartCoroutine(ShowIncompatible());
             return;
         }
 
@@ -60,12 +55,6 @@ public class CompendiumPopupManager : MonoBehaviour
         popupPanel.SetActive(false);
     }
 
-    private IEnumerator ShowIncompatible()
-    {
-        incompatiblePopup.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        incompatiblePopup.SetActive(false);
-    }
 
     private bool IsCreatureCompatible()
     {
