@@ -63,8 +63,8 @@ public static class SpriteRegistry
 
 
 
-    public static string MakeKey(string gender, string phenotype, string bodyColor)
-    {
-        return $"{gender}_{phenotype}_{bodyColor}";
-    }
+    //public static string MakeKey(string gender, string phenotype, string bodyColor)
+    //{
+    //    return $"{gender}_{phenotype}_{bodyColor}";
+    //}
 }
