@@ -27,7 +27,7 @@ public class CompendiumManager : MonoBehaviour
         InitializeLevelStarters();
     }
 
-    public void AddToCompendium(Creature creature, Sprite sprite = null)
+    public void AddToCompendium(Creature creature, Sprite sprite) //adds a creature to compendium and registers its sprite 
     {
         if (!compendium.Contains(creature))
         {
