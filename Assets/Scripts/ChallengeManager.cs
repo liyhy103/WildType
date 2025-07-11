@@ -39,10 +39,14 @@ public abstract class Challenge : MonoBehaviour
     //Method that runs when this script starts
     public void Start()
     {
-        ValidateReferences(); //Check required components are assigned
-        SetListItem(); //Hook for child class customization
-        HideAllVisuals(); //Turn off turtle hints
-        PickNextChallenge(); //Start the first challenge
+        //Check required components are assigned
+        ValidateReferences(); 
+        //Hook for child class customization
+        SetListItem();
+        //Turn off turtle hints
+        HideAllVisuals();
+        //Start the first challenge
+        PickNextChallenge(); 
     }
 
     //Hook for subclasses to override setup logic
@@ -98,7 +102,11 @@ public abstract class Challenge : MonoBehaviour
         }
 
         Debug.Log($"[Challenge] Comparing result '{string.Join(", ", submittedTraits)}' with current challenge '{currentChallenge}'");
-        ProcessResult(); //Check if traits match the challenge
+
+        Debug.Log($"[Challenge] ExpectedTraits: [{string.Join(", ", expectedTraits)}]");
+        Debug.Log($"[Challenge] SubmittedTraits: [{string.Join(", ", submittedTraits)}]");
+        //Check if traits match the challenge
+        ProcessResult(); 
     }
 
     //Compares submittedTraits with expectedTraits and triggers success if they match
@@ -112,21 +120,30 @@ public abstract class Challenge : MonoBehaviour
 
         try
         {
+            Debug.Log($"[Challenge] inside process ExpectedTraits: [{string.Join(", ", expectedTraits)}]");
+            Debug.Log($"[Challenge] inside process SubmittedTraits: [{string.Join(", ", submittedTraits)}]");
+
             bool match = expectedTraits.Count == submittedTraits.Count &&
-                expectedTraits.Zip(submittedTraits, (a, b) =>
-                    !string.IsNullOrEmpty(a) && !string.IsNullOrEmpty(b) && a.ToLower() == b.ToLower()
-                ).All(x => x);
+            expectedTraits.Zip(submittedTraits, (a, b) =>
+                string.Equals(a?.Trim(), b?.Trim(), StringComparison.OrdinalIgnoreCase))
+            .All(equal => equal);
 
             if (match)
             {
+                //Display success message
                 SetChallengeText("Challenge complete!");
+                //Trigger visual success effect
                 TriggerSuccessEffect();
+                //Play cheering sound
                 cheerAudio?.Play();
+                //Remove completed challenge from list
                 RemoveCurrentChallenge();
+                //Pick the next challenge
                 PickNextChallenge();
             }
             else
             {
+                //Log a message if the submitted traits did not match
                 Debug.Log("[Challenge] Traits did not match. Challenge not complete.");
             }
         }
@@ -153,7 +170,7 @@ public abstract class Challenge : MonoBehaviour
         {
             currentChallenge = challenges[0];
             SetChallengeText($"Breed a {currentChallenge} creature");
-            ShowVisualCue(); //Optional hint from subclass
+            ShowVisualCue(); 
         }
         else
         {

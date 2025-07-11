@@ -108,30 +108,30 @@ public class LevelTwoChallenge : Challenge
         TurtleThree?.gameObject.SetActive(false);
         TurtleFour?.gameObject.SetActive(false);
 
-        //Sanitize inputs
-        string shell = currentShellChallenge?.ToLower().Trim() ?? "";
-        string gender = currentGenderChallenge?.ToLower().Trim() ?? "";
+        //Get current shell and gender challenge values
+        string shell = currentShellChallenge;
+        string gender = currentGenderChallenge;
 
         Debug.Log($"[LevelTwoChallenge] Visual cue: shell='{shell}' gender='{gender}'");
 
         try
         {
-            if (shell == "light" && gender == "female")
+            if (shell == "Light" && gender == "Female")
             {
                 TurtleOne?.gameObject.SetActive(true);
                 Debug.Log("[LevelTwoChallenge] Showing TurtleOne");
             }
-            else if (shell == "light" && gender == "male")
+            else if (shell == "Light" && gender == "Male")
             {
                 TurtleTwo?.gameObject.SetActive(true);
                 Debug.Log("[LevelTwoChallenge] Showing TurtleTwo");
             }
-            else if (shell == "dark" && gender == "female")
+            else if (shell == "Dark" && gender == "Female")
             {
                 TurtleThree?.gameObject.SetActive(true);
                 Debug.Log("[LevelTwoChallenge] Showing TurtleThree");
             }
-            else if (shell == "dark" && gender == "male")
+            else if (shell == "Dark" && gender == "Male")
             {
                 TurtleFour?.gameObject.SetActive(true);
                 Debug.Log("[LevelTwoChallenge] Showing TurtleFour");

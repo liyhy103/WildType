@@ -65,7 +65,7 @@ public class QuizManager : MonoBehaviour
             return;
         }
 
-        //sets all varibables to be 0 before being set 
+        //sets all varibables to be 0 before being set properly
         currentQuestionIndex = 0;
         correctAnswersCount = 0;
 
@@ -233,11 +233,11 @@ public class QuizManager : MonoBehaviour
             //Hides the quiz panel
             quizPanel?.SetActive(false);
 
-            ///Shows the final result if references are valid
+            //Shows the final result if references are valid
             if (resultText != null && quizOptions != null && quizOptions.questions != null)
                 resultText.text = $"Quiz Finished! You got {correctAnswersCount} out of {quizOptions.questions.Count} correct.";
 
-            //Triggers any event listeners for finishing
+            //Triggers any event listeners for finishing (changing to the next level)
             OnQuizFinished?.Invoke();
         }
         catch (System.Exception ex)
