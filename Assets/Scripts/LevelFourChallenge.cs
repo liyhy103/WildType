@@ -102,22 +102,22 @@ public class LevelFourChallenge : Challenge
             TurtleThree?.gameObject.SetActive(false);
             TurtleFour?.gameObject.SetActive(false);
 
-            string colour = currentColourChallenge?.ToLower().Trim() ?? "";
-            string tail = currentTailChallenge?.ToLower().Trim() ?? "";
+            string colour = currentColourChallenge;
+            string tail = currentTailChallenge;
 
-            if (colour == "green" && tail == "long")
+            if (colour == "Green" && tail == "Long")
             {
                 TurtleOne?.gameObject.SetActive(true);
             }
-            else if (colour == "green" && tail == "short")
+            else if (colour == "Green" && tail == "Short")
             {
                 TurtleTwo?.gameObject.SetActive(true);
             }
-            else if (colour == "yellow" && tail == "long")
+            else if (colour == "Yellow" && tail == "Long")
             {
                 TurtleThree?.gameObject.SetActive(true);
             }
-            else if (colour == "yellow" && tail == "short")
+            else if (colour == "Yellow" && tail == "Short")
             {
                 TurtleFour?.gameObject.SetActive(true);
             }

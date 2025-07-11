@@ -29,13 +29,13 @@ public class LevelOneChallenge : Challenge
 
         try
         {
-            string challenge = currentChallenge.ToLower();
+            string challenge = currentChallenge;
 
             if (TurtleOne != null)
-                TurtleOne.gameObject.SetActive(challenge == "green");
+                TurtleOne.gameObject.SetActive(challenge == "Green");
 
             if (TurtleTwo != null)
-                TurtleTwo.gameObject.SetActive(challenge == "yellow");
+                TurtleTwo.gameObject.SetActive(challenge == "Yellow");
         }
         catch (System.Exception ex)
         {

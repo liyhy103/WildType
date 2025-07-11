@@ -29,7 +29,7 @@ public class LevelThreeChallenges : Challenge
     {
         try
         {
-            string challenge = currentChallenge?.ToLower().Trim();
+            string challenge = currentChallenge;
 
             //Hide all turtle visuals first
             TurtleOne?.gameObject.SetActive(false);
@@ -42,17 +42,17 @@ public class LevelThreeChallenges : Challenge
                 return;
             }
 
-            if (challenge == "long")
+            if (challenge == "Long")
             {
                 TurtleOne?.gameObject.SetActive(true);
                 Debug.Log("[LevelThreeChallenge] Showing TurtleOne (Long Horn)");
             }
-            else if (challenge == "short")
+            else if (challenge == "Short")
             {
                 TurtleTwo?.gameObject.SetActive(true);
                 Debug.Log("[LevelThreeChallenge] Showing TurtleTwo (Short Horn)");
             }
-            else if (challenge == "no")
+            else if (challenge == "No")
             {
                 TurtleThree?.gameObject.SetActive(true);
                 Debug.Log("[LevelThreeChallenge] Showing TurtleThree (No Horn)");

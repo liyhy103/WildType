@@ -123,6 +123,7 @@ public abstract class Challenge : MonoBehaviour
             Debug.Log($"[Challenge] inside process ExpectedTraits: [{string.Join(", ", expectedTraits)}]");
             Debug.Log($"[Challenge] inside process SubmittedTraits: [{string.Join(", ", submittedTraits)}]");
 
+            //Checks to make sure submitted results and expected traits match
             bool match = expectedTraits.Count == submittedTraits.Count &&
             expectedTraits.Zip(submittedTraits, (a, b) =>
                 string.Equals(a?.Trim(), b?.Trim(), StringComparison.OrdinalIgnoreCase))
